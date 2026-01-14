@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SVLS Enterprises – Our Marketplace</title>
+<title>SVLS Enterprises – Smart City Marketplace</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -17,7 +17,11 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:radial-gradient(circle at top,#020617,#000);
+  background:
+    linear-gradient(rgba(2,6,23,.85),rgba(2,6,23,.9)),
+    url("https://images.unsplash.com/photography-urban-city-night");
+  background-size:cover;
+  background-attachment:fixed;
   color:var(--text);
   font-family:Poppins;
 }
@@ -41,10 +45,12 @@ body{
 }
 .hero h1{
   font-family:Orbitron;
-  font-size:56px;
+  font-size:54px;
   text-shadow:0 0 30px var(--neon);
 }
-.hero p{max-width:700px;font-size:18px;margin-top:20px;color:#c7d2fe}
+.hero p{
+  max-width:750px;font-size:18px;margin-top:20px;color:#c7d2fe
+}
 
 /* ---------- BUTTON ---------- */
 .neon-btn{
@@ -72,14 +78,14 @@ h2{
 /* ---------- GRID ---------- */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:25px;
 }
 
 /* ---------- CARDS ---------- */
 .card{
   background:linear-gradient(145deg,#050b1c,#0b1530);
-  padding:30px;border-radius:18px;
+  padding:25px;border-radius:18px;
   border:1px solid rgba(0,245,255,.2);
   box-shadow:0 0 20px rgba(0,245,255,.2);
   transition:.4s;
@@ -89,7 +95,24 @@ h2{
   box-shadow:0 0 40px var(--neon);
 }
 
-/* ---------- AI REQUEST PANEL ---------- */
+/* ---------- FLOW DIAGRAM ---------- */
+.flow{
+  display:flex;flex-wrap:wrap;
+  justify-content:center;align-items:center;
+  gap:15px;
+}
+.flow-step{
+  background:#020617;
+  padding:15px 22px;
+  border-radius:14px;
+  border:1px solid rgba(0,245,255,.3);
+  box-shadow:0 0 15px rgba(0,245,255,.3);
+}
+.arrow{
+  font-size:28px;color:var(--green);
+}
+
+/* ---------- REQUEST PANEL ---------- */
 .request-box{
   max-width:700px;margin:auto;
   background:#020617;padding:30px;
@@ -108,6 +131,21 @@ h2{
   border:none;border-radius:10px;font-weight:600;
   cursor:pointer;
 }
+
+/* ---------- ADMIN DASHBOARD ---------- */
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.widget{
+  background:#020617;
+  padding:25px;border-radius:18px;
+  border:1px solid rgba(124,255,0,.3);
+  box-shadow:0 0 20px rgba(124,255,0,.3);
+}
+.widget h3{color:var(--green);font-family:Orbitron;font-size:16px}
+.widget ul{margin-top:10px;font-size:14px;line-height:1.7}
 
 /* ---------- AI ASSISTANT ---------- */
 .ai-box{
@@ -143,16 +181,16 @@ footer{
 
 <!-- HUD -->
 <div class="hud">
-  <span>TOWNSMART AI</span>
-  <span>Status: LIVE</span>
+  <span>SVLS ENTERPRISES</span>
+  <span>Smart City Commerce Platform</span>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Our Town. One Smart Platform.</h1>
+  <h1>Your Town. One Smart Platform.</h1>
   <p>
-    TownSmart AI connects grocery stores, hotels, restaurants, medical shops
-    and vegetable markets — all in one intelligent delivery system.
+    SVLS Enterprises connects every local service — groceries, food, medicine,
+    daily needs and professionals — into one intelligent delivery ecosystem.
   </p>
   <button class="neon-btn" onclick="scrollToSection('request')">
     Place a Smart Request
@@ -161,85 +199,145 @@ footer{
 
 <!-- CATEGORIES -->
 <section>
-  <h2>CONNECTED STORES</h2>
+  <h2>CONNECTED SERVICES</h2>
   <div class="grid">
-    <div class="card">🥦 Grocery Camps</div>
+    <div class="card">🥦 Grocery Stores</div>
     <div class="card">🍽 Hotels</div>
     <div class="card">🍕 Restaurants</div>
     <div class="card">💊 Medical Stores</div>
     <div class="card">🥕 Vegetable Markets</div>
+    <div class="card">🛠 Hardware Shops</div>
+    <div class="card">📚 Stationery</div>
+    <div class="card">🧴 Beauty & Cosmetics</div>
+    <div class="card">🔧 Home Services</div>
+    <div class="card">👕 Tailors & Boutiques</div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- FLOW -->
 <section>
-  <h2>AI POWERED FLOW</h2>
-  <div class="grid">
-    <div class="card">1️⃣ Customer raises request</div>
-    <div class="card">2️⃣ AI routes to Admin team</div>
-    <div class="card">3️⃣ Admin confirms order</div>
-    <div class="card">4️⃣ Delivery executive assigned</div>
-    <div class="card">5️⃣ Smart delivery completed</div>
+  <h2>SYSTEMATIC ORDER FLOW</h2>
+  <div class="flow">
+    <div class="flow-step">Customer Request</div>
+    <div class="arrow">➜</div>
+    <div class="flow-step">AI Validation</div>
+    <div class="arrow">➜</div>
+    <div class="flow-step">Admin Confirmation</div>
+    <div class="arrow">➜</div>
+    <div class="flow-step">Executive Allocation</div>
+    <div class="arrow">➜</div>
+    <div class="flow-step">Live Tracking</div>
+    <div class="arrow">➜</div>
+    <div class="flow-step">Smart Delivery</div>
   </div>
 </section>
 
-<!-- REQUEST FORM -->
+<!-- REQUEST -->
 <section id="request">
   <h2>RAISE A SMART REQUEST</h2>
-
   <div class="request-box">
-    <input placeholder="Your Name" id="name">
-    <input placeholder="Mobile Number" id="mobile">
+    <input id="name" placeholder="Customer Name">
+    <input id="mobile" placeholder="Mobile Number">
     <select id="category">
-      <option>Select Store Type</option>
+      <option>Select Service</option>
       <option>Grocery</option>
       <option>Hotel</option>
       <option>Restaurant</option>
       <option>Medical Store</option>
       <option>Vegetable Market</option>
+      <option>Hardware</option>
+      <option>Stationery</option>
+      <option>Beauty & Cosmetics</option>
+      <option>Home Services</option>
     </select>
-    <textarea rows="4" placeholder="What do you need? (Product & quantity)" id="need"></textarea>
-    <button onclick="submitRequest()">Send to AI Admin</button>
+    <textarea id="need" rows="4" placeholder="Enter product & quantity"></textarea>
+    <button onclick="sendToWhatsApp()">Send Request to SVLS Admin</button>
   </div>
 </section>
 
-<!-- ADMIN PREVIEW -->
+<!-- ADMIN DASHBOARD -->
 <section>
-  <h2>ADMIN AI DASHBOARD (Preview)</h2>
-  <div class="grid">
-    <div class="card">📥 Incoming Requests Queue</div>
-    <div class="card">📞 Customer Confirmation</div>
-    <div class="card">🚴 Delivery Executive Allocation</div>
-    <div class="card">📦 Live Order Tracking</div>
+  <h2>AI ADMIN COMMAND CENTER</h2>
+  <div class="dashboard">
+    <div class="widget">
+      <h3>📥 Smart Request Engine</h3>
+      <ul>
+        <li>Auto-priority tagging</li>
+        <li>Duplicate request detection</li>
+        <li>Customer history lookup</li>
+      </ul>
+    </div>
+    <div class="widget">
+      <h3>📞 Confirmation System</h3>
+      <ul>
+        <li>One-click call panel</li>
+        <li>AI voice script support</li>
+        <li>Status auto update</li>
+      </ul>
+    </div>
+    <div class="widget">
+      <h3>🚴 Delivery Allocation AI</h3>
+      <ul>
+        <li>Nearest executive mapping</li>
+        <li>Load balancing</li>
+        <li>Route optimization</li>
+      </ul>
+    </div>
+    <div class="widget">
+      <h3>📊 Command Dashboard</h3>
+      <ul>
+        <li>Live order tracking</li>
+        <li>Heatmap by area</li>
+        <li>Daily performance KPIs</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <!-- AI ASSISTANT -->
 <div class="ai-box">
-  <div class="ai-head">TownSmart AI</div>
+  <div class="ai-head">SVLS AI Assistant</div>
   <div class="ai-body" id="aiReply">
-    Hello 👋 I can help you place an order or explain how this platform works.
+    Hello 👋 I can help you place an order or explain how SVLS works.
   </div>
   <div class="ai-input">
-    <input id="aiInput" placeholder="Ask: how it works, delivery, stores..." />
+    <input id="aiInput" placeholder="Ask about delivery, services..." />
     <button onclick="aiChat()">➤</button>
   </div>
 </div>
 
 <footer>
-  © 2026 TownSmart AI — Smart Town. Smart Life 🤖
+  © 2026 SVLS Enterprises — Smart City. Smart Life 🤖
 </footer>
 
 <script>
-/* ---------- REQUEST SUBMIT ---------- */
-function submitRequest(){
+/* ---------- SEND TO WHATSAPP ---------- */
+function sendToWhatsApp(){
   const name=document.getElementById("name").value;
+  const mobile=document.getElementById("mobile").value;
   const cat=document.getElementById("category").value;
-  if(!name || cat==="Select Store Type"){
-    alert("Please fill required fields");
+  const need=document.getElementById("need").value;
+
+  if(!name || !mobile || cat==="Select Service"){
+    alert("Please fill all required details");
     return;
   }
-  alert("✅ Your request is sent to our AI Admin Team.\nThey will contact you shortly!");
+
+  const message =
+`📌 *NEW SMART REQUEST – SVLS ENTERPRISES*
+----------------------------------
+👤 Customer : ${name}
+📞 Mobile   : ${mobile}
+🏪 Service  : ${cat}
+
+📝 Requirement:
+${need}
+
+----------------------------------
+Please confirm & assign delivery executive.`;
+
+  const url = "https://wa.me/918885730807?text=" + encodeURIComponent(message);
+  window.open(url,"_blank");
 }
 
 /* ---------- AI ASSISTANT ---------- */
@@ -248,16 +346,16 @@ function aiChat(){
   const r=document.getElementById("aiReply");
 
   if(q.includes("order")||q.includes("request")){
-    r.innerHTML="You can raise a smart request using the form. Our admin team will confirm and assign delivery.";
+    r.innerHTML="Raise a smart request using the form. It goes directly to SVLS Admin WhatsApp.";
   }
   else if(q.includes("delivery")){
-    r.innerHTML="Delivery executives are assigned by our admin AI system for fast and reliable service.";
+    r.innerHTML="Delivery executives are assigned using our AI allocation system.";
   }
-  else if(q.includes("store")){
-    r.innerHTML="We connect groceries, hotels, restaurants, medical stores and vegetable markets in one platform.";
+  else if(q.includes("service")){
+    r.innerHTML="We connect groceries, food, medicine, hardware, beauty, home services and more.";
   }
   else{
-    r.innerHTML="I can help with orders, delivery, stores or how TownSmart AI works 🤖";
+    r.innerHTML="Ask me about orders, delivery, services or admin system 🤖";
   }
   document.getElementById("aiInput").value="";
 }
