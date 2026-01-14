@@ -2,26 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Jagadish | AI DevOps Enthusiast</title>
+<title>Jagadish AI Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#05070f;
-  --card:#0b1220;
+  --bg:#02040f;
+  --panel:#050a1a;
   --neon:#00f5ff;
-  --neon2:#7cff00;
+  --green:#7CFF00;
   --text:#e5e7eb;
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Poppins;
   background:radial-gradient(circle at top,#020617,#000);
   color:var(--text);
-  overflow-x:hidden;
+  font-family:Poppins;
+}
+
+/* ---------- AI HUD ---------- */
+.hud{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:70px;
+  background:rgba(2,6,23,.8);
+  backdrop-filter:blur(8px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  z-index:100;
+  border-bottom:1px solid rgba(0,245,255,.2);
+}
+.hud span{
+  font-family:Orbitron;
+  color:var(--neon);
+  letter-spacing:2px;
 }
 
 /* ---------- HERO ---------- */
@@ -32,112 +51,117 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
-  position:relative;
+  padding-top:70px;
 }
-
 .hero h1{
   font-family:Orbitron;
-  font-size:52px;
-  text-shadow:0 0 20px var(--neon);
+  font-size:56px;
+  text-shadow:0 0 30px var(--neon);
 }
-.hero h3{
-  margin-top:15px;
-  font-weight:300;
-}
-.typing{
-  color:var(--neon2);
-  font-weight:600;
+.hero .ai-role{
+  color:var(--green);
+  margin-top:10px;
+  font-size:22px;
 }
 
-.neon-btn{
-  margin-top:30px;
-  padding:14px 36px;
-  border:2px solid var(--neon);
-  background:transparent;
+/* ---------- TERMINAL ---------- */
+.terminal{
+  margin-top:40px;
+  background:var(--panel);
+  width:90%;
+  max-width:700px;
+  border-radius:16px;
+  border:1px solid rgba(0,245,255,.3);
+  box-shadow:0 0 40px rgba(0,245,255,.2);
+  padding:20px;
+}
+.term-header{
   color:var(--neon);
-  border-radius:40px;
-  cursor:pointer;
-  font-weight:600;
-  box-shadow:0 0 15px var(--neon);
-  transition:.3s;
+  font-family:Orbitron;
+  margin-bottom:10px;
 }
-.neon-btn:hover{
-  background:var(--neon);
-  color:#000;
-  box-shadow:0 0 30px var(--neon),0 0 60px var(--neon);
+.term-body{
+  font-family:monospace;
+  font-size:15px;
+  line-height:1.6;
 }
+.cursor{
+  display:inline-block;
+  width:8px;
+  background:var(--green);
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0}}
 
 /* ---------- SECTIONS ---------- */
 section{padding:90px 10%}
 h2{
-  text-align:center;
   font-family:Orbitron;
   color:var(--neon);
+  text-align:center;
   margin-bottom:50px;
-  letter-spacing:2px;
 }
 
-/* ---------- CARDS ---------- */
+/* ---------- AI CARDS ---------- */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
-
 .card{
   background:linear-gradient(145deg,#050b1c,#0b1530);
   padding:30px;
-  border-radius:20px;
+  border-radius:18px;
   border:1px solid rgba(0,245,255,.2);
-  box-shadow:0 0 15px rgba(0,245,255,.2);
-  transition:.4s;
-  position:relative;
-  overflow:hidden;
-}
-.card:before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:20px;
-  background:linear-gradient(120deg,transparent,var(--neon),transparent);
-  opacity:0;
+  box-shadow:0 0 20px rgba(0,245,255,.2);
   transition:.4s;
 }
-.card:hover:before{opacity:1}
 .card:hover{
-  transform:translateY(-12px) scale(1.02);
-  box-shadow:0 0 30px var(--neon),0 0 60px rgba(0,245,255,.4);
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 0 40px var(--neon);
 }
 
-/* ---------- SKILLS ---------- */
-.skill-title{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-}
-.bar{
+/* ---------- AI ASSISTANT ---------- */
+.ai-box{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:320px;
   background:#020617;
-  border-radius:20px;
+  border:1px solid rgba(0,245,255,.3);
+  border-radius:18px;
+  box-shadow:0 0 30px rgba(0,245,255,.3);
   overflow:hidden;
-  height:12px;
-  box-shadow:inset 0 0 10px #000;
+  z-index:200;
 }
-.fill{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--neon),var(--neon2));
-  box-shadow:0 0 15px var(--neon);
-  transition:2s;
-}
-
-/* ---------- CONTACT ---------- */
-.contact{
+.ai-head{
+  background:#020617;
+  padding:12px;
   text-align:center;
-  font-size:18px;
-}
-.contact a{
+  font-family:Orbitron;
   color:var(--neon);
-  text-decoration:none;
+}
+.ai-body{
+  padding:15px;
+  font-size:14px;
+  min-height:120px;
+}
+.ai-input{
+  display:flex;
+  border-top:1px solid #020617;
+}
+.ai-input input{
+  flex:1;
+  padding:10px;
+  background:#020617;
+  border:none;
+  color:white;
+}
+.ai-input button{
+  background:var(--neon);
+  border:none;
+  padding:0 16px;
+  cursor:pointer;
 }
 
 /* ---------- FOOTER ---------- */
@@ -148,141 +172,106 @@ footer{
   font-size:14px;
   color:#9ca3af;
 }
-
-/* ---------- FLOATING GLOW ---------- */
-.glow{
-  position:absolute;
-  width:300px;height:300px;
-  background:var(--neon);
-  filter:blur(120px);
-  opacity:.15;
-  animation:float 8s infinite alternate;
-}
-.g1{top:10%;left:5%}
-.g2{bottom:10%;right:5%;animation-delay:4s}
-
-@keyframes float{
-  from{transform:translateY(0)}
-  to{transform:translateY(-80px)}
-}
 </style>
 </head>
 
 <body>
 
-<div class="glow g1"></div>
-<div class="glow g2"></div>
+<!-- HUD -->
+<div class="hud">
+  <span>AI PORTFOLIO SYSTEM</span>
+  <span>Status: ONLINE</span>
+</div>
 
 <!-- HERO -->
 <div class="hero">
   <h1>Jagadish Kadiri</h1>
-  <h3><span class="typing"></span></h3>
-  <button class="neon-btn" onclick="scrollToSection('skills')">Explore My Skills</button>
+  <div class="ai-role">AI DevOps Enthusiast</div>
+
+  <!-- AI TERMINAL -->
+  <div class="terminal">
+    <div class="term-header">> AI SYSTEM BOOTING...</div>
+    <div class="term-body" id="terminalText"></div><span class="cursor"></span>
+  </div>
 </div>
 
-<!-- ABOUT -->
-<section>
-  <h2>WHO AM I</h2>
-  <p style="max-width:750px;margin:auto;text-align:center;font-size:18px;line-height:1.8;">
-    I’m an <b>AI DevOps Enthusiast</b> passionate about building intelligent,
-    automated cloud platforms. I specialize in Kubernetes-driven ecosystems,
-    multi-cloud strategies, and CI/CD pipelines that scale with confidence.
-  </p>
-</section>
-
 <!-- SKILLS -->
-<section id="skills">
-  <h2>CORE EXPERTISE</h2>
-  <div class="grid">
-
-    <div class="card">
-      <div class="skill-title">
-        <span>Kubernetes</span><span>95%</span>
-      </div>
-      <div class="bar"><div class="fill" data-width="95%"></div></div>
-    </div>
-
-    <div class="card">
-      <div class="skill-title">
-        <span>Multi Cloud</span><span>90%</span>
-      </div>
-      <div class="bar"><div class="fill" data-width="90%"></div></div>
-    </div>
-
-    <div class="card">
-      <div class="skill-title">
-        <span>CI/CD Automation</span><span>92%</span>
-      </div>
-      <div class="bar"><div class="fill" data-width="92%"></div></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- FUTURE VISION -->
 <section>
-  <h2>VISION</h2>
+  <h2>CORE MODULES</h2>
   <div class="grid">
-    <div class="card">
-      <h3>🤖 AI + DevOps</h3>
-      <p>Automating incident response, predictive scaling, and intelligent pipelines.</p>
-    </div>
-    <div class="card">
-      <h3>☁ Cloud Native</h3>
-      <p>Designing resilient, multi-cloud architectures for high availability.</p>
-    </div>
-    <div class="card">
-      <h3>⚡ Zero Downtime</h3>
-      <p>Canary, blue-green & progressive delivery strategies.</p>
-    </div>
+    <div class="card">🧠 Kubernetes Orchestration Engine</div>
+    <div class="card">☁ Multi-Cloud Intelligence Layer</div>
+    <div class="card">⚡ CI/CD Automation Core</div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- VISION -->
 <section>
-  <h2>CONNECT</h2>
-  <div class="contact">
-    📧 jagadishkadiri8@gmail.com <br><br>
-    🔗 <a href="#">LinkedIn</a> | <a href="#">GitHub</a>
+  <h2>AI VISION</h2>
+  <div class="grid">
+    <div class="card">🤖 Self-Healing Infrastructure</div>
+    <div class="card">🔮 Predictive Scaling Systems</div>
+    <div class="card">🛡 AI-Driven DevSecOps</div>
   </div>
 </section>
+
+<!-- AI ASSISTANT -->
+<div class="ai-box">
+  <div class="ai-head">AI Assistant</div>
+  <div class="ai-body" id="aiReply">
+    Hello 👋 I’m your AI guide. Ask me about Jagadish.
+  </div>
+  <div class="ai-input">
+    <input id="aiInput" placeholder="Ask about skills, vision..." />
+    <button onclick="aiChat()">➤</button>
+  </div>
+</div>
 
 <footer>
-  © 2026 Jagadish — Neon Powered Portfolio ⚡
+  © 2026 Jagadish — AI Powered Portfolio 🤖
 </footer>
 
 <script>
-/* ----- Typing Effect ----- */
-const words=["AI DevOps Enthusiast","Kubernetes Specialist","Multi-Cloud Expert","CI-CD Automation Engineer"];
-let i=0,j=0,del=false;
-const el=document.querySelector(".typing");
+/* ---------- TERMINAL TYPING ---------- */
+const lines=[
+  "Loading DevOps neural profile...",
+  "Connecting to Kubernetes clusters...",
+  "Initializing multi-cloud intelligence...",
+  "Activating CI/CD automation engine...",
+  "System Ready ✔"
+];
+let li=0,ci=0;
+const tEl=document.getElementById("terminalText");
 
-function type(){
-  let w=words[i];
-  if(!del){
-    el.textContent=w.substring(0,j++);
-    if(j>w.length){del=true;setTimeout(type,1200);return;}
-  }else{
-    el.textContent=w.substring(0,j--);
-    if(j===0){del=false;i=(i+1)%words.length;}
-  }
-  setTimeout(type,del?50:110);
-}
-type();
-
-/* ----- Skill Bar Animation ----- */
-window.addEventListener("scroll",()=>{
-  document.querySelectorAll(".fill").forEach(b=>{
-    const pos=b.getBoundingClientRect().top;
-    if(pos<window.innerHeight-50){
-      b.style.width=b.dataset.width;
+function terminalType(){
+  if(li<lines.length){
+    let l=lines[li];
+    if(ci<l.length){
+      tEl.innerHTML+=l[ci++];
+    }else{
+      tEl.innerHTML+="<br>";
+      li++;ci=0;
     }
-  });
-});
+    setTimeout(terminalType,40);
+  }
+}
+terminalType();
 
-/* ----- Smooth Scroll ----- */
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+/* ---------- AI ASSISTANT ---------- */
+function aiChat(){
+  const q=document.getElementById("aiInput").value.toLowerCase();
+  const r=document.getElementById("aiReply");
+
+  if(q.includes("skill")){
+    r.innerHTML="Jagadish specializes in Kubernetes, multi-cloud platforms, and CI/CD automation.";
+  }else if(q.includes("vision")){
+    r.innerHTML="His vision is to build AI-driven DevOps platforms with self-healing infrastructure.";
+  }else if(q.includes("contact")){
+    r.innerHTML="You can connect via LinkedIn or GitHub links in this portfolio.";
+  }else{
+    r.innerHTML="I’m still learning 🤖 Try asking about skills, vision, or goals.";
+  }
+  document.getElementById("aiInput").value="";
 }
 </script>
 
