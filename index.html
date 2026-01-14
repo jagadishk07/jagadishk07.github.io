@@ -1,215 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SVLS Enterprises | Pickle Haus & Kumari Sarees</title>
+<meta charset="UTF-8">
+<title>Jagadish | AI DevOps Enthusiast</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f8fafc;
-      color: #333;
-    }
+<style>
+:root{
+  --bg:#05070f;
+  --card:#0b1220;
+  --neon:#00f5ff;
+  --neon2:#7cff00;
+  --text:#e5e7eb;
+}
 
-    /* ===== COMMON ===== */
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 50px 20px;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Poppins;
+  background:radial-gradient(circle at top,#020617,#000);
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(to right, #7c2d12, #9a3412);
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 36px;
-      font-weight: 700;
-    }
+.hero h1{
+  font-family:Orbitron;
+  font-size:52px;
+  text-shadow:0 0 20px var(--neon);
+}
+.hero h3{
+  margin-top:15px;
+  font-weight:300;
+}
+.typing{
+  color:var(--neon2);
+  font-weight:600;
+}
 
-    header .location {
-      margin-top: 6px;
-      font-size: 15px;
-      opacity: 0.9;
-    }
+.neon-btn{
+  margin-top:30px;
+  padding:14px 36px;
+  border:2px solid var(--neon);
+  background:transparent;
+  color:var(--neon);
+  border-radius:40px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:0 0 15px var(--neon);
+  transition:.3s;
+}
+.neon-btn:hover{
+  background:var(--neon);
+  color:#000;
+  box-shadow:0 0 30px var(--neon),0 0 60px var(--neon);
+}
 
-    header .tagline {
-      margin-top: 14px;
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.5;
-      opacity: 0.95;
-    }
+/* ---------- SECTIONS ---------- */
+section{padding:90px 10%}
+h2{
+  text-align:center;
+  font-family:Orbitron;
+  color:var(--neon);
+  margin-bottom:50px;
+  letter-spacing:2px;
+}
 
-    /* ===== PICKLE HAUS ===== */
-    .pickle-section {
-      background: linear-gradient(to right, #fff7ed, #fef3c7);
-    }
+/* ---------- CARDS ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
 
-    .card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: center;
-    }
+.card{
+  background:linear-gradient(145deg,#050b1c,#0b1530);
+  padding:30px;
+  border-radius:20px;
+  border:1px solid rgba(0,245,255,.2);
+  box-shadow:0 0 15px rgba(0,245,255,.2);
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+.card:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:20px;
+  background:linear-gradient(120deg,transparent,var(--neon),transparent);
+  opacity:0;
+  transition:.4s;
+}
+.card:hover:before{opacity:1}
+.card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 0 30px var(--neon),0 0 60px rgba(0,245,255,.4);
+}
 
-    .card img {
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    }
+/* ---------- SKILLS ---------- */
+.skill-title{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+.bar{
+  background:#020617;
+  border-radius:20px;
+  overflow:hidden;
+  height:12px;
+  box-shadow:inset 0 0 10px #000;
+}
+.fill{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,var(--neon),var(--neon2));
+  box-shadow:0 0 15px var(--neon);
+  transition:2s;
+}
 
-    .details h2 {
-      font-size: 30px;
-      color: #7c2d12;
-      margin-bottom: 12px;
-    }
+/* ---------- CONTACT ---------- */
+.contact{
+  text-align:center;
+  font-size:18px;
+}
+.contact a{
+  color:var(--neon);
+  text-decoration:none;
+}
 
-    .details p {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:30px;
+  background:#020617;
+  font-size:14px;
+  color:#9ca3af;
+}
 
-    .price-box {
-      background: #fef3c7;
-      border-left: 6px solid #b45309;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+/* ---------- FLOATING GLOW ---------- */
+.glow{
+  position:absolute;
+  width:300px;height:300px;
+  background:var(--neon);
+  filter:blur(120px);
+  opacity:.15;
+  animation:float 8s infinite alternate;
+}
+.g1{top:10%;left:5%}
+.g2{bottom:10%;right:5%;animation-delay:4s}
 
-    /* ===== KUMARI SAREES ===== */
-    .saree-section {
-      background: linear-gradient(to right, #fdf2f8, #fff1f2);
-    }
-
-    .saree-title {
-      color: #9d174d;
-    }
-
-    .saree-box {
-      background: #fff1f2;
-      border-left: 6px solid #be123c;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: #1f2937;
-      color: #fff;
-      text-align: center;
-      padding: 22px 15px;
-      font-size: 14px;
-    }
-
-    footer span {
-      display: block;
-      margin-top: 6px;
-      font-size: 13px;
-      opacity: 0.85;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 28px;
-      }
-
-      header .tagline {
-        font-size: 15px;
-      }
-
-      .card {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .details h2 {
-        font-size: 26px;
-      }
-    }
-  </style>
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-80px)}
+}
+</style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<header>
-  <h1>SVLS Enterprises</h1>
-  <div class="location">Velugode</div>
-  <div class="tagline">
-    Pickle Haus & Kumari Sarees – Authentic Taste & Timeless Elegance
-  </div>
-</header>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
 
-<!-- ===== PICKLE HAUS SECTION ===== -->
-<section class="pickle-section">
-  <div class="container">
+<!-- HERO -->
+<div class="hero">
+  <h1>Jagadish</h1>
+  <h3><span class="typing"></span></h3>
+  <button class="neon-btn" onclick="scrollToSection('skills')">Explore My Skills</button>
+</div>
+
+<!-- ABOUT -->
+<section>
+  <h2>WHO AM I</h2>
+  <p style="max-width:750px;margin:auto;text-align:center;font-size:18px;line-height:1.8;">
+    I’m an <b>AI DevOps Enthusiast</b> passionate about building intelligent,
+    automated cloud platforms. I specialize in Kubernetes-driven ecosystems,
+    multi-cloud strategies, and CI/CD pipelines that scale with confidence.
+  </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2>CORE EXPERTISE</h2>
+  <div class="grid">
+
     <div class="card">
-      <img src="notes/cp.jpg" alt="Chicken Pickle">
-
-      <div class="details">
-        <h2>Pickle Haus – Chicken Pickle</h2>
-        <p>
-          Authentic homemade chicken pickle prepared with premium spices
-          using traditional methods. Rich flavor, perfect spice balance,
-          and hygienic preparation.
-        </p>
-
-        <div class="price-box">
-          <p><strong>Quantity:</strong> 250 gms</p>
-          <p><strong>Price:</strong> ₹200</p>
-        </div>
+      <div class="skill-title">
+        <span>Kubernetes</span><span>95%</span>
       </div>
+      <div class="bar"><div class="fill" data-width="95%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="skill-title">
+        <span>Multi Cloud</span><span>90%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="90%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="skill-title">
+        <span>CI/CD Automation</span><span>92%</span>
+      </div>
+      <div class="bar"><div class="fill" data-width="92%"></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FUTURE VISION -->
+<section>
+  <h2>VISION</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>🤖 AI + DevOps</h3>
+      <p>Automating incident response, predictive scaling, and intelligent pipelines.</p>
+    </div>
+    <div class="card">
+      <h3>☁ Cloud Native</h3>
+      <p>Designing resilient, multi-cloud architectures for high availability.</p>
+    </div>
+    <div class="card">
+      <h3>⚡ Zero Downtime</h3>
+      <p>Canary, blue-green & progressive delivery strategies.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== KUMARI SAREES SECTION ===== -->
-<section class="saree-section">
-  <div class="container">
-    <div class="card">
-      <img src="notes/saree.jpg" alt="Kumari Sarees">
-
-      <div class="details">
-        <h2 class="saree-title">Kumari Sarees</h2>
-        <p>
-          Elegant collections of handloom and designer sarees,
-          perfect for weddings, festivals, and everyday grace.
-        </p>
-
-        <div class="saree-box">
-          ✔ Handloom & Designer Sarees<br>
-          ✔ Wedding • Party • Daily Wear<br>
-          ✔ Premium Quality at Best Prices
-        </div>
-      </div>
-    </div>
+<!-- CONTACT -->
+<section>
+  <h2>CONNECT</h2>
+  <div class="contact">
+    📧 jagadish@email.com <br><br>
+    🔗 <a href="#">LinkedIn</a> | <a href="#">GitHub</a>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
 <footer>
-  © 2026 SVLS Enterprises
-  <span>Pickle Haus • Kumari Sarees • Trusted Quality</span>
+  © 2026 Jagadish — Neon Powered Portfolio ⚡
 </footer>
+
+<script>
+/* ----- Typing Effect ----- */
+const words=["AI DevOps Enthusiast","Kubernetes Specialist","Multi-Cloud Expert","CI-CD Automation Engineer"];
+let i=0,j=0,del=false;
+const el=document.querySelector(".typing");
+
+function type(){
+  let w=words[i];
+  if(!del){
+    el.textContent=w.substring(0,j++);
+    if(j>w.length){del=true;setTimeout(type,1200);return;}
+  }else{
+    el.textContent=w.substring(0,j--);
+    if(j===0){del=false;i=(i+1)%words.length;}
+  }
+  setTimeout(type,del?50:110);
+}
+type();
+
+/* ----- Skill Bar Animation ----- */
+window.addEventListener("scroll",()=>{
+  document.querySelectorAll(".fill").forEach(b=>{
+    const pos=b.getBoundingClientRect().top;
+    if(pos<window.innerHeight-50){
+      b.style.width=b.dataset.width;
+    }
+  });
+});
+
+/* ----- Smooth Scroll ----- */
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+</script>
 
 </body>
 </html>
