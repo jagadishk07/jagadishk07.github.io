@@ -265,6 +265,11 @@ border-radius:16px;border:1px solid var(--neon)}
 </div>
 
 <script>
+
+function sendWhatsApp(number, message){
+  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
 /* ================= FIREBASE INIT ================= */
 const firebaseConfig = {
   apiKey: "AIzaSyA65GC5MhaDqHK2iQvXuhWKijZi-LMrD9k",
@@ -397,6 +402,31 @@ function createOrder(){
   // 🔥 SAVE TO CLOUD
   db.collection("orders").doc(order.id).set(order);
 
+  // 📲 WHATSAPP ALERT TO ADMIN
+  const adminMsg =
+`🛒 *NEW ORDER RECEIVED*
+-----------------------
+🆔 ${order.id}
+👤 ${order.name}
+📞 ${order.mob}
+
+📍 ${order.village}, ${order.street} ${order.house ? ", "+order.house : ""}
+
+🏷 ${order.service}
+🏪 ${order.shop}
+
+📝 ${order.need || "Not specified"}`;
+
+  sendWhatsApp("918885730807", adminMsg);   // ADMIN NUMBER
+
+  alert("✅ Order placed!\nYour Order ID: "+order.id+
+        "\n📲 Admin notified on WhatsApp");
+}
+
+
+  // 🔥 SAVE TO CLOUD
+  db.collection("orders").doc(order.id).set(order);
+
   alert("✅ Order placed!\nYour Order ID: "+order.id);
 }
 
@@ -414,15 +444,41 @@ function refreshAdmin(){
 /* ================= ASSIGN ================= */
 function assignExec(){
   if(!selectedOrder){alert("Select an order first");return;}
-  selectedOrder.exec=execSelect.value;
-  selectedOrder.status="Assigned to "+selectedOrder.exec;
 
-  // 🔥 UPDATE IN CLOUD
+  const execName = "Ganesh";   // you want auto assign to Ganesh
+  const execMobile = deliveryExecs[execName];
+
+  selectedOrder.exec = execName;
+  selectedOrder.status = "Assigned to " + execName;
+
+  // 🔥 UPDATE IN FIREBASE
   db.collection("orders").doc(selectedOrder.id).update({
-    exec:selectedOrder.exec,
-    status:selectedOrder.status
+    exec: execName,
+    status: selectedOrder.status
   });
+
+  // 📲 WHATSAPP ALERT TO DELIVERY EXEC
+  const msg =
+`🚴 *NEW DELIVERY ASSIGNED*
+---------------------------
+🆔 Order: ${selectedOrder.id}
+
+👤 Customer: ${selectedOrder.name}
+📞 ${selectedOrder.mob}
+
+📍 Address:
+${selectedOrder.village}, ${selectedOrder.street} ${selectedOrder.house ? ", "+selectedOrder.house : ""}
+
+🏷 Service: ${selectedOrder.service}
+🏪 Shop: ${selectedOrder.shop}
+
+⏰ Please pickup soon.`;
+
+  sendWhatsApp(execMobile, msg);
+
+  alert("✅ Order assigned to Ganesh\n📲 WhatsApp sent to delivery executive");
 }
+
 
 /* ================= DELIVERY ================= */
 function refreshDelivery(){
@@ -437,8 +493,33 @@ function refreshDelivery(){
 }
 
 function updateStatus(s){
-  if(!selectedOrder){alert("Ask admin to assign you an order");return;}
-  selectedOrder.status=s;
+  if(!selectedOrder){alert("Select an order first");return;}
+
+  selectedOrder.status = s;
+
+  // 🔥 UPDATE IN FIREBASE
+  db.collection("orders").doc(selectedOrder.id).update({
+    status: s
+  });
+
+  // 📲 WHATSAPP ALERT TO DELIVERY EXEC (Ganesh)
+  if(selectedOrder.exec && selectedOrder.exec !== "-"){
+    const execMobile = deliveryExecs[selectedOrder.exec];
+
+    const msg =
+`📦 *ORDER STATUS UPDATE*
+-------------------------
+🆔 ${selectedOrder.id}
+Status changed to: *${s}*
+
+Keep up the good work!`;
+
+    sendWhatsApp(execMobile, msg);
+  }
+
+  alert("🔔 Status updated\n📲 Delivery executive notified");
+}
+
 
   // 🔥 UPDATE IN CLOUD
   db.collection("orders").doc(selectedOrder.id).update({
