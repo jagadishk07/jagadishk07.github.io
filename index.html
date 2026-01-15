@@ -36,24 +36,13 @@ body{
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
+  display:flex;align-items:center;gap:12px;
 }
-.brand img{
-  height:56px;
-  width:auto;
-}
-.brand h1{
-  font-family:Orbitron;
-  font-size:18px;
-  color:var(--neon);
-}
-.brand p{
-  font-size:12px;
-  color:#a5b4fc;
-}
+.brand img{height:56px;width:auto}
+.brand h1{font-family:Orbitron;font-size:18px;color:var(--neon)}
+.brand p{font-size:12px;color:#a5b4fc}
 
+/* ================= NAV ================= */
 .nav button{
   background:transparent;
   border:1px solid var(--neon);
@@ -62,10 +51,13 @@ body{
   border-radius:8px;
   cursor:pointer;
   margin-left:6px;
+  transition:.2s;
 }
-.nav button:hover{
+.nav button:hover{background:var(--neon);color:#000}
+.nav button.active{
   background:var(--neon);
   color:#000;
+  box-shadow:0 0 10px rgba(0,245,255,.6);
 }
 
 /* ================= HERO BRAND ================= */
@@ -74,111 +66,58 @@ body{
   text-align:center;
   padding:40px 10% 20px;
 }
-.hero-brand img{
-  width:260px;
-  max-width:100%;
-  height:auto;
-}
-.hero-brand h2{
-  margin-top:14px;
-  font-family:Orbitron;
-  color:var(--neon);
-}
-.hero-brand p{
-  font-size:14px;
-  color:#a5b4fc;
-}
-.hero-hint{
-  display:inline-block;
-  margin-top:10px;
-  color:var(--green);
-  font-weight:600;
-}
+.hero-brand img{width:240px;max-width:100%}
+.hero-brand h2{margin-top:14px;font-family:Orbitron;color:var(--neon)}
+.hero-brand p{font-size:14px;color:#a5b4fc}
+.hero-hint{display:inline-block;margin-top:10px;color:var(--green);font-weight:600}
 
 /* ================= VIEWS ================= */
-.view{
-  display:none;
-  padding:40px 8% 60px;
-}
-.active{display:block}
+.view{display:none;padding:40px 8% 60px}
+.view.active{display:block}
 
 /* ================= COMMON ================= */
-h2{
-  text-align:center;
-  font-family:Orbitron;
-  color:var(--neon);
-  margin:30px 0 20px;
-}
+h2{text-align:center;font-family:Orbitron;color:var(--neon);margin:30px 0 20px}
 .card{
-  background:#020617;
-  padding:22px;
-  border-radius:16px;
+  background:#020617;padding:22px;border-radius:16px;
   border:1px solid rgba(0,245,255,.2);
   box-shadow:0 0 18px rgba(0,245,255,.15);
 }
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:18px;
 }
-
 input,select,textarea{
-  width:100%;
-  padding:10px;
-  margin:7px 0;
-  background:#020617;
-  border:1px solid #020617;
-  color:white;
-  border-radius:8px;
+  width:100%;padding:10px;margin:7px 0;
+  background:#020617;border:1px solid #020617;
+  color:white;border-radius:8px;
 }
 button.main{
-  background:var(--neon);
-  color:#000;
-  border:none;
-  padding:12px 20px;
-  border-radius:8px;
-  font-weight:600;
-  cursor:pointer;
+  background:var(--neon);color:#000;border:none;
+  padding:12px 20px;border-radius:8px;
+  font-weight:600;cursor:pointer;
 }
 button.main:hover{background:var(--green)}
 
+/* ================= SERVICES ================= */
+.service-card h3{margin-bottom:8px}
+.service-card ul{margin-left:18px;font-size:14px}
+.service-card li{margin:4px 0}
+
 /* ================= FLOW ================= */
-.flow{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-}
-.step{
-  background:#020617;
-  padding:10px 18px;
-  border-radius:10px;
-  border:1px solid var(--neon);
-}
+.flow{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.step{background:#020617;padding:10px 18px;border-radius:10px;border:1px solid var(--neon)}
 .arrow{color:var(--green);font-size:20px}
 
 /* ================= LIST ================= */
-.list li{
-  margin:7px 0;
-  font-size:14px;
-  cursor:pointer;
-}
+.list li{margin:7px 0;font-size:14px;cursor:pointer}
 
 /* ================= TRACK ================= */
 .track-box{
-  max-width:500px;
-  margin:auto;
-  background:#020617;
-  padding:25px;
-  border-radius:16px;
-  border:1px solid var(--neon);
+  max-width:500px;margin:auto;background:#020617;
+  padding:25px;border-radius:16px;border:1px solid var(--neon);
 }
-.status{
-  margin-top:12px;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid var(--green);
-}
+.status{margin-top:12px;padding:10px;border-radius:10px;border:1px solid var(--green)}
 </style>
 </head>
 
@@ -194,10 +133,10 @@ button.main:hover{background:var(--green)}
     </div>
   </div>
   <div class="nav">
-    <button onclick="showView('customer')">Customer</button>
-    <button onclick="showView('admin')">Admin</button>
-    <button onclick="showView('delivery')">Delivery</button>
-    <button onclick="showView('tracking')">Tracking</button>
+    <button id="nav-customer" class="active" onclick="showView('customer')">Customer</button>
+    <button id="nav-admin" onclick="showView('admin')">Admin</button>
+    <button id="nav-delivery" onclick="showView('delivery')">Delivery</button>
+    <button id="nav-tracking" onclick="showView('tracking')">Tracking</button>
   </div>
 </div>
 
@@ -214,15 +153,85 @@ button.main:hover{background:var(--green)}
 
 <h2>AVAILABLE SERVICES</h2>
 <div class="grid">
-  <div class="card">🥦 Grocery</div>
-  <div class="card">🍽 Hotels</div>
-  <div class="card">🍕 Restaurants</div>
-  <div class="card">💊 Medical Stores</div>
-  <div class="card">🥕 Vegetable Markets</div>
-  <div class="card">🛠 Hardware Shops</div>
-  <div class="card">📚 Stationery</div>
-  <div class="card">🧴 Beauty & Cosmetics</div>
-  <div class="card">🔧 Home Services</div>
+
+  <div class="card service-card">
+    <h3>🛒 Grocery</h3>
+    <ul>
+      <li>Super K Store</li><li>Nagendra Mart</li><li>Jagadish Stores</li>
+      <li>V Mart</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>🏨 Hotel (Meals & Tiffins)</h3>
+    <ul>
+      <li>Reddy Hotel</li><li>Mahaboob Hotel</li>
+      <li>Annapurna Restaurant</li><li>Maddileti Hotel</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>🍽 Fast Food</h3>
+    <ul>
+      <li>Zam Zam Hotel</li><li>Malik Fast Food Centre</li>
+      <li>Singh Fast Food</li><li>A1 Chicken Pakoda</li>
+      <li>Basha Chicken Pakoda</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>💊 Medical</h3>
+    <ul>
+      <li>Sri Sai Chandra Medicals</li><li>Sri Sai Medicals</li>
+      <li>Apollo Pharmacy</li><li>MedPlus</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>🥬 Vegetable</h3>
+    <ul>
+      <li>Rythu Bazaar Veg Shop</li><li>Ooru Fresh Vegetables</li>
+      <li>Velugode Greens</li><li>Mana Polam Veggies</li>
+      <li>Fresh Farm Vegetables</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>🔧 Hardware</h3>
+    <ul>
+      <li>Sri Balaji Hardware</li><li>Velugode Tools Mart</li>
+      <li>Village Build Store</li><li>Grama Hardware</li>
+      <li>Sai Ram Cement & Hardware</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>📚 Stationery</h3>
+    <ul>
+      <li>Velugode Book Depot</li><li>Sri Saraswathi Stationery</li>
+      <li>Village Study Point</li><li>Mana Ooru Xerox & Stationery</li>
+      <li>Smart Kids Stationery</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>💄 Beauty</h3>
+    <ul>
+      <li>Sri Lakshmi Beauty Parlour</li><li>Ooru Glow Beauty</li>
+      <li>Velugode Beauty Hub</li><li>Village Style Salon</li>
+      <li>Royal Touch Beauty</li>
+    </ul>
+  </div>
+
+  <div class="card service-card">
+    <h3>🏠 Home Service</h3>
+    <ul>
+      <li>Sreenu Home Care</li><li>Mahaboob Electric & Plumbing</li>
+      <li>Mana Seva Services</li><li>Village Fixers</li>
+      <li>Grama Home Solutions</li>
+    </ul>
+  </div>
+
 </div>
 
 <h2>Raise a Smart Request</h2>
@@ -252,7 +261,7 @@ button.main:hover{background:var(--green)}
   <option value="">Select Service *</option>
   <option>Grocery</option>
   <option>Hotel</option>
-  <option>Restaurant</option>
+  <option>Fast Food</option>
   <option>Medical</option>
   <option>Vegetable</option>
   <option>Hardware</option>
@@ -263,7 +272,7 @@ button.main:hover{background:var(--green)}
 
 <textarea id="cneed" placeholder="Enter your requirement"></textarea>
 
-<button class="main" onclick="createOrder()">Send Request</button>
+<button class="main" onclick="createOrder()">Place an Order</button>
 </div>
 
 <h2>How It Works</h2>
@@ -287,9 +296,10 @@ button.main:hover{background:var(--green)}
   <div class="card">
     <h3>🚴 Assign Delivery</h3>
     <select id="execSelect">
-      <option>Ravi</option>
-      <option>Manoj</option>
-      <option>Akash</option>
+      <option>Akram</option>
+      <option>Kiran</option>
+      <option>Anwar</option>
+      <option>Sreenu</option>
     </select><br><br>
     <button class="main" onclick="assignExec()">Assign Selected Order</button>
   </div>
@@ -327,10 +337,13 @@ button.main:hover{background:var(--green)}
 let orders=[];
 let selectedOrder=null;
 
-/* ---------- VIEW SWITCH ---------- */
+/* ---------- VIEW SWITCH + NAV HIGHLIGHT ---------- */
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById(v).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  document.getElementById("nav-"+v).classList.add("active");
 }
 
 /* ---------- ADDRESS ---------- */
@@ -339,7 +352,6 @@ const streetsByVillage={
   "Boyarevula":["Main Road","SC Colony","BC Colony"],
   "Velpanur":["Bus Stand Area","Temple Street","Market Road"]
 };
-
 function loadStreets(){
   const v=document.getElementById("village").value;
   const st=document.getElementById("street");
@@ -347,8 +359,7 @@ function loadStreets(){
   if(streetsByVillage[v]){
     streetsByVillage[v].forEach(s=>{
       const o=document.createElement("option");
-      o.textContent=s;
-      st.appendChild(o);
+      o.textContent=s;st.appendChild(o);
     });
   }
 }
@@ -452,7 +463,6 @@ function refreshDelivery(){
     }
   });
 }
-
 function updateStatus(s){
   if(!selectedOrder){
     alert("Ask admin to assign you an order");
