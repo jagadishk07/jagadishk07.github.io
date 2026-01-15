@@ -13,108 +13,140 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Poppins;color:var(--text);
+  font-family:Poppins;
   background:linear-gradient(rgba(2,6,23,.9),rgba(2,6,23,.9));
+  color:var(--text);
 }
 
-/* -------- MOBILE FIRST -------- */
-.app{
-  max-width:480px;
-  margin:auto;
+/* ---------- TOP BAR ---------- */
+.topbar{
+  position:fixed;top:0;left:0;width:100%;height:70px;
   background:#020617;
-  min-height:100vh;
-  position:relative;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px;
+  border-bottom:1px solid rgba(0,245,255,.3);
+  z-index:100;
 }
-@media(min-width:900px){
-  .app{max-width:1100px;border-radius:16px;margin:20px auto;}
-}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:42px}
+.brand h1{font-family:Orbitron;font-size:18px;color:var(--neon)}
+.brand p{font-size:12px;color:#a5b4fc}
 
-/* -------- HEADER -------- */
-.header{
-  display:flex;align-items:center;gap:12px;
-  padding:14px;
-  border-bottom:1px solid rgba(0,245,255,.2);
-}
-.header img{height:40px}
-.header h1{
-  font-family:Orbitron;
-  font-size:16px;color:var(--neon);
-}
-.header p{font-size:12px;color:#a5b4fc}
-
-/* -------- NAV -------- */
-.nav{
-  display:flex;justify-content:space-around;
-  background:#020617;border-top:1px solid rgba(0,245,255,.2);
-  position:fixed;bottom:0;left:0;right:0;
-}
+/* ---------- NAV ---------- */
 .nav button{
-  flex:1;padding:10px 0;background:none;border:none;
-  color:var(--neon);font-size:12px;
+  background:transparent;border:1px solid var(--neon);
+  color:var(--neon);
+  padding:8px 14px;border-radius:8px;
+  cursor:pointer;margin-left:8px;
 }
+.nav button:hover{background:var(--neon);color:#000}
 
-/* -------- VIEWS -------- */
-.view{display:none;padding:16px 16px 70px}
+/* ---------- VIEWS ---------- */
+.view{display:none;padding:100px 8% 40px}
 .active{display:block}
 
-/* -------- COMMON -------- */
-h2{font-family:Orbitron;color:var(--neon);text-align:center;margin:10px 0}
+/* ---------- COMMON ---------- */
+h2{
+  font-family:Orbitron;color:var(--neon);
+  text-align:center;margin-bottom:25px;
+}
 .card{
-  background:#020617;padding:16px;border-radius:14px;
+  background:#020617;padding:25px;border-radius:16px;
   border:1px solid rgba(0,245,255,.2);
-  margin:12px 0;
+  box-shadow:0 0 20px rgba(0,245,255,.2);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 input,select,textarea{
-  width:100%;padding:10px;margin:6px 0;
-  background:#020617;border:1px solid #020617;color:white;border-radius:8px;
+  width:100%;padding:10px;margin:8px 0;
+  background:#020617;border:1px solid #020617;
+  color:white;border-radius:8px;
 }
 button.main{
-  width:100%;padding:12px;background:var(--neon);
-  border:none;border-radius:8px;font-weight:600;
+  padding:12px 20px;
+  background:var(--neon);
+  border:none;border-radius:8px;
+  font-weight:600;cursor:pointer;
+}
+button.main:hover{background:#7cff00}
+
+/* ---------- FLOW ---------- */
+.flow{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+}
+.step{
+  background:#020617;padding:10px 18px;
+  border-radius:10px;border:1px solid var(--neon);
+}
+.arrow{color:var(--green);font-size:22px}
+
+/* ---------- LIST ---------- */
+.list li{
+  margin:8px 0;font-size:14px;cursor:pointer;
 }
 
-/* -------- FLOW -------- */
-.flow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:12px}
-.step{background:#020617;padding:6px 10px;border-radius:8px;border:1px solid var(--neon)}
-.arrow{color:var(--green)}
-
-/* -------- DASHBOARD -------- */
-.list li{font-size:13px;margin:6px 0}
-
-/* -------- AI -------- */
-.ai-box{
-  position:fixed;right:10px;bottom:70px;width:260px;
-  background:#020617;border:1px solid var(--neon);
-  border-radius:14px;display:none;
+/* ---------- TRACK ---------- */
+.track-box{
+  max-width:500px;margin:auto;
+  background:#020617;padding:25px;
+  border-radius:16px;border:1px solid var(--neon);
 }
-.ai-head{text-align:center;padding:8px;font-family:Orbitron;color:var(--neon)}
-.ai-body{padding:8px;font-size:12px}
-.ai-input{display:flex}
-.ai-input input{flex:1}
-.ai-input button{background:var(--neon);border:none;padding:6px 10px}
+.status{
+  margin-top:15px;padding:10px;border-radius:10px;
+  background:#020617;border:1px solid var(--green);
+}
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<!-- HEADER -->
-<div class="header">
-  <img src="https://jagadishk07.github.io/notes/brand_logo.png">
-  <div>
-    <h1>SVLS Mart</h1>
-    <p>Our Village. Our Shops. Our Future.</p>
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <div class="brand">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+    <div>
+      <h1>SVLS Mart</h1>
+      <p>Our Village. Our Shops. Our Future.</p>
+    </div>
+  </div>
+  <div class="nav">
+    <button onclick="showView('customer')">Customer</button>
+    <button onclick="showView('admin')">Admin</button>
+    <button onclick="showView('delivery')">Delivery</button>
+    <button onclick="showView('tracking')">Tracking</button>
   </div>
 </div>
 
 <!-- ================= CUSTOMER ================= -->
 <div id="customer" class="view active">
-  <h2>Raise a Smart Request</h2>
 
-  <div class="card">
-    <input id="cname" placeholder="Your Name">
-    <input id="cmobile" placeholder="Mobile Number">
+  <!-- AVAILABLE SERVICES -->
+  <h2>AVAILABLE SERVICES</h2>
+  <div class="grid">
+    <div class="card">🥦 Grocery</div>
+    <div class="card">🍽 Hotels</div>
+    <div class="card">🍕 Restaurants</div>
+    <div class="card">💊 Medical Stores</div>
+    <div class="card">🥕 Vegetable Markets</div>
+    <div class="card">🛠 Hardware Shops</div>
+    <div class="card">📚 Stationery</div>
+    <div class="card">🧴 Beauty & Cosmetics</div>
+    <div class="card">🔧 Home Services</div>
+  </div>
+
+  <h2 style="margin-top:50px">Raise a Smart Request</h2>
+
+  <div class="card" style="max-width:700px;margin:auto">
+
+    <input id="cname" placeholder="Your Name *">
+
+    <!-- MOBILE -->
+    <input id="cmobile" placeholder="Mobile Number *"
+           maxlength="10"
+           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
     <!-- ADDRESS -->
     <select id="village" onchange="loadStreets()">
@@ -133,9 +165,15 @@ button.main{
     <!-- SERVICE -->
     <select id="ccat">
       <option value="">Select Service *</option>
-      <option>Grocery</option><option>Hotel</option><option>Restaurant</option>
-      <option>Medical</option><option>Vegetable</option><option>Hardware</option>
-      <option>Stationery</option><option>Beauty</option><option>Home Service</option>
+      <option>Grocery</option>
+      <option>Hotel</option>
+      <option>Restaurant</option>
+      <option>Medical</option>
+      <option>Vegetable</option>
+      <option>Hardware</option>
+      <option>Stationery</option>
+      <option>Beauty</option>
+      <option>Home Service</option>
     </select>
 
     <textarea id="cneed" placeholder="Enter your requirement"></textarea>
@@ -143,63 +181,60 @@ button.main{
     <button class="main" onclick="createOrder()">Send Request</button>
   </div>
 
-  <h2>How It Works</h2>
+  <h2 style="margin-top:50px">How It Works</h2>
   <div class="flow">
     <div class="step">Customer</div><div class="arrow">➜</div>
     <div class="step">Admin</div><div class="arrow">➜</div>
     <div class="step">Delivery</div><div class="arrow">➜</div>
-    <div class="step">Done</div>
+    <div class="step">Completed</div>
   </div>
 </div>
 
 <!-- ================= ADMIN ================= -->
 <div id="admin" class="view">
   <h2>Admin Dashboard</h2>
-  <div class="card">
-    <b>Incoming Orders</b>
-    <ul id="adminOrders" class="list"></ul>
+  <div class="grid">
+    <div class="card">
+      <h3>📥 Incoming Orders</h3>
+      <ul id="adminOrders" class="list"></ul>
+    </div>
+    <div class="card">
+      <h3>🚴 Assign Delivery</h3>
+      <select id="execSelect">
+        <option>Ravi</option>
+        <option>Manoj</option>
+        <option>Akash</option>
+      </select><br><br>
+      <button class="main" onclick="assignExec()">Assign Selected Order</button>
+    </div>
   </div>
 </div>
 
 <!-- ================= DELIVERY ================= -->
 <div id="delivery" class="view">
   <h2>Delivery Console</h2>
-  <div class="card">
-    <ul id="deliveryOrders" class="list"></ul>
-    <button class="main" onclick="updateStatus('Picked Up')">Picked Up</button><br><br>
-    <button class="main" onclick="updateStatus('On the Way')">On the Way</button><br><br>
-    <button class="main" onclick="updateStatus('Delivered')">Delivered</button>
+  <div class="grid">
+    <div class="card">
+      <h3>Assigned Orders</h3>
+      <ul id="deliveryOrders" class="list"></ul>
+    </div>
+    <div class="card">
+      <h3>Update Status</h3>
+      <button class="main" onclick="updateStatus('Picked Up')">Picked Up</button><br><br>
+      <button class="main" onclick="updateStatus('On the Way')">On the Way</button><br><br>
+      <button class="main" onclick="updateStatus('Delivered')">Delivered</button>
+    </div>
   </div>
 </div>
 
 <!-- ================= TRACKING ================= -->
 <div id="tracking" class="view">
   <h2>Track Your Order</h2>
-  <div class="card">
+  <div class="track-box">
     <input id="trackId" placeholder="Enter Order ID">
     <button class="main" onclick="trackOrder()">Track</button>
-    <div id="trackResult" style="margin-top:10px"></div>
+    <div id="trackResult" class="status"></div>
   </div>
-</div>
-
-<!-- AI ASSISTANT -->
-<div class="ai-box" id="aiBox">
-  <div class="ai-head">SVLS AI</div>
-  <div class="ai-body" id="aiReply">Ask me about orders.</div>
-  <div class="ai-input">
-    <input id="aiInput">
-    <button onclick="aiChat()">➤</button>
-  </div>
-</div>
-
-</div>
-
-<!-- NAV -->
-<div class="nav">
-  <button onclick="showView('customer')">Customer</button>
-  <button onclick="showView('admin')">Admin</button>
-  <button onclick="showView('delivery')">Delivery</button>
-  <button onclick="showView('tracking')">Tracking</button>
 </div>
 
 <script>
@@ -207,7 +242,7 @@ button.main{
 let orders=[];
 let selectedOrder=null;
 
-/* ---------------- VIEW ---------------- */
+/* ---------------- VIEW SWITCH ---------------- */
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById(v).classList.add("active");
@@ -221,12 +256,13 @@ const streetsByVillage={
 };
 
 function loadStreets(){
-  const v=village.value;
-  street.innerHTML='<option value="">Select Street *</option>';
+  const v=document.getElementById("village").value;
+  const st=document.getElementById("street");
+  st.innerHTML='<option value="">Select Street *</option>';
   if(streetsByVillage[v]){
     streetsByVillage[v].forEach(s=>{
       const o=document.createElement("option");
-      o.textContent=s;street.appendChild(o);
+      o.textContent=s;st.appendChild(o);
     });
   }
 }
@@ -245,19 +281,25 @@ function genOrderId(){
 
 /* ---------------- CREATE ORDER ---------------- */
 function createOrder(){
-  if(!cname.value||!cmobile.value||!village.value||!street.value||!ccat.value){
-    alert("Please fill all mandatory fields");return;
+  const name=cname.value;
+  const mob=cmobile.value;
+  const vil=village.value;
+  const str=street.value;
+  const cat=ccat.value;
+
+  if(!name||!mob||mob.length!==10||!vil||!str||!cat){
+    alert("Please fill all mandatory fields correctly");return;
   }
 
   const id=genOrderId();
   const order={
     id,
-    name:cname.value,
-    mob:cmobile.value,
-    village:village.value,
-    street:street.value,
+    name,
+    mob,
+    village:vil,
+    street:str,
     house:house.value,
-    cat:ccat.value,
+    cat,
     need:cneed.value,
     status:"New",
     exec:"-"
@@ -271,7 +313,7 @@ function createOrder(){
   refreshDelivery();
 }
 
-/* ---------------- WHATSAPP (Frontend Automation) ---------------- */
+/* ---------------- WHATSAPP ---------------- */
 function sendToWhatsApp(o){
   const msg=
 `📌 *NEW ORDER – SVLS MART*
@@ -281,7 +323,7 @@ Customer: ${o.name}
 Mobile: ${o.mob}
 
 Address:
-${o.village}, ${o.street} ${o.house?(", "+o.house):""}
+${o.village}, ${o.street}${o.house?(", "+o.house):""}
 
 Service: ${o.cat}
 
@@ -295,29 +337,40 @@ Please confirm & assign delivery executive.`;
 
 /* ---------------- ADMIN ---------------- */
 function refreshAdmin(){
-  adminOrders.innerHTML="";
+  const ul=document.getElementById("adminOrders");
+  ul.innerHTML="";
   orders.forEach(o=>{
     const li=document.createElement("li");
     li.textContent=`${o.id} | ${o.name} | ${o.status}`;
-    li.onclick=()=>selectedOrder=o;
-    adminOrders.appendChild(li);
+    li.onclick=()=>{selectedOrder=o;alert("Selected Order: "+o.id);}
+    ul.appendChild(li);
   });
+}
+
+/* ---------------- ASSIGN EXEC ---------------- */
+function assignExec(){
+  if(!selectedOrder){alert("Select an order first");return;}
+  selectedOrder.exec=execSelect.value;
+  selectedOrder.status="Assigned to "+selectedOrder.exec;
+  refreshAdmin();
+  refreshDelivery();
 }
 
 /* ---------------- DELIVERY ---------------- */
 function refreshDelivery(){
-  deliveryOrders.innerHTML="";
+  const ul=document.getElementById("deliveryOrders");
+  ul.innerHTML="";
   orders.forEach(o=>{
-    if(o.status!=="New"){
+    if(o.exec!=="-"){
       const li=document.createElement("li");
       li.textContent=`${o.id} | ${o.status}`;
-      deliveryOrders.appendChild(li);
+      ul.appendChild(li);
     }
   });
 }
 
 function updateStatus(s){
-  if(!selectedOrder){alert("Select order in Admin");return;}
+  if(!selectedOrder){alert("Ask admin to assign you an order");return;}
   selectedOrder.status=s;
   refreshAdmin();refreshDelivery();
 }
@@ -325,16 +378,9 @@ function updateStatus(s){
 /* ---------------- TRACK ---------------- */
 function trackOrder(){
   const o=orders.find(x=>x.id===trackId.value);
-  trackResult.textContent=o?
-   `Status: ${o.status}`:"Order not found";
-}
-
-/* ---------------- AI ---------------- */
-function aiChat(){
-  const q=aiInput.value.toLowerCase();
-  if(q.includes("order")) aiReply.textContent="Place order in Customer tab.";
-  else if(q.includes("track")) aiReply.textContent="Use Tracking tab with Order ID.";
-  else aiReply.textContent="Ask me about orders, delivery, tracking.";
+  document.getElementById("trackResult").textContent=o?
+   `Status: ${o.status} | Executive: ${o.exec}`:
+   "❌ Order not found";
 }
 </script>
 
