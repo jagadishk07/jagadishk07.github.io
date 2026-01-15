@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 🔥 Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<meta charset="UTF-8">
+<title>SVLS Mart – AI Smart Village Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8">
-  <title>SVLS Mart – AI Smart Village Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -180,6 +176,7 @@ border-radius:16px;border:1px solid var(--neon)}
 <input id="cmobile" placeholder="Mobile Number *"
  maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
+<!-- ADDRESS -->
 <select id="village" onchange="loadStreets()">
   <option value="">Select Village *</option>
   <option>Velugode</option>
@@ -193,6 +190,7 @@ border-radius:16px;border:1px solid var(--neon)}
 
 <input id="house" placeholder="House No (Optional)">
 
+<!-- SERVICE -->
 <select id="ccat" onchange="loadShops()">
   <option value="">Select Service *</option>
   <option>Grocery</option>
@@ -206,6 +204,7 @@ border-radius:16px;border:1px solid var(--neon)}
   <option>Home Service</option>
 </select>
 
+<!-- SHOP -->
 <select id="cshop">
   <option value="">Select Shop *</option>
 </select>
@@ -265,67 +264,20 @@ border-radius:16px;border:1px solid var(--neon)}
 </div>
 
 <script>
-
-function sendWhatsApp(number, message){
-  const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-  window.open(url, "_blank");
-}
-/* ================= FIREBASE INIT ================= */
-const firebaseConfig = {
-  apiKey: "AIzaSyA65GC5MhaDqHK2iQvXuhWKijZi-LMrD9k",
-  authDomain: "vgdorder-89a0b.firebaseapp.com",
-  projectId: "vgdorder-89a0b",
-  storageBucket: "vgdorder-89a0b.firebasestorage.app",
-  messagingSenderId: "164926062019",
-  appId: "1:164926062019:web:008accb5b5ef967cf55176"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
 let orders=[];
 let selectedOrder=null;
 
-/* ================= REAL-TIME LISTENERS ================= */
-
-// 🔔 ADMIN REAL-TIME
-function startAdminListener(){
-  db.collection("orders")
-    .orderBy("id","desc")
-    .onSnapshot(snapshot=>{
-      orders=[];
-      snapshot.forEach(doc=>{
-        orders.push(doc.data());
-      });
-      refreshAdmin();
-    });
-}
-
-// 🚴 DELIVERY REAL-TIME
-function startDeliveryListener(){
-  db.collection("orders")
-    .onSnapshot(snapshot=>{
-      orders=[];
-      snapshot.forEach(doc=>{
-        orders.push(doc.data());
-      });
-      refreshDelivery();
-    });
-}
-
-/* ================= VIEW SWITCH ================= */
+/* ---------- VIEW SWITCH ---------- */
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById(v).classList.add("active");
-
   document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
   document.getElementById("nav-"+v).classList.add("active");
-
-  if(v==="admin") startAdminListener();
-  if(v==="delivery") startDeliveryListener();
+  if(v==="admin") refreshAdmin();
+  if(v==="delivery") refreshDelivery();
 }
 
-/* ================= ADDRESS ================= */
+/* ---------- ADDRESS ---------- */
 const streetsByVillage={
   "Velugode":["Gandhi Nagar","Indira Nagar","Gandi Peta","Gurram Peta"],
   "Boyarevula":["Main Road","SC Colony","BC Colony"],
@@ -342,7 +294,7 @@ function loadStreets(){
   }
 }
 
-/* ================= SHOPS ================= */
+/* ---------- SHOPS ---------- */
 const shopsByService={
   "Grocery":["Super K Store","Nagendra Mart","Jagadish Stores","V Mart"],
   "Hotel":["Reddy Hotel","Mahaboob Hotel","Annapurna Restaurant","Maddileti Hotel"],
@@ -354,6 +306,7 @@ const shopsByService={
   "Beauty":["Sri Lakshmi Beauty Parlour","Ooru Glow Beauty","Velugode Beauty Hub","Village Style Salon","Royal Touch Beauty"],
   "Home Service":["Sreenu Home Care","Mahaboob Electric & Plumbing","Mana Seva Services","Village Fixers","Grama Home Solutions"]
 };
+
 function loadShops(){
   cshop.innerHTML='<option value="">Select Shop *</option>';
   const s=ccat.value;
@@ -365,7 +318,7 @@ function loadShops(){
   }
 }
 
-/* ================= ORDER ID ================= */
+/* ---------- ORDER ID ---------- */
 function genOrderId(){
   const d=new Date();
   return String(d.getFullYear()).slice(2)
@@ -376,7 +329,7 @@ function genOrderId(){
    +String(d.getSeconds()).padStart(2,"0");
 }
 
-/* ================= CREATE ORDER ================= */
+/* ---------- CREATE ORDER ---------- */
 function createOrder(){
   if(!cname.value||!cmobile.value||cmobile.value.length!==10||
      !village.value||!street.value||
@@ -398,39 +351,15 @@ function createOrder(){
     status:"New",
     exec:"-"
   };
-
-  // 🔥 SAVE TO CLOUD
-  db.collection("orders").doc(order.id).set(order);
-
-  // 📲 WHATSAPP ALERT TO ADMIN
-  const adminMsg =
-`🛒 *NEW ORDER RECEIVED*
------------------------
-🆔 ${order.id}
-👤 ${order.name}
-📞 ${order.mob}
-
-📍 ${order.village}, ${order.street} ${order.house ? ", "+order.house : ""}
-
-🏷 ${order.service}
-🏪 ${order.shop}
-
-📝 ${order.need || "Not specified"}`;
-
-  sendWhatsApp("918885730807", adminMsg);   // ADMIN NUMBER
-
-  alert("✅ Order placed!\nYour Order ID: "+order.id+
-        "\n📲 Admin notified on WhatsApp");
-}
-
-
-  // 🔥 SAVE TO CLOUD
-  db.collection("orders").doc(order.id).set(order);
+  orders.push(order);
 
   alert("✅ Order placed!\nYour Order ID: "+order.id);
+
+  refreshAdmin();
+  refreshDelivery();
 }
 
-/* ================= ADMIN ================= */
+/* ---------- ADMIN ---------- */
 function refreshAdmin(){
   adminOrders.innerHTML="";
   orders.forEach(o=>{
@@ -441,46 +370,15 @@ function refreshAdmin(){
   });
 }
 
-/* ================= ASSIGN ================= */
+/* ---------- ASSIGN ---------- */
 function assignExec(){
   if(!selectedOrder){alert("Select an order first");return;}
-
-  const execName = "Ganesh";   // you want auto assign to Ganesh
-  const execMobile = deliveryExecs[execName];
-
-  selectedOrder.exec = execName;
-  selectedOrder.status = "Assigned to " + execName;
-
-  // 🔥 UPDATE IN FIREBASE
-  db.collection("orders").doc(selectedOrder.id).update({
-    exec: execName,
-    status: selectedOrder.status
-  });
-
-  // 📲 WHATSAPP ALERT TO DELIVERY EXEC
-  const msg =
-`🚴 *NEW DELIVERY ASSIGNED*
----------------------------
-🆔 Order: ${selectedOrder.id}
-
-👤 Customer: ${selectedOrder.name}
-📞 ${selectedOrder.mob}
-
-📍 Address:
-${selectedOrder.village}, ${selectedOrder.street} ${selectedOrder.house ? ", "+selectedOrder.house : ""}
-
-🏷 Service: ${selectedOrder.service}
-🏪 Shop: ${selectedOrder.shop}
-
-⏰ Please pickup soon.`;
-
-  sendWhatsApp(execMobile, msg);
-
-  alert("✅ Order assigned to Ganesh\n📲 WhatsApp sent to delivery executive");
+  selectedOrder.exec=execSelect.value;
+  selectedOrder.status="Assigned to "+selectedOrder.exec;
+  refreshAdmin();refreshDelivery();
 }
 
-
-/* ================= DELIVERY ================= */
+/* ---------- DELIVERY ---------- */
 function refreshDelivery(){
   deliveryOrders.innerHTML="";
   orders.forEach(o=>{
@@ -491,43 +389,13 @@ function refreshDelivery(){
     }
   });
 }
-
 function updateStatus(s){
-  if(!selectedOrder){alert("Select an order first");return;}
-
-  selectedOrder.status = s;
-
-  // 🔥 UPDATE IN FIREBASE
-  db.collection("orders").doc(selectedOrder.id).update({
-    status: s
-  });
-
-  // 📲 WHATSAPP ALERT TO DELIVERY EXEC (Ganesh)
-  if(selectedOrder.exec && selectedOrder.exec !== "-"){
-    const execMobile = deliveryExecs[selectedOrder.exec];
-
-    const msg =
-`📦 *ORDER STATUS UPDATE*
--------------------------
-🆔 ${selectedOrder.id}
-Status changed to: *${s}*
-
-Keep up the good work!`;
-
-    sendWhatsApp(execMobile, msg);
-  }
-
-  alert("🔔 Status updated\n📲 Delivery executive notified");
+  if(!selectedOrder){alert("Ask admin to assign you an order");return;}
+  selectedOrder.status=s;
+  refreshAdmin();refreshDelivery();
 }
 
-
-  // 🔥 UPDATE IN CLOUD
-  db.collection("orders").doc(selectedOrder.id).update({
-    status:s
-  });
-}
-
-/* ================= TRACK ================= */
+/* ---------- TRACK ---------- */
 function trackOrder(){
   const o=orders.find(x=>x.id===trackId.value);
   trackResult.textContent=o
