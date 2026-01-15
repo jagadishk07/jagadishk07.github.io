@@ -22,71 +22,52 @@ body{
   color:var(--text);
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .topbar{
-  position:fixed;
-  top:0;left:0;width:100%;height:70px;
+  position:fixed;top:0;left:0;width:100%;height:70px;
   background:#020617;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  border-bottom:1px solid rgba(0,245,255,.25);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px;border-bottom:1px solid rgba(0,245,255,.25);
   z-index:100;
 }
-
-.brand{
-  display:flex;align-items:center;gap:12px;
-}
-.brand img{height:56px;width:auto}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:56px}
 .brand h1{font-family:Orbitron;font-size:18px;color:var(--neon)}
 .brand p{font-size:12px;color:#a5b4fc}
 
-/* ================= NAV ================= */
+/* NAV */
 .nav button{
-  background:transparent;
-  border:1px solid var(--neon);
-  color:var(--neon);
-  padding:7px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  margin-left:6px;
-  transition:.2s;
+  background:transparent;border:1px solid var(--neon);
+  color:var(--neon);padding:7px 14px;border-radius:8px;
+  cursor:pointer;margin-left:6px;transition:.2s;
 }
 .nav button:hover{background:var(--neon);color:#000}
 .nav button.active{
-  background:var(--neon);
-  color:#000;
+  background:var(--neon);color:#000;
   box-shadow:0 0 10px rgba(0,245,255,.6);
 }
 
-/* ================= HERO BRAND ================= */
+/* HERO */
 .hero-brand{
-  margin-top:90px;
-  text-align:center;
-  padding:40px 10% 20px;
+  margin-top:90px;text-align:center;padding:40px 10% 20px;
 }
-.hero-brand img{width:240px;max-width:100%}
+.hero-brand img{width:240px}
 .hero-brand h2{margin-top:14px;font-family:Orbitron;color:var(--neon)}
 .hero-brand p{font-size:14px;color:#a5b4fc}
 .hero-hint{display:inline-block;margin-top:10px;color:var(--green);font-weight:600}
 
-/* ================= VIEWS ================= */
+/* VIEWS */
 .view{display:none;padding:40px 8% 60px}
 .view.active{display:block}
 
-/* ================= COMMON ================= */
+/* COMMON */
 h2{text-align:center;font-family:Orbitron;color:var(--neon);margin:30px 0 20px}
 .card{
   background:#020617;padding:22px;border-radius:16px;
   border:1px solid rgba(0,245,255,.2);
   box-shadow:0 0 18px rgba(0,245,255,.15);
 }
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
 input,select,textarea{
   width:100%;padding:10px;margin:7px 0;
   background:#020617;border:1px solid #020617;
@@ -99,20 +80,18 @@ button.main{
 }
 button.main:hover{background:var(--green)}
 
-/* ================= SERVICES ================= */
-.service-card h3{margin-bottom:8px}
-.service-card ul{margin-left:18px;font-size:14px}
-.service-card li{margin:4px 0}
+/* SERVICES */
+.service-card{text-align:center;font-weight:600}
 
-/* ================= FLOW ================= */
+/* FLOW */
 .flow{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .step{background:#020617;padding:10px 18px;border-radius:10px;border:1px solid var(--neon)}
 .arrow{color:var(--green);font-size:20px}
 
-/* ================= LIST ================= */
+/* LIST */
 .list li{margin:7px 0;font-size:14px;cursor:pointer}
 
-/* ================= TRACK ================= */
+/* TRACK */
 .track-box{
   max-width:500px;margin:auto;background:#020617;
   padding:25px;border-radius:16px;border:1px solid var(--neon);
@@ -123,10 +102,10 @@ button.main:hover{background:var(--green)}
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <div class="topbar">
   <div class="brand">
-    <img src="https://jagadishk07.github.io/notes/brand_logo.png" alt="SVLS Mart">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png">
     <div>
       <h1>SVLS Mart</h1>
       <p>Our Village. Our Shops. Our Future.</p>
@@ -140,7 +119,7 @@ button.main:hover{background:var(--green)}
   </div>
 </div>
 
-<!-- ================= HERO BRAND ================= -->
+<!-- HERO -->
 <div class="hero-brand">
   <img src="https://jagadishk07.github.io/notes/brand_logo.png">
   <h2>SVLS Mart</h2>
@@ -153,90 +132,20 @@ button.main:hover{background:var(--green)}
 
 <h2>AVAILABLE SERVICES</h2>
 <div class="grid">
-
-  <div class="card service-card">
-    <h3>🛒 Grocery</h3>
-    <ul>
-      <li>Super K Store</li><li>Nagendra Mart</li><li>Jagadish Stores</li>
-      <li>V Mart</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>🏨 Hotel (Meals & Tiffins)</h3>
-    <ul>
-      <li>Reddy Hotel</li><li>Mahaboob Hotel</li>
-      <li>Annapurna Restaurant</li><li>Maddileti Hotel</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>🍽 Fast Food</h3>
-    <ul>
-      <li>Zam Zam Hotel</li><li>Malik Fast Food Centre</li>
-      <li>Singh Fast Food</li><li>A1 Chicken Pakoda</li>
-      <li>Basha Chicken Pakoda</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>💊 Medical</h3>
-    <ul>
-      <li>Sri Sai Chandra Medicals</li><li>Sri Sai Medicals</li>
-      <li>Apollo Pharmacy</li><li>MedPlus</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>🥬 Vegetable</h3>
-    <ul>
-      <li>Rythu Bazaar Veg Shop</li><li>Ooru Fresh Vegetables</li>
-      <li>Velugode Greens</li><li>Mana Polam Veggies</li>
-      <li>Fresh Farm Vegetables</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>🔧 Hardware</h3>
-    <ul>
-      <li>Sri Balaji Hardware</li><li>Velugode Tools Mart</li>
-      <li>Village Build Store</li><li>Grama Hardware</li>
-      <li>Sai Ram Cement & Hardware</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>📚 Stationery</h3>
-    <ul>
-      <li>Velugode Book Depot</li><li>Sri Saraswathi Stationery</li>
-      <li>Village Study Point</li><li>Mana Ooru Xerox & Stationery</li>
-      <li>Smart Kids Stationery</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>💄 Beauty</h3>
-    <ul>
-      <li>Sri Lakshmi Beauty Parlour</li><li>Ooru Glow Beauty</li>
-      <li>Velugode Beauty Hub</li><li>Village Style Salon</li>
-      <li>Royal Touch Beauty</li>
-    </ul>
-  </div>
-
-  <div class="card service-card">
-    <h3>🏠 Home Service</h3>
-    <ul>
-      <li>Sreenu Home Care</li><li>Mahaboob Electric & Plumbing</li>
-      <li>Mana Seva Services</li><li>Village Fixers</li>
-      <li>Grama Home Solutions</li>
-    </ul>
-  </div>
-
+  <div class="card service-card">🛒 Grocery</div>
+  <div class="card service-card">🏨 Hotel (Meals & Tiffins)</div>
+  <div class="card service-card">🍽 Fast Food</div>
+  <div class="card service-card">💊 Medical</div>
+  <div class="card service-card">🥬 Vegetable</div>
+  <div class="card service-card">🔧 Hardware</div>
+  <div class="card service-card">📚 Stationery</div>
+  <div class="card service-card">💄 Beauty</div>
+  <div class="card service-card">🏠 Home Service</div>
 </div>
 
-<h2>Raise a Smart Request</h2>
+<h2>Place an Order</h2>
 
-<div class="card" style="max-width:700px;margin:auto">
+<div class="card" style="max-width:720px;margin:auto">
 
 <input id="cname" placeholder="Your Name *">
 
@@ -257,7 +166,8 @@ button.main:hover{background:var(--green)}
 
 <input id="house" placeholder="House No (Optional)">
 
-<select id="ccat">
+<!-- SERVICE -->
+<select id="ccat" onchange="loadShops()">
   <option value="">Select Service *</option>
   <option>Grocery</option>
   <option>Hotel</option>
@@ -268,6 +178,11 @@ button.main:hover{background:var(--green)}
   <option>Stationery</option>
   <option>Beauty</option>
   <option>Home Service</option>
+</select>
+
+<!-- SHOP -->
+<select id="cshop">
+  <option value="">Select Shop *</option>
 </select>
 
 <textarea id="cneed" placeholder="Enter your requirement"></textarea>
@@ -337,7 +252,7 @@ button.main:hover{background:var(--green)}
 let orders=[];
 let selectedOrder=null;
 
-/* ---------- VIEW SWITCH + NAV HIGHLIGHT ---------- */
+/* NAV + VIEW */
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById(v).classList.add("active");
@@ -346,25 +261,48 @@ function showView(v){
   document.getElementById("nav-"+v).classList.add("active");
 }
 
-/* ---------- ADDRESS ---------- */
+/* ADDRESS */
 const streetsByVillage={
   "Velugode":["Gandhi Nagar","Indira Nagar","Gandi Peta","Gurram Peta"],
   "Boyarevula":["Main Road","SC Colony","BC Colony"],
   "Velpanur":["Bus Stand Area","Temple Street","Market Road"]
 };
 function loadStreets(){
-  const v=document.getElementById("village").value;
-  const st=document.getElementById("street");
-  st.innerHTML='<option value="">Select Street *</option>';
+  const v=village.value;
+  street.innerHTML='<option value="">Select Street *</option>';
   if(streetsByVillage[v]){
     streetsByVillage[v].forEach(s=>{
       const o=document.createElement("option");
-      o.textContent=s;st.appendChild(o);
+      o.textContent=s;street.appendChild(o);
     });
   }
 }
 
-/* ---------- ORDER ID ---------- */
+/* SHOPS BY SERVICE */
+const shopsByService={
+  "Grocery":["Super K Store","Nagendra Mart","Jagadish Stores","V Mart"],
+  "Hotel":["Reddy Hotel","Mahaboob Hotel","Annapurna Restaurant","Maddileti Hotel"],
+  "Fast Food":["Zam Zam Hotel","Malik Fast Food Centre","Singh Fast Food","A1 Chicken Pakoda","Basha Chicken Pakoda"],
+  "Medical":["Sri Sai Chandra Medicals","Sri Sai Medicals","Apollo Pharmacy","MedPlus"],
+  "Vegetable":["Rythu Bazaar Veg Shop","Ooru Fresh Vegetables","Velugode Greens","Mana Polam Veggies","Fresh Farm Vegetables"],
+  "Hardware":["Sri Balaji Hardware","Velugode Tools Mart","Village Build Store","Grama Hardware","Sai Ram Cement & Hardware"],
+  "Stationery":["Velugode Book Depot","Sri Saraswathi Stationery","Village Study Point","Mana Ooru Xerox & Stationery","Smart Kids Stationery"],
+  "Beauty":["Sri Lakshmi Beauty Parlour","Ooru Glow Beauty","Velugode Beauty Hub","Village Style Salon","Royal Touch Beauty"],
+  "Home Service":["Sreenu Home Care","Mahaboob Electric & Plumbing","Mana Seva Services","Village Fixers","Grama Home Solutions"]
+};
+
+function loadShops(){
+  const s=ccat.value;
+  cshop.innerHTML='<option value="">Select Shop *</option>';
+  if(shopsByService[s]){
+    shopsByService[s].forEach(x=>{
+      const o=document.createElement("option");
+      o.textContent=x;cshop.appendChild(o);
+    });
+  }
+}
+
+/* ORDER ID */
 function genOrderId(){
   const d=new Date();
   const yy=String(d.getFullYear()).slice(2);
@@ -376,36 +314,37 @@ function genOrderId(){
   return yy+mm+dd+hh+mi+ss;
 }
 
-/* ---------- CREATE ORDER ---------- */
+/* CREATE ORDER */
 function createOrder(){
-  const name=cname.value;
-  const mob=cmobile.value;
-  const vil=village.value;
-  const str=street.value;
-  const cat=ccat.value;
-
-  if(!name||!mob||mob.length!==10||!vil||!str||!cat){
+  if(!cname.value||!cmobile.value||cmobile.value.length!==10||
+     !village.value||!street.value||!ccat.value||!cshop.value){
     alert("Please fill all mandatory fields correctly");
     return;
   }
 
-  const id=genOrderId();
   const order={
-    id,name,mob,
-    village:vil,street:str,house:house.value,
-    cat,need:cneed.value,
-    status:"New",exec:"-"
+    id:genOrderId(),
+    name:cname.value,
+    mob:cmobile.value,
+    village:village.value,
+    street:street.value,
+    house:house.value,
+    service:ccat.value,
+    shop:cshop.value,
+    need:cneed.value,
+    status:"New",
+    exec:"-"
   };
   orders.push(order);
 
   sendToWhatsApp(order);
-  alert("✅ Order placed!\nYour Order ID: "+id);
+  alert("✅ Order placed!\nYour Order ID: "+order.id);
 
   refreshAdmin();
   refreshDelivery();
 }
 
-/* ---------- WHATSAPP ---------- */
+/* WHATSAPP */
 function sendToWhatsApp(o){
   const msg=
 `📌 *NEW ORDER – SVLS MART*
@@ -417,7 +356,8 @@ Mobile: ${o.mob}
 Address:
 ${o.village}, ${o.street}${o.house?(", "+o.house):""}
 
-Service: ${o.cat}
+Service: ${o.service}
+Shop: ${o.shop}
 
 Requirement:
 ${o.need}
@@ -427,56 +367,46 @@ Please confirm & assign delivery executive.`;
   window.open("https://wa.me/918885730807?text="+encodeURIComponent(msg),"_blank");
 }
 
-/* ---------- ADMIN ---------- */
+/* ADMIN */
 function refreshAdmin(){
-  const ul=document.getElementById("adminOrders");
-  ul.innerHTML="";
+  adminOrders.innerHTML="";
   orders.forEach(o=>{
     const li=document.createElement("li");
-    li.textContent=`${o.id} | ${o.name} | ${o.status}`;
+    li.textContent=`${o.id} | ${o.service} - ${o.shop} | ${o.status}`;
     li.onclick=()=>{selectedOrder=o;};
-    ul.appendChild(li);
+    adminOrders.appendChild(li);
   });
 }
 
-/* ---------- ASSIGN ---------- */
+/* ASSIGN */
 function assignExec(){
-  if(!selectedOrder){
-    alert("Select an order first");
-    return;
-  }
+  if(!selectedOrder){alert("Select an order first");return;}
   selectedOrder.exec=execSelect.value;
   selectedOrder.status="Assigned to "+selectedOrder.exec;
-  refreshAdmin();
-  refreshDelivery();
+  refreshAdmin();refreshDelivery();
 }
 
-/* ---------- DELIVERY ---------- */
+/* DELIVERY */
 function refreshDelivery(){
-  const ul=document.getElementById("deliveryOrders");
-  ul.innerHTML="";
+  deliveryOrders.innerHTML="";
   orders.forEach(o=>{
     if(o.exec!=="-"){
       const li=document.createElement("li");
       li.textContent=`${o.id} | ${o.status}`;
-      ul.appendChild(li);
+      deliveryOrders.appendChild(li);
     }
   });
 }
 function updateStatus(s){
-  if(!selectedOrder){
-    alert("Ask admin to assign you an order");
-    return;
-  }
+  if(!selectedOrder){alert("Ask admin to assign you an order");return;}
   selectedOrder.status=s;
-  refreshAdmin();
-  refreshDelivery();
+  refreshAdmin();refreshDelivery();
 }
 
-/* ---------- TRACK ---------- */
+/* TRACK */
 function trackOrder(){
   const o=orders.find(x=>x.id===trackId.value);
-  document.getElementById("trackResult").textContent=o
+  trackResult.textContent=o
    ? `Status: ${o.status} | Executive: ${o.exec}`
    : "❌ Order not found";
 }
