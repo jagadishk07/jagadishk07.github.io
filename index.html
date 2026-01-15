@@ -20,17 +20,51 @@ body{
 
 /* ---------- TOP BAR ---------- */
 .topbar{
-  position:fixed;top:0;left:0;width:100%;height:70px;
+  position:fixed;top:0;left:0;width:100%;height:120px;
   background:#020617;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 30px;
   border-bottom:1px solid rgba(0,245,255,.3);
   z-index:100;
 }
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{height:42px}
-.brand h1{font-family:Orbitron;font-size:18px;color:var(--neon)}
-.brand p{font-size:12px;color:#a5b4fc}
+
+/* ===== BIG LOGO DISPLAY (≈ 3" x 5") ===== */
+.big-logo-area{
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+.big-logo{
+  width:480px;           /* ≈ 5 inches */
+  max-width:100%;
+  height:auto;          /* keeps ratio */
+  border-radius:12px;
+  box-shadow:0 0 40px rgba(0,245,255,.8);
+  background:#020617;
+  padding:10px;
+}
+.brand-text h1{
+  font-family:Orbitron;
+  font-size:26px;
+  color:var(--neon);
+}
+.brand-text p{
+  font-size:14px;
+  color:#a5b4fc;
+}
+.logo-hint{
+  display:inline-block;
+  margin-top:8px;
+  font-size:14px;
+  color:#7cff00;
+  font-weight:600;
+  animation:pulseHint 1.5s infinite;
+}
+@keyframes pulseHint{
+  0%{opacity:1}
+  50%{opacity:.4}
+  100%{opacity:1}
+}
 
 /* ---------- NAV ---------- */
 .nav button{
@@ -42,16 +76,20 @@ body{
 .nav button:hover{background:var(--neon);color:#000}
 
 /* ---------- VIEWS ---------- */
-.view{display:none;padding:100px 8% 40px}
+.view{display:none;padding:160px 8% 40px}
 .active{display:block}
 
 /* ---------- COMMON ---------- */
 h2{
-  font-family:Orbitron;color:var(--neon);
-  text-align:center;margin-bottom:25px;
+  font-family:Orbitron;
+  color:var(--neon);
+  text-align:center;
+  margin-bottom:25px;
 }
 .card{
-  background:#020617;padding:25px;border-radius:16px;
+  background:#020617;
+  padding:25px;
+  border-radius:16px;
   border:1px solid rgba(0,245,255,.2);
   box-shadow:0 0 20px rgba(0,245,255,.2);
 }
@@ -75,17 +113,22 @@ button.main:hover{background:#7cff00}
 
 /* ---------- FLOW ---------- */
 .flow{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  display:flex;flex-wrap:wrap;
+  justify-content:center;gap:10px;
 }
 .step{
-  background:#020617;padding:10px 18px;
-  border-radius:10px;border:1px solid var(--neon);
+  background:#020617;
+  padding:10px 18px;
+  border-radius:10px;
+  border:1px solid var(--neon);
 }
 .arrow{color:var(--green);font-size:22px}
 
 /* ---------- LIST ---------- */
 .list li{
-  margin:8px 0;font-size:14px;cursor:pointer;
+  margin:8px 0;
+  font-size:14px;
+  cursor:pointer;
 }
 
 /* ---------- TRACK ---------- */
@@ -105,11 +148,12 @@ button.main:hover{background:#7cff00}
 
 <!-- ================= TOP BAR ================= -->
 <div class="topbar">
-  <div class="brand">
-    <img src="https://jagadishk07.github.io/notes/brand_logo.png">
-    <div>
+  <div class="big-logo-area">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png" class="big-logo" alt="SVLS Mart Logo">
+    <div class="brand-text">
       <h1>SVLS Mart</h1>
       <p>Our Village. Our Shops. Our Future.</p>
+      <span class="logo-hint">👇 This is where you place your order</span>
     </div>
   </div>
   <div class="nav">
@@ -140,10 +184,9 @@ button.main:hover{background:#7cff00}
   <h2 style="margin-top:50px">Raise a Smart Request</h2>
 
   <div class="card" style="max-width:700px;margin:auto">
-
     <input id="cname" placeholder="Your Name *">
 
-    <!-- MOBILE -->
+    <!-- MOBILE (10 digits only) -->
     <input id="cmobile" placeholder="Mobile Number *"
            maxlength="10"
            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
