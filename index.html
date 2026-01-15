@@ -2,119 +2,152 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SVLS Mart – Smart Village Platform</title>
+<title>SVLS Mart – AI Smart Village Platform</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#02040f;--panel:#050a1a;--neon:#00f5ff;--green:#7cff00;--text:#e5e7eb;
+  --bg:#02040f;
+  --panel:#050a1a;
+  --neon:#00f5ff;
+  --green:#7cff00;
+  --text:#e5e7eb;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:Poppins;
-  background:linear-gradient(rgba(2,6,23,.9),rgba(2,6,23,.9));
+  background:linear-gradient(#020617,#000);
   color:var(--text);
 }
 
-/* ---------- TOP BAR ---------- */
+/* ================= HEADER ================= */
 .topbar{
-  position:fixed;top:0;left:0;width:100%;height:120px;
+  position:fixed;
+  top:0;left:0;width:100%;height:70px;
   background:#020617;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:0 30px;
-  border-bottom:1px solid rgba(0,245,255,.3);
+  border-bottom:1px solid rgba(0,245,255,.25);
   z-index:100;
 }
 
-/* ===== BIG LOGO DISPLAY (≈ 3" x 5") ===== */
-.big-logo-area{
+.brand{
   display:flex;
   align-items:center;
-  gap:30px;
+  gap:12px;
 }
-.big-logo{
-  width:480px;           /* ≈ 5 inches */
-  max-width:100%;
-  height:auto;          /* keeps ratio */
-  border-radius:12px;
-  box-shadow:0 0 40px rgba(0,245,255,.8);
-  background:#020617;
-  padding:10px;
+.brand img{
+  height:56px;
+  width:auto;
 }
-.brand-text h1{
+.brand h1{
   font-family:Orbitron;
-  font-size:26px;
+  font-size:18px;
   color:var(--neon);
 }
-.brand-text p{
+.brand p{
+  font-size:12px;
+  color:#a5b4fc;
+}
+
+.nav button{
+  background:transparent;
+  border:1px solid var(--neon);
+  color:var(--neon);
+  padding:7px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  margin-left:6px;
+}
+.nav button:hover{
+  background:var(--neon);
+  color:#000;
+}
+
+/* ================= HERO BRAND ================= */
+.hero-brand{
+  margin-top:90px;
+  text-align:center;
+  padding:40px 10% 20px;
+}
+.hero-brand img{
+  width:260px;
+  max-width:100%;
+  height:auto;
+}
+.hero-brand h2{
+  margin-top:14px;
+  font-family:Orbitron;
+  color:var(--neon);
+}
+.hero-brand p{
   font-size:14px;
   color:#a5b4fc;
 }
-.logo-hint{
+.hero-hint{
   display:inline-block;
-  margin-top:8px;
-  font-size:14px;
-  color:#7cff00;
+  margin-top:10px;
+  color:var(--green);
   font-weight:600;
-  animation:pulseHint 1.5s infinite;
-}
-@keyframes pulseHint{
-  0%{opacity:1}
-  50%{opacity:.4}
-  100%{opacity:1}
 }
 
-/* ---------- NAV ---------- */
-.nav button{
-  background:transparent;border:1px solid var(--neon);
-  color:var(--neon);
-  padding:8px 14px;border-radius:8px;
-  cursor:pointer;margin-left:8px;
+/* ================= VIEWS ================= */
+.view{
+  display:none;
+  padding:40px 8% 60px;
 }
-.nav button:hover{background:var(--neon);color:#000}
-
-/* ---------- VIEWS ---------- */
-.view{display:none;padding:160px 8% 40px}
 .active{display:block}
 
-/* ---------- COMMON ---------- */
+/* ================= COMMON ================= */
 h2{
+  text-align:center;
   font-family:Orbitron;
   color:var(--neon);
-  text-align:center;
-  margin-bottom:25px;
+  margin:30px 0 20px;
 }
 .card{
   background:#020617;
-  padding:25px;
+  padding:22px;
   border-radius:16px;
   border:1px solid rgba(0,245,255,.2);
-  box-shadow:0 0 20px rgba(0,245,255,.2);
+  box-shadow:0 0 18px rgba(0,245,255,.15);
 }
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+  gap:18px;
 }
+
 input,select,textarea{
-  width:100%;padding:10px;margin:8px 0;
-  background:#020617;border:1px solid #020617;
-  color:white;border-radius:8px;
+  width:100%;
+  padding:10px;
+  margin:7px 0;
+  background:#020617;
+  border:1px solid #020617;
+  color:white;
+  border-radius:8px;
 }
 button.main{
-  padding:12px 20px;
   background:var(--neon);
-  border:none;border-radius:8px;
-  font-weight:600;cursor:pointer;
+  color:#000;
+  border:none;
+  padding:12px 20px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
 }
-button.main:hover{background:#7cff00}
+button.main:hover{background:var(--green)}
 
-/* ---------- FLOW ---------- */
+/* ================= FLOW ================= */
 .flow{
-  display:flex;flex-wrap:wrap;
-  justify-content:center;gap:10px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
 }
 .step{
   background:#020617;
@@ -122,38 +155,42 @@ button.main:hover{background:#7cff00}
   border-radius:10px;
   border:1px solid var(--neon);
 }
-.arrow{color:var(--green);font-size:22px}
+.arrow{color:var(--green);font-size:20px}
 
-/* ---------- LIST ---------- */
+/* ================= LIST ================= */
 .list li{
-  margin:8px 0;
+  margin:7px 0;
   font-size:14px;
   cursor:pointer;
 }
 
-/* ---------- TRACK ---------- */
+/* ================= TRACK ================= */
 .track-box{
-  max-width:500px;margin:auto;
-  background:#020617;padding:25px;
-  border-radius:16px;border:1px solid var(--neon);
+  max-width:500px;
+  margin:auto;
+  background:#020617;
+  padding:25px;
+  border-radius:16px;
+  border:1px solid var(--neon);
 }
 .status{
-  margin-top:15px;padding:10px;border-radius:10px;
-  background:#020617;border:1px solid var(--green);
+  margin-top:12px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid var(--green);
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= TOP BAR ================= -->
+<!-- ================= HEADER ================= -->
 <div class="topbar">
-  <div class="big-logo-area">
-    <img src="https://jagadishk07.github.io/notes/brand_logo.png" class="big-logo" alt="SVLS Mart Logo">
-    <div class="brand-text">
+  <div class="brand">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png" alt="SVLS Mart">
+    <div>
       <h1>SVLS Mart</h1>
       <p>Our Village. Our Shops. Our Future.</p>
-      <span class="logo-hint">👇 This is where you place your order</span>
     </div>
   </div>
   <div class="nav">
@@ -164,134 +201,139 @@ button.main:hover{background:#7cff00}
   </div>
 </div>
 
+<!-- ================= HERO BRAND ================= -->
+<div class="hero-brand">
+  <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+  <h2>SVLS Mart</h2>
+  <p>Our Village. Our Shops. Our Future.</p>
+  <span class="hero-hint">👇 Place your order below</span>
+</div>
+
 <!-- ================= CUSTOMER ================= -->
 <div id="customer" class="view active">
 
-  <!-- AVAILABLE SERVICES -->
-  <h2>AVAILABLE SERVICES</h2>
-  <div class="grid">
-    <div class="card">🥦 Grocery</div>
-    <div class="card">🍽 Hotels</div>
-    <div class="card">🍕 Restaurants</div>
-    <div class="card">💊 Medical Stores</div>
-    <div class="card">🥕 Vegetable Markets</div>
-    <div class="card">🛠 Hardware Shops</div>
-    <div class="card">📚 Stationery</div>
-    <div class="card">🧴 Beauty & Cosmetics</div>
-    <div class="card">🔧 Home Services</div>
-  </div>
+<h2>AVAILABLE SERVICES</h2>
+<div class="grid">
+  <div class="card">🥦 Grocery</div>
+  <div class="card">🍽 Hotels</div>
+  <div class="card">🍕 Restaurants</div>
+  <div class="card">💊 Medical Stores</div>
+  <div class="card">🥕 Vegetable Markets</div>
+  <div class="card">🛠 Hardware Shops</div>
+  <div class="card">📚 Stationery</div>
+  <div class="card">🧴 Beauty & Cosmetics</div>
+  <div class="card">🔧 Home Services</div>
+</div>
 
-  <h2 style="margin-top:50px">Raise a Smart Request</h2>
+<h2>Raise a Smart Request</h2>
 
-  <div class="card" style="max-width:700px;margin:auto">
-    <input id="cname" placeholder="Your Name *">
+<div class="card" style="max-width:700px;margin:auto">
 
-    <!-- MOBILE (10 digits only) -->
-    <input id="cmobile" placeholder="Mobile Number *"
-           maxlength="10"
-           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+<input id="cname" placeholder="Your Name *">
 
-    <!-- ADDRESS -->
-    <select id="village" onchange="loadStreets()">
-      <option value="">Select Village *</option>
-      <option>Velugode</option>
-      <option>Boyarevula</option>
-      <option>Velpanur</option>
-    </select>
+<input id="cmobile" placeholder="Mobile Number *"
+ maxlength="10"
+ oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
-    <select id="street">
-      <option value="">Select Street *</option>
-    </select>
+<select id="village" onchange="loadStreets()">
+  <option value="">Select Village *</option>
+  <option>Velugode</option>
+  <option>Boyarevula</option>
+  <option>Velpanur</option>
+</select>
 
-    <input id="house" placeholder="House No (Optional)">
+<select id="street">
+  <option value="">Select Street *</option>
+</select>
 
-    <!-- SERVICE -->
-    <select id="ccat">
-      <option value="">Select Service *</option>
-      <option>Grocery</option>
-      <option>Hotel</option>
-      <option>Restaurant</option>
-      <option>Medical</option>
-      <option>Vegetable</option>
-      <option>Hardware</option>
-      <option>Stationery</option>
-      <option>Beauty</option>
-      <option>Home Service</option>
-    </select>
+<input id="house" placeholder="House No (Optional)">
 
-    <textarea id="cneed" placeholder="Enter your requirement"></textarea>
+<select id="ccat">
+  <option value="">Select Service *</option>
+  <option>Grocery</option>
+  <option>Hotel</option>
+  <option>Restaurant</option>
+  <option>Medical</option>
+  <option>Vegetable</option>
+  <option>Hardware</option>
+  <option>Stationery</option>
+  <option>Beauty</option>
+  <option>Home Service</option>
+</select>
 
-    <button class="main" onclick="createOrder()">Send Request</button>
-  </div>
+<textarea id="cneed" placeholder="Enter your requirement"></textarea>
 
-  <h2 style="margin-top:50px">How It Works</h2>
-  <div class="flow">
-    <div class="step">Customer</div><div class="arrow">➜</div>
-    <div class="step">Admin</div><div class="arrow">➜</div>
-    <div class="step">Delivery</div><div class="arrow">➜</div>
-    <div class="step">Completed</div>
-  </div>
+<button class="main" onclick="createOrder()">Send Request</button>
+</div>
+
+<h2>How It Works</h2>
+<div class="flow">
+  <div class="step">Customer</div><div class="arrow">➜</div>
+  <div class="step">Admin</div><div class="arrow">➜</div>
+  <div class="step">Delivery</div><div class="arrow">➜</div>
+  <div class="step">Completed</div>
+</div>
+
 </div>
 
 <!-- ================= ADMIN ================= -->
 <div id="admin" class="view">
-  <h2>Admin Dashboard</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>📥 Incoming Orders</h3>
-      <ul id="adminOrders" class="list"></ul>
-    </div>
-    <div class="card">
-      <h3>🚴 Assign Delivery</h3>
-      <select id="execSelect">
-        <option>Ravi</option>
-        <option>Manoj</option>
-        <option>Akash</option>
-      </select><br><br>
-      <button class="main" onclick="assignExec()">Assign Selected Order</button>
-    </div>
+<h2>Admin Dashboard</h2>
+<div class="grid">
+  <div class="card">
+    <h3>📥 Incoming Orders</h3>
+    <ul id="adminOrders" class="list"></ul>
   </div>
+  <div class="card">
+    <h3>🚴 Assign Delivery</h3>
+    <select id="execSelect">
+      <option>Ravi</option>
+      <option>Manoj</option>
+      <option>Akash</option>
+    </select><br><br>
+    <button class="main" onclick="assignExec()">Assign Selected Order</button>
+  </div>
+</div>
 </div>
 
 <!-- ================= DELIVERY ================= -->
 <div id="delivery" class="view">
-  <h2>Delivery Console</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Assigned Orders</h3>
-      <ul id="deliveryOrders" class="list"></ul>
-    </div>
-    <div class="card">
-      <h3>Update Status</h3>
-      <button class="main" onclick="updateStatus('Picked Up')">Picked Up</button><br><br>
-      <button class="main" onclick="updateStatus('On the Way')">On the Way</button><br><br>
-      <button class="main" onclick="updateStatus('Delivered')">Delivered</button>
-    </div>
+<h2>Delivery Console</h2>
+<div class="grid">
+  <div class="card">
+    <h3>Assigned Orders</h3>
+    <ul id="deliveryOrders" class="list"></ul>
   </div>
+  <div class="card">
+    <h3>Update Status</h3>
+    <button class="main" onclick="updateStatus('Picked Up')">Picked Up</button><br><br>
+    <button class="main" onclick="updateStatus('On the Way')">On the Way</button><br><br>
+    <button class="main" onclick="updateStatus('Delivered')">Delivered</button>
+  </div>
+</div>
 </div>
 
 <!-- ================= TRACKING ================= -->
 <div id="tracking" class="view">
-  <h2>Track Your Order</h2>
-  <div class="track-box">
-    <input id="trackId" placeholder="Enter Order ID">
-    <button class="main" onclick="trackOrder()">Track</button>
-    <div id="trackResult" class="status"></div>
-  </div>
+<h2>Track Your Order</h2>
+<div class="track-box">
+  <input id="trackId" placeholder="Enter Order ID">
+  <button class="main" onclick="trackOrder()">Track</button>
+  <div id="trackResult" class="status"></div>
+</div>
 </div>
 
 <script>
-/* ---------------- DATA ---------------- */
 let orders=[];
 let selectedOrder=null;
 
-/* ---------------- VIEW SWITCH ---------------- */
+/* ---------- VIEW SWITCH ---------- */
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
   document.getElementById(v).classList.add("active");
 }
 
-/* ---------------- ADDRESS LOGIC ---------------- */
+/* ---------- ADDRESS ---------- */
 const streetsByVillage={
   "Velugode":["Gandhi Nagar","Indira Nagar","Gandi Peta","Gurram Peta"],
   "Boyarevula":["Main Road","SC Colony","BC Colony"],
@@ -305,12 +347,13 @@ function loadStreets(){
   if(streetsByVillage[v]){
     streetsByVillage[v].forEach(s=>{
       const o=document.createElement("option");
-      o.textContent=s;st.appendChild(o);
+      o.textContent=s;
+      st.appendChild(o);
     });
   }
 }
 
-/* ---------------- ORDER ID ---------------- */
+/* ---------- ORDER ID ---------- */
 function genOrderId(){
   const d=new Date();
   const yy=String(d.getFullYear()).slice(2);
@@ -322,7 +365,7 @@ function genOrderId(){
   return yy+mm+dd+hh+mi+ss;
 }
 
-/* ---------------- CREATE ORDER ---------------- */
+/* ---------- CREATE ORDER ---------- */
 function createOrder(){
   const name=cname.value;
   const mob=cmobile.value;
@@ -331,21 +374,16 @@ function createOrder(){
   const cat=ccat.value;
 
   if(!name||!mob||mob.length!==10||!vil||!str||!cat){
-    alert("Please fill all mandatory fields correctly");return;
+    alert("Please fill all mandatory fields correctly");
+    return;
   }
 
   const id=genOrderId();
   const order={
-    id,
-    name,
-    mob,
-    village:vil,
-    street:str,
-    house:house.value,
-    cat,
-    need:cneed.value,
-    status:"New",
-    exec:"-"
+    id,name,mob,
+    village:vil,street:str,house:house.value,
+    cat,need:cneed.value,
+    status:"New",exec:"-"
   };
   orders.push(order);
 
@@ -356,7 +394,7 @@ function createOrder(){
   refreshDelivery();
 }
 
-/* ---------------- WHATSAPP ---------------- */
+/* ---------- WHATSAPP ---------- */
 function sendToWhatsApp(o){
   const msg=
 `📌 *NEW ORDER – SVLS MART*
@@ -378,28 +416,31 @@ Please confirm & assign delivery executive.`;
   window.open("https://wa.me/918885730807?text="+encodeURIComponent(msg),"_blank");
 }
 
-/* ---------------- ADMIN ---------------- */
+/* ---------- ADMIN ---------- */
 function refreshAdmin(){
   const ul=document.getElementById("adminOrders");
   ul.innerHTML="";
   orders.forEach(o=>{
     const li=document.createElement("li");
     li.textContent=`${o.id} | ${o.name} | ${o.status}`;
-    li.onclick=()=>{selectedOrder=o;alert("Selected Order: "+o.id);}
+    li.onclick=()=>{selectedOrder=o;};
     ul.appendChild(li);
   });
 }
 
-/* ---------------- ASSIGN EXEC ---------------- */
+/* ---------- ASSIGN ---------- */
 function assignExec(){
-  if(!selectedOrder){alert("Select an order first");return;}
+  if(!selectedOrder){
+    alert("Select an order first");
+    return;
+  }
   selectedOrder.exec=execSelect.value;
   selectedOrder.status="Assigned to "+selectedOrder.exec;
   refreshAdmin();
   refreshDelivery();
 }
 
-/* ---------------- DELIVERY ---------------- */
+/* ---------- DELIVERY ---------- */
 function refreshDelivery(){
   const ul=document.getElementById("deliveryOrders");
   ul.innerHTML="";
@@ -413,17 +454,21 @@ function refreshDelivery(){
 }
 
 function updateStatus(s){
-  if(!selectedOrder){alert("Ask admin to assign you an order");return;}
+  if(!selectedOrder){
+    alert("Ask admin to assign you an order");
+    return;
+  }
   selectedOrder.status=s;
-  refreshAdmin();refreshDelivery();
+  refreshAdmin();
+  refreshDelivery();
 }
 
-/* ---------------- TRACK ---------------- */
+/* ---------- TRACK ---------- */
 function trackOrder(){
   const o=orders.find(x=>x.id===trackId.value);
-  document.getElementById("trackResult").textContent=o?
-   `Status: ${o.status} | Executive: ${o.exec}`:
-   "❌ Order not found";
+  document.getElementById("trackResult").textContent=o
+   ? `Status: ${o.status} | Executive: ${o.exec}`
+   : "❌ Order not found";
 }
 </script>
 
