@@ -1,34 +1,215 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <title>SVLS Enterprises | Pickle Haus & Kumari Sarees</title>
 
-    <title>Pickle HAUS - Authentic Indian Pickles, Karam Podis & Traditional Snacks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-      name="description"
-      content="Shop authentic Indian pickles, aromatic karam podis, and traditional snacks made with love. Vegetarian and non-vegetarian options available. Order online now!"
-    />
-    <meta name="author" content="Btech Ruchulu" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f8fafc;
+      color: #333;
+    }
 
-    <!-- Open Graph Meta -->
-    <meta property="og:title" content="Pickle HAUS - Authentic Indian Flavors" />
-    <meta
-      property="og:description"
-      content="Traditional Indian pickles, karam podis, snacks and sweets delivered to your doorstep"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/btech-logo-BlHMagZq.jpg" />
+    /* ===== COMMON ===== */
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px;
+    }
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/assets/btech-logo-BlHMagZq.jpg" />
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(to right, #7c2d12, #9a3412);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/btech-logo-BlHMagZq.jpg" />
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 700;
+    }
 
-    <!-- Vite / React Assets -->
-    <script type="module" crossorigin src="/assets/index-DPBqeh7h.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CxNdP3jn.css" />
-  </head>
+    header .location {
+      margin-top: 6px;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    header .tagline {
+      margin-top: 14px;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.5;
+      opacity: 0.95;
+    }
+
+    /* ===== PICKLE HAUS ===== */
+    .pickle-section {
+      background: linear-gradient(to right, #fff7ed, #fef3c7);
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    }
+
+    .details h2 {
+      font-size: 30px;
+      color: #7c2d12;
+      margin-bottom: 12px;
+    }
+
+    .details p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .price-box {
+      background: #fef3c7;
+      border-left: 6px solid #b45309;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    /* ===== KUMARI SAREES ===== */
+    .saree-section {
+      background: linear-gradient(to right, #fdf2f8, #fff1f2);
+    }
+
+    .saree-title {
+      color: #9d174d;
+    }
+
+    .saree-box {
+      background: #fff1f2;
+      border-left: 6px solid #be123c;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #1f2937;
+      color: #fff;
+      text-align: center;
+      padding: 22px 15px;
+      font-size: 14px;
+    }
+
+    footer span {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 28px;
+      }
+
+      header .tagline {
+        font-size: 15px;
+      }
+
+      .card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .details h2 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <h1>SVLS Enterprises</h1>
+  <div class="location">Velugode</div>
+  <div class="tagline">
+    Pickle Haus & Kumari Sarees – Authentic Taste & Timeless Elegance
+  </div>
+</header>
+
+<!-- ===== PICKLE HAUS SECTION ===== -->
+<section class="pickle-section">
+  <div class="container">
+    <div class="card">
+      <img src="notes/cp.jpg" alt="Chicken Pickle">
+
+      <div class="details">
+        <h2>Pickle Haus – Chicken Pickle</h2>
+        <p>
+          Authentic homemade chicken pickle prepared with premium spices
+          using traditional methods. Rich flavor, perfect spice balance,
+          and hygienic preparation.
+        </p>
+
+        <div class="price-box">
+          <p><strong>Quantity:</strong> 250 gms</p>
+          <p><strong>Price:</strong> ₹200</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KUMARI SAREES SECTION ===== -->
+<section class="saree-section">
+  <div class="container">
+    <div class="card">
+      <img src="notes/saree.jpg" alt="Kumari Sarees">
+
+      <div class="details">
+        <h2 class="saree-title">Kumari Sarees</h2>
+        <p>
+          Elegant collections of handloom and designer sarees,
+          perfect for weddings, festivals, and everyday grace.
+        </p>
+
+        <div class="saree-box">
+          ✔ Handloom & Designer Sarees<br>
+          ✔ Wedding • Party • Daily Wear<br>
+          ✔ Premium Quality at Best Prices
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  © 2026 SVLS Enterprises
+  <span>Pickle Haus • Kumari Sarees • Trusted Quality</span>
+</footer>
+
+</body>
+</html>
