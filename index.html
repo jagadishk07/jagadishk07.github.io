@@ -9,13 +9,13 @@
 <style>
 :root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-body { background: #fdf2f2; color: #1e293b; }
+body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
 
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 .hero { margin-top: 100px; text-align: center; margin-bottom: 20px; }
 .hero img { width: 90px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: white; }
 
-.container { max-width: 400px; margin: auto; padding: 15px; }
+.container { max-width: 400px; margin: auto; padding: 15px; flex: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
 .stock-badge { background: #fef2f2; color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
 
@@ -63,6 +63,11 @@ body { background: #fdf2f2; color: #1e293b; }
     </div>
   </div>
 </div>
+
+<footer style="margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate);">
+    <p style="font-size: 13px; font-weight: 600;">&copy; 2026 SVLS Mart. All rights reserved.</p>
+    <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
+</footer>
 
 <div id="cart-modal">
   <div class="modal-content">
@@ -175,8 +180,6 @@ function sendWhatsApp() {
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus*%0A";
     text += "😋 *We hope you love every bite!*%0A%0A";
-    text += "📍 *Delivery Address:*%0A";
-    text += "(Type your address here...)";
 
     window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
 }
