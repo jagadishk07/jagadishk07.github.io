@@ -1,215 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SVLS Enterprises | Pickle Haus & Kumari Sarees</title>
+<meta charset="UTF-8">
+<title>SVLS Mart | Pickle Haus - Authentic Flavors</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f8fafc;
-      color: #333;
-    }
+<style>
+:root {
+  /* Theme: Cloud Blue & Deep Red Accents */
+  --bg-sky: #f0f9ff;        /* Very light cloud blue */
+  --panel: #ffffff;        /* Pure white for cards */
+  --accent-red: #b91c1c;   /* Deep branding red */
+  --accent-light: #fee2e2; /* Light red for highlights */
+  --text-dark: #1e293b;    /* Dark slate for text */
+  --whatsapp: #25d366;
+}
 
-    /* ===== COMMON ===== */
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 50px 20px;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { 
+  font-family: 'Poppins', sans-serif; 
+  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%); 
+  color: var(--text-dark);
+  min-height: 100vh;
+}
 
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(to right, #7c2d12, #9a3412);
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+/* ================= HEADER ================= */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 75px;
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  border-bottom: 3px solid var(--accent-red);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  z-index: 100;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 36px;
-      font-weight: 700;
-    }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { height: 50px; }
+.brand h1 { font-family: 'Orbitron'; font-size: 18px; color: var(--accent-red); letter-spacing: 1px; }
 
-    header .location {
-      margin-top: 6px;
-      font-size: 15px;
-      opacity: 0.9;
-    }
+/* ================= HERO ================= */
+.hero {
+  margin-top: 100px;
+  text-align: center;
+  padding: 40px 10%;
+}
+.hero img { width: 180px; border-radius: 50%; border: 4px solid var(--accent-red); padding: 5px; background: white; }
+.hero h2 { margin-top: 15px; font-family: 'Orbitron'; color: var(--accent-red); }
+.hero-tagline { font-weight: 600; color: #0369a1; margin-top: 5px; }
 
-    header .tagline {
-      margin-top: 14px;
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.5;
-      opacity: 0.95;
-    }
+/* ================= PRODUCTS ================= */
+.container { max-width: 1100px; margin: auto; padding: 20px; }
 
-    /* ===== PICKLE HAUS ===== */
-    .pickle-section {
-      background: linear-gradient(to right, #fff7ed, #fef3c7);
-    }
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 25px; 
+  margin-top: 30px;
+}
 
-    .card {
-      background: #fff;
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: center;
-    }
+.card {
+  background: var(--panel);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(185, 28, 28, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.08);
+  transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-8px); }
 
-    .card img {
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-    }
+.card-img { width: 100%; height: 230px; object-fit: cover; }
 
-    .details h2 {
-      font-size: 30px;
-      color: #7c2d12;
-      margin-bottom: 12px;
-    }
+.card-content { padding: 25px; }
+.card-content h3 { font-size: 20px; margin-bottom: 10px; color: var(--accent-red); }
+.card-content p { font-size: 14px; color: #64748b; line-height: 1.6; }
 
-    .details p {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
+.price-tag {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 8px 15px;
+  background: var(--accent-light);
+  color: var(--accent-red);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
+}
 
-    .price-box {
-      background: #fef3c7;
-      border-left: 6px solid #b45309;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+.add-btn {
+  width: 100%;
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: filter 0.2s;
+}
+.add-btn:hover { filter: brightness(1.2); }
 
-    /* ===== KUMARI SAREES ===== */
-    .saree-section {
-      background: linear-gradient(to right, #fdf2f8, #fff1f2);
-    }
+/* ================= CART SYSTEM ================= */
+.cart-float {
+  position: fixed;
+  bottom: 25px; right: 25px;
+  background: var(--whatsapp);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+  cursor: pointer;
+  z-index: 999;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .saree-title {
-      color: #9d174d;
-    }
+#cart-modal {
+  display: none;
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
 
-    .saree-box {
-      background: #fff1f2;
-      border-left: 6px solid #be123c;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+.modal-content {
+  background: white;
+  width: 90%; max-width: 450px;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: #1f2937;
-      color: #fff;
-      text-align: center;
-      padding: 22px 15px;
-      font-size: 14px;
-    }
+.cart-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 0; border-bottom: 1px solid #f1f5f9;
+}
 
-    footer span {
-      display: block;
-      margin-top: 6px;
-      font-size: 13px;
-      opacity: 0.85;
-    }
+.checkout-btn {
+  background: var(--whatsapp);
+  color: white; width: 100%; border: none; padding: 18px;
+  border-radius: 15px; font-size: 18px; font-weight: bold;
+  margin-top: 20px; cursor: pointer;
+}
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 28px;
-      }
-
-      header .tagline {
-        font-size: 15px;
-      }
-
-      .card {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .details h2 {
-        font-size: 26px;
-      }
-    }
-  </style>
+@media (max-width: 600px) {
+  .hero h2 { font-size: 22px; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<header>
-  <h1>SVLS Enterprises</h1>
-  <div class="location">Velugode</div>
-  <div class="tagline">
-    Pickle Haus & Kumari Sarees – Authentic Taste & Timeless Elegance
-  </div>
-</header>
-
-<!-- ===== PICKLE HAUS SECTION ===== -->
-<section class="pickle-section">
-  <div class="container">
-    <div class="card">
-      <img src="notes/cp.jpg" alt="Chicken Pickle">
-
-      <div class="details">
-        <h2>Pickle Haus – Chicken Pickle</h2>
-        <p>
-          Authentic homemade chicken pickle prepared with premium spices
-          using traditional methods. Rich flavor, perfect spice balance,
-          and hygienic preparation.
-        </p>
-
-        <div class="price-box">
-          <p><strong>Quantity:</strong> 250 gms</p>
-          <p><strong>Price:</strong> ₹200</p>
-        </div>
-      </div>
+<div class="topbar">
+  <div class="brand">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+    <div>
+      <h1>SVLS Mart</h1>
+      <p style="font-size: 10px; color: #64748b;">Premium Quality Pickles</p>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ===== KUMARI SAREES SECTION ===== -->
-<section class="saree-section">
-  <div class="container">
+<div class="hero">
+  <img src="https://jagadishk07.github.io/notes/brand_logo.png" alt="Logo">
+  <h2>Pickle Haus</h2>
+  <p class="hero-tagline">Authentic Homemade Chicken Pickles</p>
+  <p style="margin-top:10px; opacity: 0.7;">Cloud-fresh quality delivered to your door.</p>
+</div>
+
+<div class="container">
+  <div class="grid">
+    
     <div class="card">
-      <img src="notes/saree.jpg" alt="Kumari Sarees">
-
-      <div class="details">
-        <h2 class="saree-title">Kumari Sarees</h2>
-        <p>
-          Elegant collections of handloom and designer sarees,
-          perfect for weddings, festivals, and everyday grace.
-        </p>
-
-        <div class="saree-box">
-          ✔ Handloom & Designer Sarees<br>
-          ✔ Wedding • Party • Daily Wear<br>
-          ✔ Premium Quality at Best Prices
-        </div>
+      <img src="https://jagadishk07.github.io/notes/cp.jpg" class="card-img" alt="Chicken Pickle">
+      <div class="card-content">
+        <h3>Chicken Pickle (Boneless)</h3>
+        <p>Juicy chunks of premium chicken, slow-cooked in traditional spices. No preservatives.</p>
+        <div class="price-tag">₹280 <span style="font-size:12px; font-weight:400;">(250 Gms)</span></div>
+        <button class="add-btn" onclick="addToCart('Chicken Pickle Boneless', 280)">
+          Add to Cart 🛒
+        </button>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  © 2026 SVLS Enterprises
-  <span>Pickle Haus • Kumari Sarees • Trusted Quality</span>
-</footer>
+    <div class="card">
+      <img src="https://jagadishk07.github.io/notes/cp.jpg" class="card-img" alt="Chicken Pickle Bone">
+      <div class="card-content">
+        <h3>Chicken Pickle (With Bone)</h3>
+        <p>The traditional village-style chicken pickle with bone for extra flavor depth.</p>
+        <div class="price-tag">₹260 <span style="font-size:12px; font-weight:400;">(250 Gms)</span></div>
+        <button class="add-btn" onclick="addToCart('Chicken Pickle (Bone-in)', 260)">
+          Add to Cart 🛒
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cart-float" onclick="toggleCart()">
+  <span>VIEW ORDER</span>
+  <span id="cart-count" style="background:white; color:var(--whatsapp); padding:2px 10px; border-radius:15px; font-size:14px;">0</span>
+</div>
+
+<div id="cart-modal">
+  <div class="modal-content">
+    <h2 style="color:var(--accent-red); margin-bottom:20px; font-family:Orbitron; font-size:20px;">Your Cart</h2>
+    <div id="cart-items-list" style="max-height: 300px; overflow-y: auto;">
+      </div>
+    <div style="margin-top:20px; display:flex; justify-content:space-between; font-size:20px; font-weight:700;">
+      <span>Total:</span>
+      <span style="color:var(--accent-red)">₹<span id="cart-total">0</span></span>
+    </div>
+    <button class="checkout-btn" onclick="sendWhatsApp()">Confirm on WhatsApp ✅</button>
+    <button onclick="toggleCart()" style="width:100%; background:none; border:none; color:#64748b; margin-top:15px; cursor:pointer;">Back to Shop</button>
+  </div>
+</div>
+
+<script>
+let cart = [];
+const adminPhone = "918885730807"; // Your WhatsApp number
+
+function addToCart(name, price) {
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
+  updateUI();
+  
+  // Fancy feedback on the button
+  const btn = event.currentTarget;
+  const oldText = btn.innerHTML;
+  btn.innerHTML = "Added Successfully! ✨";
+  btn.style.background = "#0369a1";
+  setTimeout(() => {
+    btn.innerHTML = oldText;
+    btn.style.background = "var(--accent-red)";
+  }, 800);
+}
+
+function updateQty(index, amt) {
+  cart[index].qty += amt;
+  if (cart[index].qty <= 0) cart.splice(index, 1);
+  updateUI();
+}
+
+function updateUI() {
+  const list = document.getElementById('cart-items-list');
+  const count = document.getElementById('cart-count');
+  const totalDisp = document.getElementById('cart-total');
+  
+  list.innerHTML = cart.length === 0 ? "<p style='color:#64748b'>Your cart is empty.</p>" : "";
+  let total = 0;
+  let itemsCount = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+    itemsCount += item.qty;
+    list.innerHTML += `
+      <div class="cart-item">
+        <div>
+          <div style="font-weight:600; color:var(--text-dark)">${item.name}</div>
+          <div style="font-size:12px; color:#64748b">₹${item.price} each</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button onclick="updateQty(${index}, -1)" style="border:none; width:25px; border-radius:5px">-</button>
+          <strong>${item.qty}</strong>
+          <button onclick="updateQty(${index}, 1)" style="border:none; width:25px; border-radius:5px">+</button>
+        </div>
+      </div>`;
+  });
+
+  count.innerText = itemsCount;
+  totalDisp.innerText = total;
+}
+
+function toggleCart() {
+  const modal = document.getElementById('cart-modal');
+  modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function sendWhatsApp() {
+  if (cart.length === 0) return alert("Your cart is empty!");
+
+  let text = "🔴 *NEW ORDER: SVLS MART / PICKLE HAUS*%0A";
+  text += "---------------------------------%0A";
+  cart.forEach(item => {
+    text += `🍗 *${item.name}*%0A   Qty: ${item.qty} x ₹${item.price} = *₹${item.price * item.qty}*%0A`;
+  });
+  text += "---------------------------------%0A";
+  text += `💰 *TOTAL PAYABLE: ₹${document.getElementById('cart-total').innerText}*%0A%0A`;
+  text += "Please send payment link and confirm delivery time!";
+
+  const url = `https://wa.me/${adminPhone}?text=${text}`;
+  window.open(url, '_blank');
+}
+</script>
 
 </body>
 </html>
