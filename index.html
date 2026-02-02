@@ -11,10 +11,7 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 body { background: #fdf2f2; color: #1e293b; }
 
-/* Header */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
-
-/* Hero & Card */
 .hero { margin-top: 100px; text-align: center; margin-bottom: 20px; }
 .hero img { width: 90px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: white; }
 
@@ -22,21 +19,17 @@ body { background: #fdf2f2; color: #1e293b; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
 .stock-badge { background: #fef2f2; color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
 
-/* Modal */
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); }
 .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
 
-/* Selection Boxes */
 .method-label { font-size: 12px; font-weight: 700; color: var(--slate); text-align: left; margin: 20px 0 10px 0; text-transform: uppercase; }
 .payment-option { display: flex; align-items: center; padding: 15px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 10px; cursor: pointer; text-align: left; transition: 0.2s; }
 .payment-option.active { border-color: var(--accent); background: #fff1f2; }
 .payment-option input { margin-right: 12px; transform: scale(1.2); }
 
-/* QR Scanner Box */
 .qr-box { display: none; padding: 15px; background: #f8fafc; border-radius: 15px; border: 2px dashed #cbd5e1; margin-bottom: 15px; }
 .qr-box img { width: 150px; border-radius: 10px; border: 3px solid white; }
 
-/* Buttons */
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; animation: pulse 2s infinite; cursor: pointer; }
 
@@ -64,7 +57,7 @@ body { background: #fdf2f2; color: #1e293b; }
     <img src="https://jagadishk07.github.io/notes/logo.png" style="width:100%">
     <div style="padding: 0 20px 20px 20px;">
       <div class="stock-badge">🔥 Only a few packs left!</div>
-      <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle (Boneless)</h3>
+      <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle – Boneless</h3>
       <span style="display:block; font-size: 26px; font-weight: 800; color: var(--accent); margin: 10px 0;">₹200</span>
       <button class="add-btn" onclick="addToCart('Chicken Pickle – Boneless', 200)">Add to Cart 🛒</button>
     </div>
@@ -82,10 +75,8 @@ body { background: #fdf2f2; color: #1e293b; }
     </div>
 
     <div style="font-size: 24px; font-weight: 800; color: var(--accent);">Total: ₹<span id="cart-total">200</span></div>
-    <p style="font-size: 12px; color: var(--slate); margin-top: 5px;">Item: Chicken Pickle (Boneless)</p>
 
     <div class="method-label">Select Payment Method:</div>
-    
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
         <input type="radio" name="payGroup" checked>
         <div>
@@ -143,11 +134,9 @@ function setPayment(type) {
     if(type === 'qr') {
         qr.classList.add('active'); pod.classList.remove('active');
         qrBox.style.display = 'block'; paymentMethod = "Paid via QR";
-        qr.querySelector('input').checked = true;
     } else {
         pod.classList.add('active'); qr.classList.remove('active');
         qrBox.style.display = 'none'; paymentMethod = "Pay on Delivery";
-        pod.querySelector('input').checked = true;
     }
 }
 
@@ -157,9 +146,10 @@ function generateOrderID() {
     const now = new Date();
     const mm = String(now.getMonth() + 1).padStart(2, '0');
     const dd = String(now.getDate()).padStart(2, '0');
-    let count = parseInt(localStorage.getItem('svls_order_idx') || 0) + 1;
-    localStorage.setItem('svls_order_idx', count);
-    return `${mm}${dd}-${String(count).padStart(3, '0')}`;
+    let count = parseInt(localStorage.getItem('svls_ord_count') || 0) + 1;
+    localStorage.setItem('svls_ord_count', count);
+    const randomStr = Math.random().toString(36).substring(2, 4).toUpperCase();
+    return `${mm}${dd}-${String(count).padStart(3, '0')}-${randomStr}`;
 }
 
 function sendWhatsApp() {
@@ -185,6 +175,8 @@ function sendWhatsApp() {
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus*%0A";
     text += "😋 *We hope you love every bite!*%0A%0A";
+    text += "📍 *Delivery Address:*%0A";
+    text += "(Type your address here...)";
 
     window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
 }
