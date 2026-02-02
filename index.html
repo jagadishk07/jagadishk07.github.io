@@ -176,18 +176,21 @@ function sendWhatsApp() {
   const total = cart.price * cart.qty;
   const orderID = generateOrderID();
 
-  let text = "✨🍴 *ORDER FROM SVLS MART* 🍴✨%0A";
+  let text = "✨🍴 *THANK YOU FOR YOUR ORDER!* 🍴✨%0A";
+  text += "🔴 *NEW ORDER CONFIRMATION*%0A";
+  text += "━━━━━━━━━━━━━━━━━━%0A";
   text += `🆔 *Order ID:* ${orderID}%0A`;
+  text += `🍗 *${item.name}*%0A`;
+  text += `📦 *Quantity:* ${item.qty} Packs%0A`;
+  text += `💵 *Price:* ₹${item.price} x ${item.qty} = *₹${total}*%0A`;
   text += "━━━━━━━━━━━━━━━━━━%0A";
-  text += `🍗 *Item:* ${cart.name}%0A`;
-  text += `📦 *Quantity:* ${cart.qty} Packs%0A`;
-  text += `💵 *Rate:* ₹${cart.price}%0A`;
-  text += "━━━━━━━━━━━━━━━━━━%0A";
-  text += `💰 *TOTAL AMOUNT: ₹${total}*%0A`;
-  text += `💳 *Method:* ${selectedPayMethod}%0A%0A`;
-  text += "📍 *Delivery Address:*%0A";
+  text += `💰 *TOTAL PAYABLE: ₹${total}*%0A%0A`;
+  text += "🚚 *Delivery:*%0A";
   text += "(Please type your address here...)%0A%0A";
-  text += "🙏 *Thank you!*";
+  text += "⏰ *Expected within 15–20 mins*%0A%0A";
+  text += "📞 *Support:*%0A";
+  text += "📲 WhatsApp/Call: +91-9652038360%0A%0A";
+  text += "🙏 *Thank you for choosing SVLS MART | PICKLE HAUS*";
 
   window.open(`https://wa.me/${adminPhone}?text=${text}`, '_blank');
 }
