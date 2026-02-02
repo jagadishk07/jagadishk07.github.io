@@ -9,12 +9,11 @@
 
 <style>
 :root {
-  /* Theme: Cloud Blue & Deep Red Accents */
-  --bg-sky: #f0f9ff;        /* Very light cloud blue */
-  --panel: #ffffff;        /* Pure white for cards */
-  --accent-red: #b91c1c;   /* Deep branding red */
-  --accent-light: #fee2e2; /* Light red for highlights */
-  --text-dark: #1e293b;    /* Dark slate for text */
+  --bg-sky: #f0f9ff;
+  --panel: #ffffff;
+  --accent-red: #b91c1c;
+  --accent-light: #fee2e2;
+  --text-dark: #1e293b;
   --whatsapp: #25d366;
 }
 
@@ -26,139 +25,77 @@ body {
   min-height: 100vh;
 }
 
-/* ================= HEADER ================= */
 .topbar {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 75px;
   background: var(--panel);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  border-bottom: 3px solid var(--accent-red);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 30px; border-bottom: 3px solid var(--accent-red);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); z-index: 100;
 }
 
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 50px; }
 .brand h1 { font-family: 'Orbitron'; font-size: 18px; color: var(--accent-red); letter-spacing: 1px; }
 
-/* ================= HERO ================= */
-.hero {
-  margin-top: 100px;
-  text-align: center;
-  padding: 40px 10%;
-}
+.hero { margin-top: 100px; text-align: center; padding: 40px 10%; }
 .hero img { width: 180px; border-radius: 50%; border: 4px solid var(--accent-red); padding: 5px; background: white; }
 .hero h2 { margin-top: 15px; font-family: 'Orbitron'; color: var(--accent-red); }
 .hero-tagline { font-weight: 600; color: #0369a1; margin-top: 5px; }
 
-/* ================= PRODUCTS ================= */
-.container { max-width: 1100px; margin: auto; padding: 20px; }
-
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-  gap: 25px; 
-  margin-top: 30px;
-}
+.container { max-width: 600px; margin: auto; padding: 20px; }
 
 .card {
-  background: var(--panel);
-  border-radius: 20px;
-  overflow: hidden;
+  background: var(--panel); border-radius: 24px; overflow: hidden;
   border: 1px solid rgba(185, 28, 28, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.08);
-  transition: transform 0.3s ease;
+  box-shadow: 0 15px 35px rgba(0, 71, 171, 0.1);
 }
-.card:hover { transform: translateY(-8px); }
-
-.card-img { width: 100%; height: 230px; object-fit: cover; }
-
-.card-content { padding: 25px; }
-.card-content h3 { font-size: 20px; margin-bottom: 10px; color: var(--accent-red); }
-.card-content p { font-size: 14px; color: #64748b; line-height: 1.6; }
+.card-img { width: 100%; height: 280px; object-fit: cover; }
+.card-content { padding: 30px; text-align: center; }
+.card-content h3 { font-size: 24px; color: var(--accent-red); margin-bottom: 10px; }
 
 .price-tag {
-  display: inline-block;
-  margin: 15px 0;
-  padding: 8px 15px;
-  background: var(--accent-light);
-  color: var(--accent-red);
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 18px;
+  display: inline-block; margin: 15px 0; padding: 10px 20px;
+  background: var(--accent-light); color: var(--accent-red);
+  border-radius: 12px; font-weight: 800; font-size: 22px;
 }
 
 .add-btn {
-  width: 100%;
-  background: var(--accent-red);
-  color: white;
-  border: none;
-  padding: 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: filter 0.2s;
+  width: 100%; background: var(--accent-red); color: white; border: none;
+  padding: 16px; border-radius: 14px; font-weight: 600; cursor: pointer;
+  font-size: 18px; transition: 0.3s;
 }
-.add-btn:hover { filter: brightness(1.2); }
+.add-btn:hover { background: #991b1b; transform: scale(1.02); }
 
-/* ================= CART SYSTEM ================= */
-.cart-float {
-  position: fixed;
-  bottom: 25px; right: 25px;
-  background: var(--whatsapp);
-  color: white;
-  padding: 15px 25px;
-  border-radius: 50px;
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
-  cursor: pointer;
-  z-index: 999;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+/* CART MODAL */
 #cart-modal {
-  display: none;
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
+  display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px);
+  z-index: 2000; align-items: center; justify-content: center;
 }
 
 .modal-content {
-  background: white;
-  width: 90%; max-width: 450px;
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  background: white; width: 90%; max-width: 450px;
+  border-radius: 28px; padding: 30px; position: relative;
 }
 
-.cart-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 15px 0; border-bottom: 1px solid #f1f5f9;
+.qr-section {
+  display: none; text-align: center; margin-top: 20px;
+  background: #f8fafc; padding: 15px; border-radius: 15px;
 }
+.qr-section img { width: 150px; border: 1px solid #ddd; }
 
 .checkout-btn {
-  background: var(--whatsapp);
-  color: white; width: 100%; border: none; padding: 18px;
-  border-radius: 15px; font-size: 18px; font-weight: bold;
+  background: var(--whatsapp); color: white; width: 100%; border: none;
+  padding: 18px; border-radius: 15px; font-size: 18px; font-weight: bold;
   margin-top: 20px; cursor: pointer;
 }
 
-@media (max-width: 600px) {
-  .hero h2 { font-size: 22px; }
-  .grid { grid-template-columns: 1fr; }
+.cart-float {
+  position: fixed; bottom: 25px; right: 25px;
+  background: var(--whatsapp); color: white; padding: 15px 25px;
+  border-radius: 50px; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+  cursor: pointer; z-index: 999; font-weight: 700; display: flex; align-items: center; gap: 12px;
 }
 </style>
 </head>
@@ -170,7 +107,7 @@ body {
     <img src="https://jagadishk07.github.io/notes/brand_logo.png">
     <div>
       <h1>SVLS Mart</h1>
-      <p style="font-size: 10px; color: #64748b;">Premium Quality Pickles</p>
+      <p style="font-size: 10px; color: #64748b;">Pickle Haus - Authentic Flavors</p>
     </div>
   </div>
 </div>
@@ -178,62 +115,52 @@ body {
 <div class="hero">
   <img src="https://jagadishk07.github.io/notes/brand_logo.png" alt="Logo">
   <h2>Pickle Haus</h2>
-  <p class="hero-tagline">Authentic Homemade Chicken Pickles</p>
-  <p style="margin-top:10px; opacity: 0.7;">Cloud-fresh quality delivered to your door.</p>
+  <p class="hero-tagline">Cloud-Blue Freshness • Traditional Taste</p>
 </div>
 
 <div class="container">
-  <div class="grid">
-    
-    <div class="card">
-      <img src="https://jagadishk07.github.io/notes/cp.jpg" class="card-img" alt="Chicken Pickle">
-      <div class="card-content">
-        <h3>Chicken Pickle (Boneless)</h3>
-        <p>Juicy chunks of premium chicken, slow-cooked in traditional spices. No preservatives.</p>
-        <div class="price-tag">₹280 <span style="font-size:12px; font-weight:400;">(250 Gms)</span></div>
-        <button class="add-btn" onclick="addToCart('Chicken Pickle Boneless', 280)">
-          Add to Cart 🛒
-        </button>
-      </div>
+  <div class="card">
+    <img src="https://jagadishk07.github.io/notes/cp.jpg" class="card-img" alt="Chicken Pickle">
+    <div class="card-content">
+      <h3>Chicken Pickle (Boneless)</h3>
+      <p>Premium boneless chicken chunks marinated in our secret spice blend. Fresh, homemade, and hygienic.</p>
+      <div class="price-tag">₹200 <span style="font-size:14px; font-weight:400;">(Per Pack)</span></div>
+      <button class="add-btn" onclick="addToCart('Chicken Pickle – Boneless', 200)">
+        Add to Order 🛒
+      </button>
     </div>
-
-    <div class="card">
-      <img src="https://jagadishk07.github.io/notes/cp.jpg" class="card-img" alt="Chicken Pickle Bone">
-      <div class="card-content">
-        <h3>Chicken Pickle (With Bone)</h3>
-        <p>The traditional village-style chicken pickle with bone for extra flavor depth.</p>
-        <div class="price-tag">₹260 <span style="font-size:12px; font-weight:400;">(250 Gms)</span></div>
-        <button class="add-btn" onclick="addToCart('Chicken Pickle (Bone-in)', 260)">
-          Add to Cart 🛒
-        </button>
-      </div>
-    </div>
-
   </div>
 </div>
 
-<div class="cart-float" onclick="toggleCart()">
+<div class="cart-float" id="floatBtn" style="display:none;" onclick="toggleCart()">
   <span>VIEW ORDER</span>
-  <span id="cart-count" style="background:white; color:var(--whatsapp); padding:2px 10px; border-radius:15px; font-size:14px;">0</span>
+  <span id="cart-count" style="background:white; color:var(--whatsapp); padding:2px 10px; border-radius:15px;">0</span>
 </div>
 
 <div id="cart-modal">
   <div class="modal-content">
-    <h2 style="color:var(--accent-red); margin-bottom:20px; font-family:Orbitron; font-size:20px;">Your Cart</h2>
-    <div id="cart-items-list" style="max-height: 300px; overflow-y: auto;">
-      </div>
-    <div style="margin-top:20px; display:flex; justify-content:space-between; font-size:20px; font-weight:700;">
-      <span>Total:</span>
+    <h2 style="color:var(--accent-red); font-family:Orbitron; font-size:18px; margin-bottom:15px;">Order Summary</h2>
+    <div id="cart-items-list"></div>
+    
+    <div style="margin-top:20px; display:flex; justify-content:space-between; font-size:20px; font-weight:700; border-top: 2px dashed #e2e8f0; padding-top:15px;">
+      <span>TOTAL:</span>
       <span style="color:var(--accent-red)">₹<span id="cart-total">0</span></span>
     </div>
+
+    <div id="qr-display" class="qr-section">
+      <p style="font-size:12px; font-weight:600; margin-bottom:5px;">Scan to Pay</p>
+      <img src="https://jagadishk07.github.io/notes/scan.jpg">
+    </div>
+
     <button class="checkout-btn" onclick="sendWhatsApp()">Confirm on WhatsApp ✅</button>
-    <button onclick="toggleCart()" style="width:100%; background:none; border:none; color:#64748b; margin-top:15px; cursor:pointer;">Back to Shop</button>
+    <button onclick="toggleCart()" style="width:100%; background:none; border:none; color:#64748b; margin-top:15px; cursor:pointer;">Add More Items</button>
   </div>
 </div>
 
 <script>
 let cart = [];
-const adminPhone = "918885730807"; // Your WhatsApp number
+const adminPhone = "917036912867"; 
+const supportPhone = "+91-8885730807";
 
 function addToCart(name, price) {
   const existing = cart.find(item => item.name === name);
@@ -242,22 +169,17 @@ function addToCart(name, price) {
   } else {
     cart.push({ name, price, qty: 1 });
   }
+  document.getElementById('floatBtn').style.display = 'flex';
   updateUI();
-  
-  // Fancy feedback on the button
-  const btn = event.currentTarget;
-  const oldText = btn.innerHTML;
-  btn.innerHTML = "Added Successfully! ✨";
-  btn.style.background = "#0369a1";
-  setTimeout(() => {
-    btn.innerHTML = oldText;
-    btn.style.background = "var(--accent-red)";
-  }, 800);
 }
 
-function updateQty(index, amt) {
-  cart[index].qty += amt;
-  if (cart[index].qty <= 0) cart.splice(index, 1);
+function updateQty(amt) {
+  cart[0].qty += amt;
+  if (cart[0].qty <= 0) {
+    cart = [];
+    document.getElementById('floatBtn').style.display = 'none';
+    toggleCart();
+  }
   updateUI();
 }
 
@@ -266,50 +188,61 @@ function updateUI() {
   const count = document.getElementById('cart-count');
   const totalDisp = document.getElementById('cart-total');
   
-  list.innerHTML = cart.length === 0 ? "<p style='color:#64748b'>Your cart is empty.</p>" : "";
-  let total = 0;
-  let itemsCount = 0;
+  if (cart.length === 0) return;
 
-  cart.forEach((item, index) => {
-    total += item.price * item.qty;
-    itemsCount += item.qty;
-    list.innerHTML += `
-      <div class="cart-item">
-        <div>
-          <div style="font-weight:600; color:var(--text-dark)">${item.name}</div>
-          <div style="font-size:12px; color:#64748b">₹${item.price} each</div>
-        </div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <button onclick="updateQty(${index}, -1)" style="border:none; width:25px; border-radius:5px">-</button>
-          <strong>${item.qty}</strong>
-          <button onclick="updateQty(${index}, 1)" style="border:none; width:25px; border-radius:5px">+</button>
-        </div>
-      </div>`;
-  });
+  const item = cart[0];
+  const total = item.price * item.qty;
 
-  count.innerText = itemsCount;
+  list.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <strong>${item.name}</strong><br>
+        <small>₹${item.price} per pack</small>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button onclick="updateQty(-1)" style="padding:5px 10px; border-radius:5px; border:1px solid #ddd;">-</button>
+        <strong>${item.qty}</strong>
+        <button onclick="updateQty(1)" style="padding:5px 10px; border-radius:5px; border:1px solid #ddd;">+</button>
+      </div>
+    </div>`;
+
+  count.innerText = item.qty;
   totalDisp.innerText = total;
 }
 
 function toggleCart() {
   const modal = document.getElementById('cart-modal');
   modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+  // Show QR code in modal
+  document.getElementById('qr-display').style.display = 'block';
 }
 
 function sendWhatsApp() {
-  if (cart.length === 0) return alert("Your cart is empty!");
+  if (cart.length === 0) return;
+  const item = cart[0];
+  const total = item.price * item.qty;
 
-  let text = "🔴 *NEW ORDER: SVLS MART / PICKLE HAUS*%0A";
-  text += "---------------------------------%0A";
-  cart.forEach(item => {
-    text += `🍗 *${item.name}*%0A   Qty: ${item.qty} x ₹${item.price} = *₹${item.price * item.qty}*%0A`;
-  });
-  text += "---------------------------------%0A";
-  text += `💰 *TOTAL PAYABLE: ₹${document.getElementById('cart-total').innerText}*%0A%0A`;
-  text += "Please send payment link and confirm delivery time!";
+  let text = "✨🍴 *THANK YOU FOR YOUR ORDER!* 🍴✨%0A";
+  text += "🔴 *NEW ORDER CONFIRMATION*%0A";
+  text += "🏪 *SVLS MART | PICKLE HAUS*%0A";
+  text += "━━━━━━━━━━━━━━━━━━%0A";
+  text += `🍗 *${item.name}*%0A`;
+  text += `📦 *Quantity:* ${item.qty} Packs%0A`;
+  text += `💵 *Price:* ₹${item.price} x ${item.qty} = *₹${total}*%0A`;
+  text += "━━━━━━━━━━━━━━━━━━%0A";
+  text += `💰 *TOTAL PAYABLE: ₹${total}*%0A%0A`;
+  text += "🚚 *Delivery:*%0A";
+  text += "⏰ Expected within 30–45 mins%0A%0A";
+  text += "💳 *Payment Options:*%0A";
+  text += "🔗 UPI / GPay / PhonePe / Paytm%0A";
+  text += "👉 *View QR Code:* https://jagadishk07.github.io/notes/scan.jpg%0A%0A";
+  text += "📞 *Support:*%0A";
+  text += `📲 WhatsApp/Call: ${supportPhone}%0A%0A`;
+  text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
+  text += "🙏 *Thank you for choosing Pickle Haus*%0A";
+  text += "😋 *We hope you love every bite!*";
 
-  const url = `https://wa.me/${adminPhone}?text=${text}`;
-  window.open(url, '_blank');
+  window.open(`https://wa.me/${adminPhone}?text=${text}`, '_blank');
 }
 </script>
 
