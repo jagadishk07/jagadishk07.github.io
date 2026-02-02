@@ -10,12 +10,12 @@
 :root {
   --accent-red: #b91c1c;
   --whatsapp: #25d366;
-  --upi-blue: #1a73e8;
   --slate: #64748b;
+  --bg-blue: #f0f9ff;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-body { background: #f0f9ff; color: #1e293b; padding-bottom: 20px; }
+body { background: var(--bg-blue); color: #1e293b; padding-bottom: 20px; }
 
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent-red); z-index: 100; }
 .hero { margin-top: 90px; text-align: center; }
@@ -24,38 +24,30 @@ body { background: #f0f9ff; color: #1e293b; padding-bottom: 20px; }
 .container { max-width: 450px; margin: auto; padding: 20px; }
 .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; }
 .card-content { padding: 20px; }
-
 .price-tag { display: block; margin: 10px 0; font-weight: 800; font-size: 22px; color: var(--accent-red); }
-.add-btn { width: 100%; background: var(--accent-red); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-.add-btn:active { transform: scale(0.95); }
 
-/* CHECKOUT MODAL */
+.add-btn { width: 100%; background: var(--accent-red); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+
+/* MODAL */
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; overflow-y: auto; }
-.modal-content { background: white; width: 92%; max-width: 400px; border-radius: 24px; padding: 25px; text-align: center; margin: 20px; position: relative; }
+.modal-content { background: white; width: 92%; max-width: 400px; border-radius: 24px; padding: 25px; text-align: center; margin: 20px; }
 
-/* QUANTITY CONTROLS */
+/* QTY CONTROLS */
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; }
-.qty-btn { 
-  width: 40px; height: 40px; border-radius: 10px; border: 2px solid #e2e8f0; 
-  background: white; font-size: 20px; font-weight: bold; cursor: pointer; color: var(--accent-red);
-}
-.qty-number { font-size: 20px; font-weight: 700; min-width: 30px; }
+.qty-btn { width: 35px; height: 35px; border-radius: 8px; border: 1px solid #ddd; background: white; font-weight: bold; cursor: pointer; }
 
-/* PAYMENT SECTION */
-.qr-container { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 15px; padding: 15px; margin: 15px 0; }
-.qr-image { width: 160px; border: 4px solid white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+/* PAYMENT OPTIONS */
+.pay-methods { margin: 20px 0; text-align: left; }
+.method-card { border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; position: relative; }
+.method-card.active { border-color: var(--accent-red); background: #fff1f2; }
+.method-card input { position: absolute; opacity: 0; }
 
-.upi-copy-box { 
-  display: flex; align-items: center; justify-content: space-between; 
-  background: white; border: 1px solid var(--upi-blue); 
-  padding: 8px 12px; border-radius: 10px; margin-top: 10px;
-}
-.upi-text { font-weight: 700; color: var(--upi-blue); font-size: 13px; }
-.copy-btn { background: var(--upi-blue); color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+.qr-display { display: none; margin-top: 10px; text-align: center; }
+.qr-display img { width: 160px; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; }
 
-.wa-btn { width: 100%; background: var(--whatsapp); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; margin-top: 15px; font-size: 16px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
+.wa-btn { width: 100%; background: var(--whatsapp); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 16px; }
 
-.cart-float { position: fixed; bottom: 20px; right: 20px; background: var(--accent-red); color: white; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 700; box-shadow: 0 8px 20px rgba(185, 28, 28, 0.4); }
+.cart-float { position: fixed; bottom: 20px; right: 20px; background: var(--accent-red); color: white; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 700; box-shadow: 0 8px 20px rgba(185,28,28,0.3); }
 </style>
 </head>
 <body>
@@ -81,12 +73,12 @@ body { background: #f0f9ff; color: #1e293b; padding-bottom: 20px; }
 </div>
 
 <div class="cart-float" id="floatBtn" style="display:none;" onclick="toggleCart()">
-  VIEW ORDER (<span id="cart-count">0</span>)
+  ORDER (<span id="cart-count">0</span>)
 </div>
 
 <div id="cart-modal">
   <div class="modal-content">
-    <h3 style="color:var(--accent-red)">Your Order</h3>
+    <h3 style="color:var(--accent-red)">Confirm Order</h3>
     <p id="item-name" style="font-weight:600; margin-top:10px;"></p>
     
     <div class="qty-box">
@@ -95,32 +87,35 @@ body { background: #f0f9ff; color: #1e293b; padding-bottom: 20px; }
         <button class="qty-btn" onclick="changeQty(1)">+</button>
     </div>
 
-    <div style="font-size:24px; font-weight:bold; margin-bottom:15px; color:var(--accent-red)">
-      Total: ₹<span id="cart-total">0</span>
+    <div style="font-size:24px; font-weight:bold; margin-bottom:10px;">Total: ₹<span id="cart-total">0</span></div>
+
+    <div class="pay-methods">
+        <p style="font-size:12px; font-weight:700; color:var(--slate); margin-bottom:10px;">SELECT PAYMENT METHOD:</p>
+        
+        <label class="method-card active" onclick="selectMethod('pod')">
+            <input type="radio" name="payType" value="Pay on Delivery" checked>
+            <strong>🚚 Pay on Delivery</strong>
+        </label>
+
+        <label class="method-card" onclick="selectMethod('online')">
+            <input type="radio" name="payType" value="Paid via QR">
+            <strong>💳 Pay via QR Scanner</strong>
+            <div class="qr-display" id="qrBox">
+                <img src="https://jagadishk07.github.io/notes/scan.jpg">
+                <p style="font-size:10px; color:var(--slate); margin-top:5px;">Scan and pay before confirming</p>
+            </div>
+        </label>
     </div>
 
-    <div class="qr-container">
-      <p style="font-size:11px; font-weight:700; color:var(--slate); margin-bottom:10px;">STEP 1: SCAN OR COPY ID TO PAY</p>
-      <img src="https://jagadishk07.github.io/notes/scan.jpg" class="qr-image">
-      
-      <div class="upi-copy-box">
-        <span class="upi-text" id="upiId">jagadishmech223@ybl</span>
-        <button class="copy-btn" onclick="copyUPI()">COPY</button>
-      </div>
-    </div>
-
-    <p style="font-size:11px; color:var(--slate); font-style:italic;">STEP 2: CLICK TO FINALIZE</p>
-    <button class="wa-btn" onclick="sendWhatsApp()">
-       Pay & Confirm via WhatsApp 📲
-    </button>
-
-    <button onclick="toggleCart()" style="background:none; border:none; margin-top:15px; color:var(--slate); cursor:pointer; font-size:13px;">Cancel</button>
+    <button class="wa-btn" onclick="sendWhatsApp()">Confirm on WhatsApp 📲</button>
+    <button onclick="toggleCart()" style="background:none; border:none; margin-top:15px; color:var(--slate); cursor:pointer;">Cancel</button>
   </div>
 </div>
 
 <script>
 let cart = { name: "", price: 200, qty: 0 };
-const adminPhone = "918885730807";
+const adminPhone = "919652038360"; // UPDATED PHONE
+let selectedPayMethod = "Pay on Delivery";
 
 function addToCart(name, price) {
   cart.name = name;
@@ -128,12 +123,12 @@ function addToCart(name, price) {
   if(cart.qty === 0) cart.qty = 1;
   updateUI();
   document.getElementById('floatBtn').style.display = 'block';
-  toggleCart(); // Open modal automatically when adding
+  toggleCart();
 }
 
 function changeQty(amount) {
     cart.qty += amount;
-    if (cart.qty < 1) cart.qty = 1; // Minimum 1
+    if (cart.qty < 1) cart.qty = 1;
     updateUI();
 }
 
@@ -144,31 +139,54 @@ function updateUI() {
   document.getElementById('cart-total').innerText = cart.price * cart.qty;
 }
 
+function selectMethod(type) {
+    document.querySelectorAll('.method-card').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    
+    if(type === 'online') {
+        document.getElementById('qrBox').style.display = 'block';
+        selectedPayMethod = "Paid via QR";
+    } else {
+        document.getElementById('qrBox').style.display = 'none';
+        selectedPayMethod = "Pay on Delivery";
+    }
+}
+
 function toggleCart() {
   const modal = document.getElementById('cart-modal');
   modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
 }
 
-function copyUPI() {
-  const upi = document.getElementById('upiId').innerText;
-  navigator.clipboard.writeText(upi);
-  const btn = document.querySelector('.copy-btn');
-  btn.innerText = "DONE!";
-  setTimeout(() => { btn.innerText = "COPY"; }, 2000);
+// ORDER ID GENERATOR (MMDD-00X)
+function generateOrderID() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    
+    // Using localStorage to keep track of order numbers for the user session
+    let orderNum = localStorage.getItem('orderCount') || 0;
+    orderNum = parseInt(orderNum) + 1;
+    localStorage.setItem('orderCount', orderNum);
+    
+    const formattedNum = String(orderNum).padStart(3, '0');
+    return `${month}${day}-${formattedNum}`;
 }
 
 function sendWhatsApp() {
   const total = cart.price * cart.qty;
+  const orderID = generateOrderID();
 
   let text = "✨🍴 *ORDER FROM SVLS MART* 🍴✨%0A";
+  text += `🆔 *Order ID:* ${orderID}%0A`;
   text += "━━━━━━━━━━━━━━━━━━%0A";
   text += `🍗 *Item:* ${cart.name}%0A`;
   text += `📦 *Quantity:* ${cart.qty} Packs%0A`;
   text += `💵 *Rate:* ₹${cart.price}%0A`;
   text += "━━━━━━━━━━━━━━━━━━%0A";
-  text += `💰 *TOTAL PAID: ₹${total}*%0A%0A`;
-  text += "📍 *Please deliver to:*%0A";
-  text += "(Type your address here...)%0A%0A";
+  text += `💰 *TOTAL AMOUNT: ₹${total}*%0A`;
+  text += `💳 *Method:* ${selectedPayMethod}%0A%0A`;
+  text += "📍 *Delivery Address:*%0A";
+  text += "(Please type your address here...)%0A%0A";
   text += "🙏 *Thank you!*";
 
   window.open(`https://wa.me/${adminPhone}?text=${text}`, '_blank');
