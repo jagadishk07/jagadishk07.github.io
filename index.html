@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; }
+:root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -17,26 +17,27 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 
 .container { max-width: 400px; margin: auto; padding: 15px; flex: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
-.stock-badge { background: #fef2f2; color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
+.stock-badge { background: var(--light-red); color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
 
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); }
 .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
 
-.method-label { font-size: 12px; font-weight: 700; color: var(--slate); text-align: left; margin: 20px 0 10px 0; text-transform: uppercase; }
-.payment-option { display: flex; align-items: center; padding: 15px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 10px; cursor: pointer; text-align: left; transition: 0.2s; }
+.method-label { font-size: 11px; font-weight: 700; color: var(--slate); text-align: left; margin: 15px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+.payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; transition: 0.2s; }
 .payment-option.active { border-color: var(--accent); background: #fff1f2; }
 .payment-option input { margin-right: 12px; transform: scale(1.2); }
 
+.location-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; margin-bottom: 15px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .qr-box { display: none; padding: 15px; background: #f8fafc; border-radius: 15px; border: 2px dashed #cbd5e1; margin-bottom: 15px; }
 .qr-box img { width: 150px; border-radius: 10px; border: 3px solid white; }
 
-.add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
+.add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; animation: pulse 2s infinite; cursor: pointer; }
 
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-.qty-btn { width: 35px; height: 35px; border: none; border-radius: 10px; background: white; font-weight: bold; cursor: pointer; color: var(--accent); font-size: 18px; }
+.qty-btn { width: 35px; height: 35px; border: none; border-radius: 10px; background: white; font-weight: bold; cursor: pointer; color: var(--accent); font-size: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 </style>
 </head>
 <body>
@@ -81,7 +82,12 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 
     <div style="font-size: 24px; font-weight: 800; color: var(--accent);">Total: ₹<span id="cart-total">200</span></div>
 
-    <div class="method-label">Select Payment Method:</div>
+    <div class="method-label">Delivery Location:</div>
+    <div class="location-box" id="location-box">
+        <span id="loc-icon">📍</span> <span id="loc-text">Requesting location...</span>
+    </div>
+
+    <div class="method-label">Payment Method:</div>
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
         <input type="radio" name="payGroup" checked>
         <div>
@@ -110,14 +116,42 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 
 <script>
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
-const adminPhone = "919652038360";
+const adminPhone = "918885730807";
 let paymentMethod = "Pay on Delivery";
+let mapsLink = "Not Shared (Customer denied access)";
+
+// Function to fetch GPS coordinates
+function getLocation() {
+    const locText = document.getElementById('loc-text');
+    const locIcon = document.getElementById('loc-icon');
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                locText.innerText = "Location Captured!";
+                locText.style.color = "#16a34a";
+                locIcon.innerText = "✅";
+            },
+            (error) => {
+                locText.innerText = "Location access denied.";
+                locText.style.color = "#b91c1c";
+                locIcon.innerText = "⚠️";
+            }
+        );
+    } else {
+        locText.innerText = "Geolocation not supported.";
+    }
+}
 
 function addToCart(name, price) {
     document.getElementById('popSound').play();
     cart.qty = 1; 
     updateUI();
     document.getElementById('cart-modal').style.display = 'flex';
+    getLocation(); // Trigger location prompt
 }
 
 function changeQty(amt) {
@@ -170,12 +204,12 @@ function sendWhatsApp() {
     text += `💵 *Price:* ₹${cart.price} x ${cart.qty} = ₹${total}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += `💰 *TOTAL PAYABLE: ₹${total}*%0A`;
-    text += "🚚 *Delivery:*%0A";
+    text += "━━━━━━━━━━━━━━━━━━%0A";
+    text += "📍 *DELIVERY LOCATION:*%0A";
+    text += `${mapsLink}%0A`;
+    text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "⏰ *Expected within 15-20 mins*%0A";
     text += `💳 *Method:* ${paymentMethod}%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "📞 *Support:*%0A";
-    text += `📲 *WhatsApp/Call:* ${adminPhone}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus*%0A";
