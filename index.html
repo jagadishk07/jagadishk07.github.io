@@ -27,7 +27,10 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 .payment-option.active { border-color: var(--accent); background: #fff1f2; }
 .payment-option input { margin-right: 12px; transform: scale(1.2); }
 
-.location-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; margin-bottom: 15px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.location-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; font-size: 14px; outline: none; transition: 0.3s; }
+.address-input:focus { border-color: var(--accent); }
+
 .qr-box { display: none; padding: 15px; background: #f8fafc; border-radius: 15px; border: 2px dashed #cbd5e1; margin-bottom: 15px; }
 .qr-box img { width: 150px; border-radius: 10px; border: 3px solid white; }
 
@@ -66,7 +69,7 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 </div>
 
 <footer style="margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate);">
-    <p style="font-size: 13px; font-weight: 600;">&copy; 2026 SVLS Mart. All rights reserved.</p>
+    <p style="font-size: 13px; font-weight: 600;">© 2026 SVLS Mart. All rights reserved.</p>
     <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
 </footer>
 
@@ -82,12 +85,13 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 
     <div style="font-size: 24px; font-weight: 800; color: var(--accent);">Total: ₹<span id="cart-total">200</span></div>
 
-    <div class="method-label">Delivery Location:</div>
+    <div class="method-label">1. Delivery Details:</div>
     <div class="location-box" id="location-box">
-        <span id="loc-icon">📍</span> <span id="loc-text">Requesting location...</span>
+        <span id="loc-icon">📍</span> <span id="loc-text">Requesting GPS...</span>
     </div>
+    <input type="text" id="door-no" class="address-input" placeholder="House No / Landmark (Optional)">
 
-    <div class="method-label">Payment Method:</div>
+    <div class="method-label">2. Payment Method:</div>
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
         <input type="radio" name="payGroup" checked>
         <div>
@@ -120,29 +124,25 @@ const adminPhone = "919652038360";
 let paymentMethod = "Pay on Delivery";
 let mapsLink = "Not Shared (Customer denied access)";
 
-// Function to fetch GPS coordinates
 function getLocation() {
     const locText = document.getElementById('loc-text');
     const locIcon = document.getElementById('loc-icon');
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                locText.innerText = "Location Captured!";
+                locText.innerText = "GPS Captured!";
                 locText.style.color = "#16a34a";
                 locIcon.innerText = "✅";
             },
             (error) => {
-                locText.innerText = "Location access denied.";
+                locText.innerText = "GPS access denied.";
                 locText.style.color = "#b91c1c";
                 locIcon.innerText = "⚠️";
             }
         );
-    } else {
-        locText.innerText = "Geolocation not supported.";
     }
 }
 
@@ -151,7 +151,7 @@ function addToCart(name, price) {
     cart.qty = 1; 
     updateUI();
     document.getElementById('cart-modal').style.display = 'flex';
-    getLocation(); // Trigger location prompt
+    getLocation();
 }
 
 function changeQty(amt) {
@@ -166,17 +166,11 @@ function updateUI() {
 }
 
 function setPayment(type) {
-    const pod = document.getElementById('opt-pod');
-    const qr = document.getElementById('opt-qr');
     const qrBox = document.getElementById('qrContainer');
-    
-    if(type === 'qr') {
-        qr.classList.add('active'); pod.classList.remove('active');
-        qrBox.style.display = 'block'; paymentMethod = "Paid via QR";
-    } else {
-        pod.classList.add('active'); qr.classList.remove('active');
-        qrBox.style.display = 'none'; paymentMethod = "Pay on Delivery";
-    }
+    document.getElementById('opt-pod').classList.toggle('active', type==='pod');
+    document.getElementById('opt-qr').classList.toggle('active', type==='qr');
+    qrBox.style.display = (type === 'qr') ? 'block' : 'none';
+    paymentMethod = (type === 'qr') ? "Paid via QR" : "Pay on Delivery";
 }
 
 function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
@@ -194,6 +188,7 @@ function generateOrderID() {
 function sendWhatsApp() {
     const orderID = generateOrderID();
     const total = cart.price * cart.qty;
+    const doorInfo = document.getElementById('door-no').value || "None provided";
 
     let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
     text += "🏪 *SVLS MART | PICKLE HAUS*%0A";
@@ -206,14 +201,17 @@ function sendWhatsApp() {
     text += `💰 *TOTAL PAYABLE: ₹${total}*%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "📍 *DELIVERY LOCATION:*%0A";
-    text += `${mapsLink}%0A`;
+    text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
+    text += `🗺️ *GPS Link:* ${mapsLink}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "⏰ *Expected within 15-20 mins*%0A";
     text += `💳 *Method:* ${paymentMethod}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
+    text += "📞 *SUPPORT:*%0A";
+    text += `📲 *WhatsApp/Call:* ${adminPhone}%0A`;
+    text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
-    text += "🙏 *Thank you for choosing Pickle Haus*%0A";
-    text += "😋 *We hope you love every bite!*%0A%0A";
+    text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
 
     window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
 }
