@@ -11,85 +11,69 @@
 :root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 
-body { 
-    background: #fdf2f2; 
-    color: #1e293b; 
-    overflow-x: hidden;
-    perspective: 1000px;
-}
+body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
-/* Floating Background */
+/* Background Animation */
 .bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .floating-item { position: absolute; opacity: 0; animation: float 12s linear infinite; }
 @keyframes float {
     0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.15; }
-    90% { opacity: 0.15; }
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
-/* Topbar */
+/* Navbar */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 
-/* Issue 1 Fix: Responsive Brand Logo */
+/* FIX: HOME PAGE LOGO ALIGNMENT */
 .hero { 
     margin-top: 100px; 
     text-align: center; 
-    margin-bottom: 20px; 
-    padding: 0 15px;
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
 }
-.hero img { 
-    width: 25%; /* Desktop size */
-    min-width: 80px; /* Mobile minimum */
-    max-width: 120px; /* Desktop maximum */
-    aspect-ratio: 1/1;
+
+.brand-logo-wrap {
+    perspective: 1000px;
+    display: inline-block;
+}
+
+.brand-logo-wrap img { 
+    width: 90px; 
+    height: 90px;
     border-radius: 50%; 
     border: 3px solid var(--accent); 
     padding: 5px; 
     background: white; 
-    transition: box-shadow 0.3s ease, transform 0.2s ease-out;
+    transition: transform 0.1s ease-out;
     cursor: pointer;
-    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* 3D LOGO & IMAGE EFFECTS */
-.card-img-container { perspective: 1000px; padding: 10px; cursor: pointer; }
-.card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out, filter 0.3s ease; will-change: transform; }
-.card:hover img { filter: saturate(1.3) drop-shadow(0 0 25px rgba(185, 28, 28, 0.4)); }
-
+/* Card Styling */
 .container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
 
-/* Sparkle Style */
+.card-img-container { perspective: 1000px; padding: 15px; cursor: pointer; }
+.card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out, filter 0.3s ease; }
+.card:hover img { filter: saturate(1.2) drop-shadow(0 0 15px rgba(185,28,28,0.3)); }
+
+/* Sparkles */
 .sparkle { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: sparkle-fly 0.8s ease-out forwards; }
 @keyframes sparkle-fly {
     0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
     100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2) rotate(360deg); opacity: 0; }
 }
 
-/* GPS Location Box */
-.location-box { 
-    background: #f8fafc; 
-    border: 1px solid #e2e8f0; 
-    border-radius: 12px; 
-    padding: 10px; 
-    margin-bottom: 10px; 
-    font-size: 12px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 8px; 
-}
-
-/* Modals & UI Elements */
-#cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
-.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
-.stock-badge { background: var(--light-red); color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
+/* UI Components */
+.location-box { background: #f1f5f9; border-radius: 12px; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+#cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
+.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; cursor: pointer; }
-.qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; font-size: 14px; }
-.method-label { font-size: 11px; font-weight: 700; color: var(--slate); text-align: left; margin: 10px 0; text-transform: uppercase; }
+.qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 15px; }
+.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; }
 .payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; }
 .payment-option.active { border-color: var(--accent); background: #fff1f2; }
 </style>
@@ -105,7 +89,9 @@ body {
 </div>
 
 <div class="hero">
-  <img src="https://jagadishk07.github.io/notes/brand_logo.png" class="tilt-target">
+  <div class="brand-logo-wrap tilt-target">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+  </div>
 </div>
 
 <div class="container">
@@ -114,33 +100,28 @@ body {
         <img src="https://jagadishk07.github.io/notes/logo.png">
     </div>
     <div style="padding: 0 20px 20px 20px;">
-      <div class="stock-badge">🌶️ Authentic Homemade Spice</div>
       <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle – Boneless</h3>
       <span style="display:block; font-size: 26px; font-weight: 800; color: var(--accent); margin: 10px 0;">₹200</span>
-      <button class="add-btn" onclick="addToCart('Chicken Pickle – Boneless', 200)">Add to Cart 🛒</button>
+      <button class="add-btn" onclick="addToCart()">Add to Cart 🛒</button>
     </div>
   </div>
 </div>
 
 <div id="cart-modal">
   <div class="modal-content">
-    <h3 style="color:var(--accent); font-weight: 700;">Confirm Order</h3>
-    
+    <h3 style="color:var(--accent)">Confirm Order</h3>
     <div class="qty-box">
-        <button style="border:none; width:30px; height:30px; background:white; border-radius:8px; font-weight:bold;" onclick="changeQty(-1)">-</button>
-        <span id="modal-qty" style="font-weight:800; font-size:18px;">1</span>
-        <button style="border:none; width:30px; height:30px; background:white; border-radius:8px; font-weight:bold;" onclick="changeQty(1)">+</button>
+        <button onclick="changeQty(-1)" style="border:none; padding:10px; background:white;">-</button>
+        <span id="modal-qty" style="font-weight:800;">1</span>
+        <button onclick="changeQty(1)" style="border:none; padding:10px; background:white;">+</button>
     </div>
+    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom:15px;">Total: ₹<span id="cart-total">200</span></div>
     
-    <div style="font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom:15px;">Total: ₹<span id="cart-total">200</span></div>
-    
-    <div class="method-label">Delivery Location</div>
-    <div class="location-box" id="location-box">
+    <div class="location-box">
         <span id="loc-icon">📍</span> <span id="loc-text">Requesting GPS...</span>
     </div>
     <input type="text" id="door-no" class="address-input" placeholder="House No / Landmark">
     
-    <div class="method-label">Payment</div>
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
         <input type="radio" checked id="radio-pod"> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
     </div>
@@ -154,65 +135,51 @@ body {
 </div>
 
 <script>
-// --- CORE DATA & GPS LOGIC ---
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 const adminPhone = "919652038360";
 let paymentMethod = "Pay on Delivery";
-let mapsLink = "Not Shared (Customer denied access)";
+let mapsLink = "Denied";
 
+// GPS
 function getLocation() {
-    const locText = document.getElementById('loc-text');
-    const locIcon = document.getElementById('loc-icon');
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                locText.innerText = "GPS Captured!";
-                locText.style.color = "#16a34a";
-                locIcon.innerText = "✅";
-            },
-            () => {
-                locText.innerText = "GPS access denied.";
-                locText.style.color = "#b91c1c";
-                locIcon.innerText = "⚠️";
-            }
-        );
+        navigator.geolocation.getCurrentPosition((p) => {
+            mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            document.getElementById('loc-text').innerText = "GPS Captured!";
+            document.getElementById('loc-icon').innerText = "✅";
+        });
     }
 }
 
-// --- UI EFFECTS ---
+// Sparkle Effect
 document.addEventListener('click', (e) => {
     if (e.target.closest('.tilt-target')) {
         const spices = ['🌶️', '🔥', '✨'];
         for (let i = 0; i < 8; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.innerHTML = spices[Math.floor(Math.random() * spices.length)];
-            sparkle.style.left = e.pageX + 'px';
-            sparkle.style.top = e.pageY + 'px';
-            sparkle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
-            sparkle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 800);
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            s.innerHTML = spices[Math.floor(Math.random() * spices.length)];
+            s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px';
+            s.style.setProperty('--tx', (Math.random() - 0.5) * 150 + 'px');
+            s.style.setProperty('--ty', (Math.random() - 0.5) * 150 + 'px');
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 800);
         }
     }
 });
 
-const tiltTargets = document.querySelectorAll('.tilt-target');
-tiltTargets.forEach(target => {
-    target.addEventListener('mousemove', (e) => {
-        const rect = target.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const rotateX = ((y - rect.height/2) / (rect.height/2)) * -15;
-        const rotateY = ((x - rect.width/2) / (rect.width/2)) * 15;
-        const img = target.querySelector('img');
-        if(img) img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+// 3D Tilt Logic
+const tilts = document.querySelectorAll('.tilt-target');
+tilts.forEach(t => {
+    t.addEventListener('mousemove', (e) => {
+        const r = t.getBoundingClientRect();
+        const rX = ((e.clientY - r.top - r.height/2) / (r.height/2)) * -15;
+        const rY = ((e.clientX - r.left - r.width/2) / (r.width/2)) * 15;
+        const img = t.querySelector('img');
+        if(img) img.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg) scale(1.05)`;
     });
-    target.addEventListener('mouseleave', () => {
-        const img = target.querySelector('img');
+    t.addEventListener('mouseleave', () => {
+        const img = t.querySelector('img');
         if(img) img.style.transform = `rotateX(0) rotateY(0) scale(1)`;
     });
 });
@@ -231,42 +198,38 @@ function initBG() {
 }
 initBG();
 
-// --- CART & WHATSAPP LOGIC ---
-function addToCart(name, price) {
-    document.getElementById('popSound').play();
-    document.getElementById('cart-modal').style.display = 'flex';
-    getLocation(); // Start GPS request as soon as they open the cart
-}
-
-function changeQty(amt) {
-    cart.qty = Math.max(1, cart.qty + amt);
-    document.getElementById('modal-qty').innerText = cart.qty;
-    document.getElementById('cart-total').innerText = cart.price * cart.qty;
-}
-
-function setPayment(type) {
-    paymentMethod = type === 'qr' ? "Paid via QR" : "Pay on Delivery";
-    document.getElementById('opt-pod').classList.toggle('active', type === 'pod');
-    document.getElementById('opt-qr').classList.toggle('active', type === 'qr');
-    document.getElementById('radio-pod').checked = (type === 'pod');
-    document.getElementById('radio-qr').checked = (type === 'qr');
-}
-
-function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-
 function generateOrderID() {
     const now = new Date();
     const mm = String(now.getMonth() + 1).padStart(2, '0');
     const dd = String(now.getDate()).padStart(2, '0');
-    let count = parseInt(localStorage.getItem('svls_ord_count') || 0) + 1;
-    localStorage.setItem('svls_ord_count', count);
-    const randomStr = Math.random().toString(36).substring(2, 4).toUpperCase();
-    return `${mm}${dd}-${String(count).padStart(3, '0')}-${randomStr}`;
+    let count = parseInt(localStorage.getItem('ord_count') || 0) + 1;
+    localStorage.setItem('ord_count', count);
+    return `${mm}${dd}-${String(count).padStart(3, '0')}`;
 }
 
+function addToCart() {
+    document.getElementById('popSound').play();
+    document.getElementById('cart-modal').style.display = 'flex';
+    getLocation();
+}
+
+function changeQty(n) {
+    cart.qty = Math.max(1, cart.qty + n);
+    document.getElementById('modal-qty').innerText = cart.qty;
+    document.getElementById('cart-total').innerText = cart.price * cart.qty;
+}
+
+function setPayment(t) {
+    paymentMethod = t === 'qr' ? "Paid Online" : "Pay on Delivery";
+    document.getElementById('opt-pod').classList.toggle('active', t === 'pod');
+    document.getElementById('opt-qr').classList.toggle('active', t === 'qr');
+    document.getElementById('radio-pod').checked = (t === 'pod');
+    document.getElementById('radio-qr').checked = (t === 'qr');
+}
+
+function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+
 function sendWhatsApp() {
-    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#b91c1c', '#25d366'] });
-    
     const orderID = generateOrderID();
     const total = cart.price * cart.qty;
     const doorInfo = document.getElementById('door-no').value || "None provided";
@@ -295,9 +258,10 @@ function sendWhatsApp() {
     text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
     text += "🍗 *We hope you love every bite!*%0A";
 
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     setTimeout(() => {
         window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
-    }, 1000);
+    }, 800);
 }
 </script>
 </body>
