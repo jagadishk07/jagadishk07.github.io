@@ -12,7 +12,7 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
-/* Background Decoration */
+/* Background Animation */
 .bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .floating-item { position: absolute; opacity: 0; animation: float 12s linear infinite; }
 @keyframes float {
@@ -24,10 +24,12 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 /* Navbar */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 
+/* 3D Target Styling */
 .hero { margin-top: 100px; text-align: center; width: 100%; display: flex; justify-content: center; }
+.brand-logo-container { perspective: 1000px; }
 .brand-logo-container img { 
     width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--accent); 
-    padding: 5px; background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    padding: 5px; background: white; transition: transform 0.1s ease-out; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .stock-badge {
@@ -41,9 +43,17 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
 }
 
+/* Sparkles */
+.sparkle { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: sparkle-fly 0.8s ease-out forwards; }
+@keyframes sparkle-fly {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
 .container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
-.card img { width: 100%; border-radius: 15px; padding: 15px; }
+.card-img-container { perspective: 1000px; padding: 15px; cursor: pointer; }
+.card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out; }
 
 /* QR Code Section */
 #qr-display {
@@ -58,6 +68,7 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
 .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
 
+.qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 15px; }
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; margin-top: 10px; cursor: pointer; }
 
@@ -82,6 +93,7 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 </div>
 
 <div class="bg-elements" id="bg-elements"></div>
+<audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <div class="topbar">
   <img src="https://jagadishk07.github.io/notes/brand_logo.png" height="40">
@@ -89,14 +101,16 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 </div>
 
 <div class="hero">
-  <div class="brand-logo-container">
+  <div class="brand-logo-container tilt-target">
     <img src="https://jagadishk07.github.io/notes/brand_logo.png">
   </div>
 </div>
 
 <div class="container">
   <div class="card">
-    <img src="https://jagadishk07.github.io/notes/logo.png">
+    <div class="card-img-container tilt-target">
+        <img src="https://jagadishk07.github.io/notes/logo.png">
+    </div>
     <div style="padding: 0 20px 20px 20px;">
       <div class="stock-badge">🔥 Only a few packs left!</div>
       <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle – Boneless</h3>
@@ -107,13 +121,20 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 </div>
 
 <footer>
-    <p style="font-size: 13px; font-weight: 600;">&copy; 2026 SVLS Mart. All rights reserved.</p>
+    <p style="font-size: 13px; font-weight: 600;">© 2026 SVLS Mart. All rights reserved.</p>
     <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
 </footer>
 
 <div id="cart-modal">
   <div class="modal-content">
     <h3 style="color:var(--accent)">Confirm Order</h3>
+    
+    <div class="qty-box">
+        <button onclick="changeQty(-1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">-</button>
+        <span id="modal-qty" style="font-weight:800; font-size:20px;">1</span>
+        <button onclick="changeQty(1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">+</button>
+    </div>
+
     <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 15px 0;">Total: ₹<span id="cart-total">200</span></div>
     
     <input type="text" id="door-no" style="width:100%; padding:12px; border-radius:12px; border:1px solid #cbd5e1; margin-bottom:15px;" placeholder="House No / Landmark">
@@ -136,16 +157,57 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 </div>
 
 <script>
+let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 let paymentMethod = "Pay on Delivery";
 let mapsLink = "Not Captured";
 
+// 3D Tilt Logic
+const tilts = document.querySelectorAll('.tilt-target');
+tilts.forEach(t => {
+    t.addEventListener('mousemove', (e) => {
+        const r = t.getBoundingClientRect();
+        const rX = ((e.clientY - r.top - r.height/2) / (r.height/2)) * -15;
+        const rY = ((e.clientX - r.left - r.width/2) / (r.width/2)) * 15;
+        const img = t.querySelector('img');
+        if(img) img.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg) scale(1.05)`;
+    });
+    t.addEventListener('mouseleave', () => {
+        const img = t.querySelector('img');
+        if(img) img.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+    });
+});
+
+// Sparkle Effect on Click
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.tilt-target')) {
+        const spices = ['🌶️', '🔥', '✨'];
+        for (let i = 0; i < 8; i++) {
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            s.innerHTML = spices[Math.floor(Math.random() * spices.length)];
+            s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px';
+            s.style.setProperty('--tx', (Math.random() - 0.5) * 150 + 'px');
+            s.style.setProperty('--ty', (Math.random() - 0.5) * 150 + 'px');
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 800);
+        }
+    }
+});
+
 function addToCart() {
+    document.getElementById('popSound').play();
     document.getElementById('cart-modal').style.display = 'flex';
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((p) => {
             mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
         });
     }
+}
+
+function changeQty(n) {
+    cart.qty = Math.max(1, cart.qty + n);
+    document.getElementById('modal-qty').innerText = cart.qty;
+    document.getElementById('cart-total').innerText = cart.price * cart.qty;
 }
 
 function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
@@ -173,6 +235,7 @@ function generateOrderID() {
 function sendWhatsApp() {
     const orderID = generateOrderID();
     const doorInfo = document.getElementById('door-no').value || "Not provided";
+    const total = cart.price * cart.qty;
     const adminPhone = "919652038360";
 
     // RESTORED STANDARD ORDERING TEMPLATE
@@ -180,11 +243,11 @@ function sendWhatsApp() {
     text += "🏪 *SVLS MART | PICKLE HAUS*%0A";
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += `🆔 *Order ID:* ${orderID}%0A`;
-    text += "🍗 *Chicken Pickle – Boneless*%0A";
-    text += "📦 *Quantity:* 1 Pack%0A";
-    text += "💵 *Price:* ₹200%0A";
+    text += `🍗 *${cart.name}*%0A`;
+    text += `📦 *Quantity:* ${cart.qty} Pack(s)%0A`;
+    text += `💵 *Price:* ₹${cart.price} x ${cart.qty} = ₹${total}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "💰 *TOTAL PAYABLE: ₹200*%0A";
+    text += `💰 *TOTAL PAYABLE: ₹${total}*%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "📍 *DELIVERY LOCATION:*%0A";
     text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
@@ -206,7 +269,6 @@ function sendWhatsApp() {
     }, 2000);
 }
 
-// Background animation
 function initBG() {
     const container = document.getElementById('bg-elements');
     const items = ['🌶️', '🔥', '🍗'];
