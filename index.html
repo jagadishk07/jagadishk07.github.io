@@ -5,17 +5,61 @@
 <title>SVLS Mart | Pickle Haus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 :root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+
+body { 
+    background: #fdf2f2; 
+    color: #1e293b; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 1st Modification: Highlight/Reveal Effect */
+.reveal {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.reveal.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 10px 15px rgba(185, 28, 28, 0.2));
+}
+
+/* 2nd Modification: Floating Background Theme */
+.bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+.floating-item {
+    position: absolute;
+    opacity: 0;
+    animation: float 12s linear infinite;
+}
+@keyframes float {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
 
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 .hero { margin-top: 100px; text-align: center; margin-bottom: 20px; }
-.hero img { width: 90px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: white; }
+.hero img { width: 90px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: white; transition: 0.5s; }
 
-.container { max-width: 400px; margin: auto; padding: 15px; flex: 1; }
+.container { max-width: 400px; margin: auto; padding: 15px; flex: 1; position: relative; z-index: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
 .stock-badge { background: var(--light-red); color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
 
@@ -45,6 +89,7 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 </head>
 <body>
 
+<div class="bg-elements" id="bg-elements"></div>
 <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <div class="topbar">
@@ -52,12 +97,12 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
   <h1 style="font-family:'Orbitron'; font-size:16px; margin-left:10px; color:var(--accent)">SVLS MART</h1>
 </div>
 
-<div class="hero">
+<div class="hero reveal">
   <img src="https://jagadishk07.github.io/notes/brand_logo.png">
 </div>
 
 <div class="container">
-  <div class="card">
+  <div class="card reveal">
     <img src="https://jagadishk07.github.io/notes/logo.png" style="width:100%">
     <div style="padding: 0 20px 20px 20px;">
       <div class="stock-badge">🔥 Only a few packs left!</div>
@@ -119,6 +164,34 @@ body { background: #fdf2f2; color: #1e293b; display: flex; flex-direction: colum
 </div>
 
 <script>
+// UI Enhancement: Floating Background Logic
+function initBackground() {
+    const container = document.getElementById('bg-elements');
+    const items = ['🍗', '🌶️', '🍋', '🔥', '🥡'];
+    for (let i = 0; i < 12; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-item';
+        span.innerText = items[Math.floor(Math.random() * items.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDelay = Math.random() * 12 + 's';
+        span.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        container.appendChild(span);
+    }
+}
+
+// UI Enhancement: Intersection Observer for Highlights
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+initBackground();
+
+// Core Business Logic
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 const adminPhone = "919652038360";
 let paymentMethod = "Pay on Delivery";
@@ -186,6 +259,14 @@ function generateOrderID() {
 }
 
 function sendWhatsApp() {
+    // Celebration Effect
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#b91c1c', '#ffffff', '#25d366']
+    });
+
     const orderID = generateOrderID();
     const total = cart.price * cart.qty;
     const doorInfo = document.getElementById('door-no').value || "None provided";
@@ -214,8 +295,9 @@ function sendWhatsApp() {
     text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
     text += "🍗 *We hope you love every bite!*%0A";
     
-
-    window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
+    setTimeout(() => {
+        window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
+    }, 1000);
 }
 </script>
 </body>
