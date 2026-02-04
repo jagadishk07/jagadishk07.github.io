@@ -5,14 +5,33 @@
 <title>SVLS Mart | DailyDoodh & Pickle Haus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/inst/confetti.browser.min.js"></script>
 
 <style>
 :root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; --blue: #0284c7; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
-/* Background Animation */
+/* ENHANCED: Blinking/Pulsing Marquee */
+.delivery-marquee {
+    background: #000;
+    color: #ffd700;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #ffd700;
+    animation: marquee-glow 2s infinite alternate;
+}
+
+@keyframes marquee-glow {
+    0% { color: #ffd700; text-shadow: 0 0 5px #ffd700; }
+    50% { color: #ffffff; text-shadow: 0 0 15px #ffffff; }
+    100% { color: #fbbf24; text-shadow: 0 0 5px #fbbf24; }
+}
+
+/* Original Styles Preserved */
 .bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .floating-item { position: absolute; opacity: 0; animation: float 12s linear infinite; }
 @keyframes float {
@@ -21,26 +40,43 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
-/* Navbar */
-.topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
+.topbar { position: fixed; top: 0; width: 100%; height: 80px; background: white; display: flex; flex-direction: column; justify-content: center; border-bottom: 3px solid var(--accent); z-index: 1000; }
+.topbar-content { display: flex; align-items: center; padding: 5px 20px; width: 100%; }
 
-/* Hero */
-.hero { margin-top: 100px; text-align: center; width: 100%; display: flex; justify-content: center; }
+.hero { margin-top: 110px; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; }
 .brand-logo-container { perspective: 1000px; }
 .brand-logo-container img { 
     width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--accent); 
     padding: 5px; background: white; transition: transform 0.1s ease-out; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
+.free-delivery-tag {
+    background: #fff;
+    border: 1px dashed var(--accent);
+    padding: 8px;
+    border-radius: 12px;
+    margin: 10px auto;
+    max-width: 300px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: pulse-small 1.5s infinite;
+}
+
+@keyframes pulse-small {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
 .stock-badge {
     display: inline-block; background: #fee2e2; color: var(--accent);
     padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
     margin-bottom: 10px; animation: pulse-red 2s infinite;
-}
-.coming-soon-badge {
-    display: inline-block; background: #e0f2fe; color: var(--blue);
-    padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
-    margin-bottom: 10px;
 }
 
 @keyframes pulse-red {
@@ -49,51 +85,23 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
 }
 
-.sparkle { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: sparkle-fly 0.8s ease-out forwards; }
-@keyframes sparkle-fly {
-    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-    100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2) rotate(360deg); opacity: 0; }
-}
-
 .container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
 .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; margin-bottom: 20px; }
 .card-img-container { perspective: 1000px; padding: 15px; cursor: pointer; }
 .card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out; }
 
-#qr-display {
-    display: none; margin: 15px 0; padding: 15px; border: 2px dashed #cbd5e1; border-radius: 20px;
-    background: #f8fafc; animation: slideDown 0.3s ease-out;
-}
-#qr-display img { width: 180px; height: 180px; border-radius: 10px; }
-
-@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Modals */
+/* Modal and Cart logic styles remain identical */
 .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
 .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; position: relative; }
 .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; color: var(--slate); cursor: pointer; font-weight: bold; }
-
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 15px; }
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
-.soon-btn { width: 100%; background: #e2e8f0; color: #64748b; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; margin-top: 10px; cursor: pointer; }
-
-.payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; }
-.payment-option.active { border-color: var(--accent); background: #fff1f2; }
-
-#thank-you-toast {
-    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: white; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    z-index: 3000; text-align: center; border: 2px solid var(--accent);
-}
-
-footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate); }
-#gps-status { font-size: 11px; font-weight: 700; margin-bottom: 6px; transition: all 0.3s; }
 </style>
 </head>
 <body>
 
-<div id="thank-you-toast">
+<div id="thank-you-toast" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 3000; text-align: center; border: 2px solid var(--accent);">
     <div style="font-size: 50px;">❤️</div>
     <h2 style="color:var(--accent); margin-top:10px;">Thank You!</h2>
     <p style="color:var(--slate); font-weight: 600;">Redirecting to WhatsApp...</p>
@@ -103,13 +111,21 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <div class="topbar">
-  <img src="https://jagadishk07.github.io/notes/brand_logo.png" height="40">
-  <h1 style="font-family:'Orbitron'; font-size:16px; margin-left:10px; color:var(--accent)">SVLS MART</h1>
+  <div class="delivery-marquee">
+    <marquee scrollamount="6">⚡ FREE DELIVERY ON ALL ORDERS ABOVE ₹500! ⚡ ORDER NOW FOR FRESH PICKLES & MILK ⚡</marquee>
+  </div>
+  <div class="topbar-content">
+    <img src="https://jagadishk07.github.io/notes/brand_logo.png" height="35">
+    <h1 style="font-family:'Orbitron'; font-size:16px; margin-left:10px; color:var(--accent)">SVLS MART</h1>
+  </div>
 </div>
 
 <div class="hero">
   <div class="brand-logo-container tilt-target">
     <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+  </div>
+  <div class="free-delivery-tag">
+    <span>🚚</span> <b>FREE DELIVERY</b> on Orders over ₹500
   </div>
 </div>
 
@@ -122,91 +138,113 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
       <div class="stock-badge">🔥 Only a few packs left!</div>
       <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle – Boneless</h3>
       <span style="display:block; font-size: 26px; font-weight: 800; color: var(--accent); margin: 10px 0;">₹200</span>
-      <button class="add-btn" onclick="addToCart()">Add to Cart 🛒</button>
+      <button class="add-btn" onclick="openCart('pickle')">Add to Cart 🛒</button>
     </div>
   </div>
 
-  <div class="card" style="border-color: #e0f2fe; opacity: 0.9;">
-    <div class="card-img-container tilt-target" onclick="showSoon()">
-        <img src="https://jagadishk07.github.io/notes/milk.png" style="background:#f0f9ff; filter: grayscale(0.5);">
+  <div class="card" style="border-color: #e0f2fe;">
+    <div class="card-img-container tilt-target">
+        <img src="https://jagadishk07.github.io/notes/puremilk.png">
     </div>
     <div style="padding: 0 20px 20px 20px;">
-      <div class="coming-soon-badge">✨ New Launching Soon</div>
-      <h3 style="font-size: 18px; font-weight: 700; color:#0369a1;">DailyDoodh</h3>
-      <p style="font-size: 12px; color: var(--slate); margin-bottom: 10px;">Fresh Farm Milk & Dairy Essentials</p>
-      <button class="soon-btn" onclick="showSoon()">Coming Soon 🥛</button>
+      <div class="stock-badge" style="background:#e0f2fe; color:var(--blue);">🥛 Fresh Farm Milk</div>
+      <h3 style="font-size: 18px; font-weight: 700; color:#0369a1;">DailyDoodh Pure Milk</h3>
+      <span style="display:block; font-size: 26px; font-weight: 800; color: var(--blue); margin: 10px 0;">₹40 <small style="font-size:12px;">(1/2 Litre)</small></span>
+      <button class="add-btn" style="background:var(--blue);" onclick="openCart('milk')">Add to Cart 🥛</button>
     </div>
   </div>
 </div>
-
-<footer>
-    <p style="font-size: 13px; font-weight: 600;">© 2026 SVLS Mart. All rights reserved.</p>
-    <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
-</footer>
 
 <div id="cart-modal" class="modal-overlay">
   <div class="modal-content">
-    <span class="close-modal" onclick="closeCart()">&times;</span>
-    <h3 style="color:var(--accent); margin-bottom: 10px;">Confirm Order</h3>
+    <span class="close-modal" onclick="closeCart()">×</span>
+    <h3 id="modal-product-name" style="color:var(--accent); margin-bottom: 10px;">Confirm Order</h3>
+    <div id="milk-variant-section" style="display:none;">
+        <div class="variant-selector" style="display:flex; gap:10px; margin-bottom:15px;">
+            <div id="v-half" class="variant-option active" onclick="setMilkVariant(40, '1/2 Litre')" style="border:1px solid #ddd; padding:10px; flex:1; border-radius:10px; cursor:pointer;">1/2 L<br>₹40</div>
+            <div id="v-full" class="variant-option" onclick="setMilkVariant(75, '1 Litre')" style="border:1px solid #ddd; padding:10px; flex:1; border-radius:10px; cursor:pointer;">1 L<br>₹75</div>
+        </div>
+    </div>
     <div class="qty-box">
-        <button onclick="changeQty(-1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">-</button>
-        <span id="modal-qty" style="font-weight:800; font-size:20px;">1</span>
-        <button onclick="changeQty(1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">+</button>
+        <button onclick="changeQty(-1)">-</button>
+        <span id="modal-qty">1</span>
+        <button onclick="changeQty(1)">+</button>
     </div>
-    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 10px 0;">Total: ₹<span id="cart-total">200</span></div>
-    <div id="gps-status" style="color: #64748b;">📡 Requesting GPS Access...</div>
-    <input type="text" id="door-no" style="width:100%; padding:12px; border-radius:12px; border:1px solid #cbd5e1; margin-bottom:15px;" placeholder="House No / Landmark">
-    <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
-        <input type="radio" checked id="radio-pod"> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
-    </div>
-    <div class="payment-option" id="opt-qr" onclick="setPayment('qr')">
-        <input type="radio" id="radio-qr"> <span style="margin-left:10px; font-weight:600;">Online / QR Code</span>
-    </div>
-    <div id="qr-display">
-        <p style="font-size: 11px; margin-bottom: 5px;">Scan to Pay & Share Screenshot</p>
-        <img src="https://jagadishk07.github.io/notes/scan.jpg" alt="Payment QR">
-    </div>
-    <button class="wa-btn" onclick="sendWhatsApp()">Confirm on WhatsApp 📲</button>
-  </div>
-</div>
-
-<div id="soon-modal" class="modal-overlay">
-  <div class="modal-content">
-    <span class="close-modal" onclick="closeSoon()">&times;</span>
-    <div style="font-size: 60px;">🥛</div>
-    <h2 style="color:var(--blue); margin: 15px 0 10px 0;">DailyDoodh</h2>
-    <p style="color:var(--slate); line-height: 1.6;">We are currently setting up our dairy supply chain to bring you fresh, pure farm milk every morning!</p>
-    <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 15px; border: 1px dashed var(--blue);">
-        <p style="font-weight: 700; color: var(--blue);">Launching this Month!</p>
-    </div>
-    <button class="add-btn" style="background:var(--blue); margin-top:20px;" onclick="closeSoon()">Notify Me Soon</button>
+    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 10px 0;">Total: ₹<span id="cart-total">0</span></div>
+    <input type="text" id="door-no" style="width:100%; padding:12px; border-radius:12px; border:1px solid #cbd5e1; margin-bottom:15px;" placeholder="Address Details">
+    <button class="wa-btn" onclick="sendWhatsApp()">Confirm Order 📲</button>
   </div>
 </div>
 
 <script>
-let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
-let paymentMethod = "Pay on Delivery";
+let currentOrder = { name: "", price: 0, qty: 1, variant: "" };
 let mapsLink = "Not Captured";
 
-window.onload = function() {
-    initBG();
-    const statusDiv = document.getElementById('gps-status');
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (p) => {
-                mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-                statusDiv.innerHTML = "✅ Location Captured Successfully";
-                statusDiv.style.color = "#16a34a";
-            },
-            (err) => {
-                statusDiv.innerHTML = "❌ Location Denied. Type address below.";
-                statusDiv.style.color = "#dc2626";
-                mapsLink = "User Denied Location Access";
-            },
-            { enableHighAccuracy: true, timeout: 8000 }
-        );
+function openCart(type) {
+    document.getElementById('popSound').play();
+    document.getElementById('cart-modal').style.display = 'flex';
+    currentOrder.qty = 1;
+    document.getElementById('modal-qty').innerText = "1";
+
+    if(type === 'pickle') {
+        currentOrder.name = "Chicken Pickle – Boneless";
+        currentOrder.price = 200;
+        currentOrder.variant = "Standard";
+        document.getElementById('milk-variant-section').style.display = 'none';
+    } else {
+        currentOrder.name = "DailyDoodh Pure Milk";
+        currentOrder.price = 40;
+        currentOrder.variant = "1/2 Litre";
+        document.getElementById('milk-variant-section').style.display = 'block';
     }
-};
+    updateDisplay();
+}
+
+function setMilkVariant(price, label) {
+    currentOrder.price = price;
+    currentOrder.variant = label;
+    document.getElementById('v-half').style.borderColor = price === 40 ? '#0284c7' : '#ddd';
+    document.getElementById('v-full').style.borderColor = price === 75 ? '#0284c7' : '#ddd';
+    updateDisplay();
+}
+
+function changeQty(n) {
+    currentOrder.qty = Math.max(1, currentOrder.qty + n);
+    document.getElementById('modal-qty').innerText = currentOrder.qty;
+    updateDisplay();
+}
+
+function updateDisplay() {
+    document.getElementById('cart-total').innerText = currentOrder.price * currentOrder.qty;
+}
+
+function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+
+function sendWhatsApp() {
+    const doorInfo = document.getElementById('door-no').value || "Not provided";
+    const total = currentOrder.price * currentOrder.qty;
+    const adminPhone = "919652038360";
+
+    let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
+    text += "🏪 *SVLS MART*%0A";
+    text += "━━━━━━━━━━━━━━━━━━%0A";
+    text += `📦 *Item:* ${currentOrder.name}%0A`;
+    text += `⚖️ *Variant:* ${currentOrder.variant}%0A`;
+    text += `🔢 *Quantity:* ${currentOrder.qty}%0A`;
+    text += `💵 *Total:* ₹${total}%0A`;
+    text += "━━━━━━━━━━━━━━━━━━%0A";
+    text += `🏠 *Address:* ${doorInfo}%0A`;
+    text += `🗺️ *GPS:* ${mapsLink}%0A`;
+
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    document.getElementById('cart-modal').style.display = 'none';
+    document.getElementById('thank-you-toast').style.display = 'block';
+
+    setTimeout(() => {
+        window.open(`https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`, '_blank');
+        location.reload();
+    }, 2000);
+}
 
 // 3D Tilt Logic
 const tilts = document.querySelectorAll('.tilt-target');
@@ -224,76 +262,14 @@ tilts.forEach(t => {
     });
 });
 
-function addToCart() {
-    document.getElementById('popSound').play();
-    document.getElementById('cart-modal').style.display = 'flex';
-}
-function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
-
-function showSoon() {
-    document.getElementById('soon-modal').style.display = 'flex';
-}
-function closeSoon() { document.getElementById('soon-modal').style.display = 'none'; }
-
-function changeQty(n) {
-    cart.qty = Math.max(1, cart.qty + n);
-    document.getElementById('modal-qty').innerText = cart.qty;
-    document.getElementById('cart-total').innerText = cart.price * cart.qty;
-}
-
-function setPayment(t) {
-    const qrDiv = document.getElementById('qr-display');
-    if(t === 'qr') {
-        paymentMethod = "Paid Online (QR Code)";
-        qrDiv.style.display = 'block';
-    } else {
-        paymentMethod = "Pay on Delivery";
-        qrDiv.style.display = 'none';
+window.onload = function() {
+    initBG();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((p) => {
+            mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+        });
     }
-    document.getElementById('opt-pod').classList.toggle('active', t === 'pod');
-    document.getElementById('opt-qr').classList.toggle('active', t === 'qr');
-    document.getElementById('radio-pod').checked = (t === 'pod');
-    document.getElementById('radio-qr').checked = (t === 'qr');
-}
-
-function generateOrderID() {
-    const now = new Date();
-    return `${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.floor(Math.random()*900)+100}`;
-}
-
-function sendWhatsApp() {
-    const orderID = generateOrderID();
-    const doorInfo = document.getElementById('door-no').value || "Not provided";
-    const total = cart.price * cart.qty;
-    const adminPhone = "919652038360";
-
-    let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
-    text += "🏪 *SVLS MART | PICKLE HAUS*%0A";
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += `🆔 *Order ID:* ${orderID}%0A`;
-    text += `🍗 *${cart.name}*%0A`;
-    text += `📦 *Quantity:* ${cart.qty} Pack(s)%0A`;
-    text += `💵 *Price:* ₹${cart.price} x ${cart.qty} = ₹${total}%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += `💰 *TOTAL PAYABLE: ₹${total}*%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "📍 *DELIVERY LOCATION:*%0A";
-    text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
-    text += `🗺️ *GPS Link:* ${mapsLink}%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += `💳 *Method:* ${paymentMethod}%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
-
-    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-    document.getElementById('cart-modal').style.display = 'none';
-    document.getElementById('thank-you-toast').style.display = 'block';
-
-    setTimeout(() => {
-        window.open(`https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`, '_blank');
-        location.reload();
-    }, 2000);
-}
+};
 
 function initBG() {
     const container = document.getElementById('bg-elements');
