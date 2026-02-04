@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SVLS Mart | Pickle Haus</title>
+<title>SVLS Mart | DailyDoodh & Pickle Haus</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-:root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; }
+:root { --accent: #b91c1c; --wa: #25d366; --slate: #475569; --light-red: #fef2f2; --blue: #0284c7; }
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
 body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
@@ -24,7 +24,7 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 /* Navbar */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 
-/* 3D Target Styling */
+/* Hero */
 .hero { margin-top: 100px; text-align: center; width: 100%; display: flex; justify-content: center; }
 .brand-logo-container { perspective: 1000px; }
 .brand-logo-container img { 
@@ -37,6 +37,12 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
     padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
     margin-bottom: 10px; animation: pulse-red 2s infinite;
 }
+.coming-soon-badge {
+    display: inline-block; background: #e0f2fe; color: var(--blue);
+    padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    margin-bottom: 10px;
+}
+
 @keyframes pulse-red {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.4); }
     70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(185, 28, 28, 0); }
@@ -50,7 +56,7 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 }
 
 .container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
-.card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
+.card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; margin-bottom: 20px; }
 .card-img-container { perspective: 1000px; padding: 15px; cursor: pointer; }
 .card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out; }
 
@@ -62,11 +68,14 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-#cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
-.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
+/* Modals */
+.modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
+.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; position: relative; }
+.close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; color: var(--slate); cursor: pointer; font-weight: bold; }
 
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f8fafc; padding: 10px; border-radius: 15px; }
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
+.soon-btn { width: 100%; background: #e2e8f0; color: #64748b; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; margin-top: 10px; cursor: pointer; }
 
 .payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; }
@@ -79,8 +88,6 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 }
 
 footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate); }
-
-/* Status styling for GPS */
 #gps-status { font-size: 11px; font-weight: 700; margin-bottom: 6px; transition: all 0.3s; }
 </style>
 </head>
@@ -118,6 +125,18 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
       <button class="add-btn" onclick="addToCart()">Add to Cart 🛒</button>
     </div>
   </div>
+
+  <div class="card" style="border-color: #e0f2fe; opacity: 0.9;">
+    <div class="card-img-container tilt-target" onclick="showSoon()">
+        <img src="https://img.icons8.com/clouds/200/milk-bottle.png" style="background:#f0f9ff; filter: grayscale(0.5);">
+    </div>
+    <div style="padding: 0 20px 20px 20px;">
+      <div class="coming-soon-badge">✨ New Launching Soon</div>
+      <h3 style="font-size: 18px; font-weight: 700; color:#0369a1;">DailyDoodh</h3>
+      <p style="font-size: 12px; color: var(--slate); margin-bottom: 10px;">Fresh Farm Milk & Dairy Essentials</p>
+      <button class="soon-btn" onclick="showSoon()">Coming Soon 🥛</button>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -125,65 +144,67 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
     <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
 </footer>
 
-<div id="cart-modal">
+<div id="cart-modal" class="modal-overlay">
   <div class="modal-content">
+    <span class="close-modal" onclick="closeCart()">&times;</span>
     <h3 style="color:var(--accent); margin-bottom: 10px;">Confirm Order</h3>
-    
     <div class="qty-box">
         <button onclick="changeQty(-1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">-</button>
         <span id="modal-qty" style="font-weight:800; font-size:20px;">1</span>
         <button onclick="changeQty(1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">+</button>
     </div>
-
     <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 10px 0;">Total: ₹<span id="cart-total">200</span></div>
-    
     <div id="gps-status" style="color: #64748b;">📡 Requesting GPS Access...</div>
     <input type="text" id="door-no" style="width:100%; padding:12px; border-radius:12px; border:1px solid #cbd5e1; margin-bottom:15px;" placeholder="House No / Landmark">
-    
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
         <input type="radio" checked id="radio-pod"> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
     </div>
     <div class="payment-option" id="opt-qr" onclick="setPayment('qr')">
         <input type="radio" id="radio-qr"> <span style="margin-left:10px; font-weight:600;">Online / QR Code</span>
     </div>
-
     <div id="qr-display">
         <p style="font-size: 11px; margin-bottom: 5px;">Scan to Pay & Share Screenshot</p>
         <img src="https://jagadishk07.github.io/notes/scan.jpg" alt="Payment QR">
     </div>
-
     <button class="wa-btn" onclick="sendWhatsApp()">Confirm on WhatsApp 📲</button>
-    <p onclick="closeCart()" style="margin-top:15px; font-size:12px; color:var(--slate); cursor:pointer;">Go Back</p>
+  </div>
+</div>
+
+<div id="soon-modal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeSoon()">&times;</span>
+    <div style="font-size: 60px;">🥛</div>
+    <h2 style="color:var(--blue); margin: 15px 0 10px 0;">DailyDoodh</h2>
+    <p style="color:var(--slate); line-height: 1.6;">We are currently setting up our dairy supply chain to bring you fresh, pure farm milk every morning!</p>
+    <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 15px; border: 1px dashed var(--blue);">
+        <p style="font-weight: 700; color: var(--blue);">Launching this Month!</p>
+    </div>
+    <button class="add-btn" style="background:var(--blue); margin-top:20px;" onclick="closeSoon()">Notify Me Soon</button>
   </div>
 </div>
 
 <script>
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 let paymentMethod = "Pay on Delivery";
-let mapsLink = "Not Captured (Please check permissions)";
+let mapsLink = "Not Captured";
 
-// Start GPS on Load
 window.onload = function() {
     initBG();
     const statusDiv = document.getElementById('gps-status');
-    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (p) => {
                 mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
                 statusDiv.innerHTML = "✅ Location Captured Successfully";
-                statusDiv.style.color = "#16a34a"; // Green
+                statusDiv.style.color = "#16a34a";
             },
             (err) => {
                 statusDiv.innerHTML = "❌ Location Denied. Type address below.";
-                statusDiv.style.color = "#dc2626"; // Red
+                statusDiv.style.color = "#dc2626";
                 mapsLink = "User Denied Location Access";
             },
             { enableHighAccuracy: true, timeout: 8000 }
         );
-    } else {
-        statusDiv.innerHTML = "❌ Browser doesn't support GPS";
-        statusDiv.style.color = "#dc2626";
     }
 };
 
@@ -203,34 +224,22 @@ tilts.forEach(t => {
     });
 });
 
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.tilt-target')) {
-        const spices = ['🌶️', '🔥', '✨'];
-        for (let i = 0; i < 8; i++) {
-            const s = document.createElement('div');
-            s.className = 'sparkle';
-            s.innerHTML = spices[Math.floor(Math.random() * spices.length)];
-            s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px';
-            s.style.setProperty('--tx', (Math.random() - 0.5) * 150 + 'px');
-            s.style.setProperty('--ty', (Math.random() - 0.5) * 150 + 'px');
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 800);
-        }
-    }
-});
-
 function addToCart() {
     document.getElementById('popSound').play();
     document.getElementById('cart-modal').style.display = 'flex';
 }
+function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+
+function showSoon() {
+    document.getElementById('soon-modal').style.display = 'flex';
+}
+function closeSoon() { document.getElementById('soon-modal').style.display = 'none'; }
 
 function changeQty(n) {
     cart.qty = Math.max(1, cart.qty + n);
     document.getElementById('modal-qty').innerText = cart.qty;
     document.getElementById('cart-total').innerText = cart.price * cart.qty;
 }
-
-function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
 
 function setPayment(t) {
     const qrDiv = document.getElementById('qr-display');
@@ -272,12 +281,9 @@ function sendWhatsApp() {
     text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
     text += `🗺️ *GPS Link:* ${mapsLink}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "⏰ *Expected within 15-20 mins*%0A";
     text += `💳 *Method:* ${paymentMethod}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
-    text += "😋 *We hope you love every bite!*%0A%0A";
 
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     document.getElementById('cart-modal').style.display = 'none';
@@ -291,7 +297,7 @@ function sendWhatsApp() {
 
 function initBG() {
     const container = document.getElementById('bg-elements');
-    const items = ['🌶️', '🔥', '🍗'];
+    const items = ['🌶️', '🔥', '🍗', '🥛', '🍼'];
     for (let i = 0; i < 12; i++) {
         const span = document.createElement('span');
         span.className = 'floating-item';
