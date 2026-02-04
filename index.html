@@ -43,7 +43,6 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(185, 28, 28, 0); }
 }
 
-/* Sparkles */
 .sparkle { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: sparkle-fly 0.8s ease-out forwards; }
 @keyframes sparkle-fly {
     0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
@@ -55,7 +54,6 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 .card-img-container { perspective: 1000px; padding: 15px; cursor: pointer; }
 .card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out; }
 
-/* QR Code Section */
 #qr-display {
     display: none; margin: 15px 0; padding: 15px; border: 2px dashed #cbd5e1; border-radius: 20px;
     background: #f8fafc; animation: slideDown 0.3s ease-out;
@@ -64,7 +62,6 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Modals */
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
 .modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
 
@@ -82,6 +79,9 @@ body { background: #fdf2f2; color: #1e293b; overflow-x: hidden; }
 }
 
 footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate); }
+
+/* Status styling for GPS */
+#gps-status { font-size: 11px; font-weight: 700; margin-bottom: 6px; transition: all 0.3s; }
 </style>
 </head>
 <body>
@@ -127,7 +127,7 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 
 <div id="cart-modal">
   <div class="modal-content">
-    <h3 style="color:var(--accent)">Confirm Order</h3>
+    <h3 style="color:var(--accent); margin-bottom: 10px;">Confirm Order</h3>
     
     <div class="qty-box">
         <button onclick="changeQty(-1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">-</button>
@@ -135,8 +135,9 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
         <button onclick="changeQty(1)" style="border:none; width:40px; height:40px; background:white; font-weight:bold; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1);">+</button>
     </div>
 
-    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 15px 0;">Total: ₹<span id="cart-total">200</span></div>
+    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin: 10px 0;">Total: ₹<span id="cart-total">200</span></div>
     
+    <div id="gps-status" style="color: #64748b;">📡 Requesting GPS Access...</div>
     <input type="text" id="door-no" style="width:100%; padding:12px; border-radius:12px; border:1px solid #cbd5e1; margin-bottom:15px;" placeholder="House No / Landmark">
     
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
@@ -159,24 +160,30 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 <script>
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 let paymentMethod = "Pay on Delivery";
-let mapsLink = "Fetching location..."; // Default state
+let mapsLink = "Not Captured (Please check permissions)";
 
-// Start fetching location as soon as page loads
+// Start GPS on Load
 window.onload = function() {
     initBG();
+    const statusDiv = document.getElementById('gps-status');
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (p) => {
                 mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+                statusDiv.innerHTML = "✅ Location Captured Successfully";
+                statusDiv.style.color = "#16a34a"; // Green
             },
             (err) => {
-                mapsLink = "Location Permission Denied";
-                console.warn("Location error:", err.message);
+                statusDiv.innerHTML = "❌ Location Denied. Type address below.";
+                statusDiv.style.color = "#dc2626"; // Red
+                mapsLink = "User Denied Location Access";
             },
-            { enableHighAccuracy: true, timeout: 5000 }
+            { enableHighAccuracy: true, timeout: 8000 }
         );
     } else {
-        mapsLink = "Geolocation not supported";
+        statusDiv.innerHTML = "❌ Browser doesn't support GPS";
+        statusDiv.style.color = "#dc2626";
     }
 };
 
@@ -196,7 +203,6 @@ tilts.forEach(t => {
     });
 });
 
-// Sparkle Effect on Click
 document.addEventListener('click', (e) => {
     if (e.target.closest('.tilt-target')) {
         const spices = ['🌶️', '🔥', '✨'];
