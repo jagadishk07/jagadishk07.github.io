@@ -14,40 +14,13 @@
 body { 
     background: #fdf2f2; 
     color: #1e293b; 
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh; 
     overflow-x: hidden;
-    position: relative;
+    perspective: 1000px;
 }
 
-/* 1st Modification: Highlight/Reveal Effect */
-.reveal {
-    opacity: 0;
-    transform: scale(0.9) translateY(30px);
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.reveal.active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: drop-shadow(0 10px 15px rgba(185, 28, 28, 0.2));
-}
-
-/* 2nd Modification: Floating Background Theme */
-.bg-elements {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-.floating-item {
-    position: absolute;
-    opacity: 0;
-    animation: float 12s linear infinite;
-}
+/* Floating Background */
+.bg-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.floating-item { position: absolute; opacity: 0; animation: float 12s linear infinite; }
 @keyframes float {
     0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.15; }
@@ -55,36 +28,74 @@ body {
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
+/* Topbar */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
-.hero { margin-top: 100px; text-align: center; margin-bottom: 20px; }
-.hero img { width: 90px; border-radius: 50%; border: 3px solid var(--accent); padding: 5px; background: white; transition: 0.5s; }
 
-.container { max-width: 400px; margin: auto; padding: 15px; flex: 1; position: relative; z-index: 1; }
-.card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
+/* 3D LOGO & IMAGE EFFECTS */
+.hero { margin-top: 100px; text-align: center; margin-bottom: 20px; transition: transform 0.1s; }
+.hero img { 
+    width: 90px; 
+    border-radius: 50%; 
+    border: 3px solid var(--accent); 
+    padding: 5px; 
+    background: white; 
+    transition: box-shadow 0.3s ease, transform 0.2s ease-out;
+    cursor: pointer;
+}
+
+/* The Magnetic Glow & 3D Tilt for Product */
+.card-img-container {
+    perspective: 1000px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 15px;
+    transition: transform 0.1s ease-out, filter 0.3s ease;
+    will-change: transform;
+}
+
+.card:hover img {
+    filter: saturate(1.3) drop-shadow(0 0 25px rgba(185, 28, 28, 0.4));
+}
+
+.container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
+.card { 
+    background: white; 
+    border-radius: 25px; 
+    overflow: hidden; 
+    box-shadow: 0 15px 35px rgba(185,28,28,0.1); 
+    border: 1px solid #fee2e2; 
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Sparkle Style */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 20px;
+    z-index: 9999;
+    animation: sparkle-fly 0.8s ease-out forwards;
+}
+@keyframes sparkle-fly {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+/* Modals & UI Elements */
+#cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
+.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; position: relative; }
 .stock-badge { background: var(--light-red); color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
-
-#cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(5px); }
-.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; max-height: 90vh; overflow-y: auto; }
-
-.method-label { font-size: 11px; font-weight: 700; color: var(--slate); text-align: left; margin: 15px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-.payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; transition: 0.2s; }
-.payment-option.active { border-color: var(--accent); background: #fff1f2; }
-.payment-option input { margin-right: 12px; transform: scale(1.2); }
-
-.location-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px; margin-bottom: 10px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; font-size: 14px; outline: none; transition: 0.3s; }
-.address-input:focus { border-color: var(--accent); }
-
-.qr-box { display: none; padding: 15px; background: #f8fafc; border-radius: 15px; border: 2px dashed #cbd5e1; margin-bottom: 15px; }
-.qr-box img { width: 150px; border-radius: 10px; border: 3px solid white; }
-
-.add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; }
-.wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; animation: pulse 2s infinite; cursor: pointer; }
-
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
+.add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
+.wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; cursor: pointer; }
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-.qty-btn { width: 35px; height: 35px; border: none; border-radius: 10px; background: white; font-weight: bold; cursor: pointer; color: var(--accent); font-size: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; }
+.method-label { font-size: 11px; font-weight: 700; color: var(--slate); text-align: left; margin: 10px 0; text-transform: uppercase; }
+.payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; }
+.payment-option.active { border-color: var(--accent); background: #fff1f2; }
 </style>
 </head>
 <body>
@@ -97,15 +108,17 @@ body {
   <h1 style="font-family:'Orbitron'; font-size:16px; margin-left:10px; color:var(--accent)">SVLS MART</h1>
 </div>
 
-<div class="hero reveal">
-  <img src="https://jagadishk07.github.io/notes/brand_logo.png">
+<div class="hero" id="hero-area">
+  <img src="https://jagadishk07.github.io/notes/brand_logo.png" id="brand-logo" class="tilt-target">
 </div>
 
 <div class="container">
-  <div class="card reveal">
-    <img src="https://jagadishk07.github.io/notes/logo.png" style="width:100%">
+  <div class="card">
+    <div class="card-img-container tilt-target" id="product-area">
+        <img src="https://jagadishk07.github.io/notes/logo.png" id="main-product-img">
+    </div>
     <div style="padding: 0 20px 20px 20px;">
-      <div class="stock-badge">🔥 Only a few packs left!</div>
+      <div class="stock-badge">🌶️ Authentic Homemade Spice</div>
       <h3 style="font-size: 18px; font-weight: 700;">Chicken Pickle – Boneless</h3>
       <span style="display:block; font-size: 26px; font-weight: 800; color: var(--accent); margin: 10px 0;">₹200</span>
       <button class="add-btn" onclick="addToCart('Chicken Pickle – Boneless', 200)">Add to Cart 🛒</button>
@@ -113,162 +126,119 @@ body {
   </div>
 </div>
 
-<footer style="margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--slate);">
-    <p style="font-size: 13px; font-weight: 600;">© 2026 SVLS Mart. All rights reserved.</p>
-    <p style="font-size: 11px; margin-top: 8px; opacity: 0.8; letter-spacing: 1px;">Made with ❤️ by MANG</p>
-</footer>
-
 <div id="cart-modal">
   <div class="modal-content">
-    <h3 style="color:var(--accent); font-size: 20px; font-weight: 700;">Confirm Order</h3>
-    
+    <h3 style="color:var(--accent); font-weight: 700;">Confirm Order</h3>
     <div class="qty-box">
-        <button class="qty-btn" onclick="changeQty(-1)">-</button>
-        <span id="modal-qty" style="font-size:18px; font-weight:800;">1</span>
-        <button class="qty-btn" onclick="changeQty(1)">+</button>
+        <button style="border:none; padding:10px; background:white; border-radius:8px;" onclick="changeQty(-1)">-</button>
+        <span id="modal-qty" style="font-weight:800;">1</span>
+        <button style="border:none; padding:10px; background:white; border-radius:8px;" onclick="changeQty(1)">+</button>
     </div>
-
-    <div style="font-size: 24px; font-weight: 800; color: var(--accent);">Total: ₹<span id="cart-total">200</span></div>
-
-    <div class="method-label">1. Delivery Details:</div>
-    <div class="location-box" id="location-box">
-        <span id="loc-icon">📍</span> <span id="loc-text">Requesting GPS...</span>
-    </div>
-    <input type="text" id="door-no" class="address-input" placeholder="House No / Landmark (Optional)">
-
-    <div class="method-label">2. Payment Method:</div>
+    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom:15px;">Total: ₹<span id="cart-total">200</span></div>
+    
+    <input type="text" id="door-no" class="address-input" placeholder="House No / Landmark">
+    
+    <div class="method-label">Payment</div>
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
-        <input type="radio" name="payGroup" checked>
-        <div>
-            <div style="font-weight: 700; font-size: 14px;">Pay on Delivery</div>
-            <div style="font-size: 11px; color: var(--slate);">Cash or UPI at doorstep</div>
-        </div>
+        <input type="radio" checked> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
     </div>
-
     <div class="payment-option" id="opt-qr" onclick="setPayment('qr')">
-        <input type="radio" name="payGroup">
-        <div>
-            <div style="font-weight: 700; font-size: 14px;">Pay via QR Scanner</div>
-            <div style="font-size: 11px; color: var(--slate);">Instant online payment</div>
-        </div>
-    </div>
-
-    <div class="qr-box" id="qrContainer">
-        <img src="https://jagadishk07.github.io/notes/scan.jpg">
-        <p style="font-size:11px; margin-top:5px; color:var(--slate);">Scan and pay before confirming</p>
+        <input type="radio"> <span style="margin-left:10px; font-weight:600;">Online / QR Code</span>
     </div>
 
     <button class="wa-btn" onclick="sendWhatsApp()">Confirm on WhatsApp 📲</button>
-    <p onclick="closeCart()" style="margin-top:20px; font-size:13px; color:var(--slate); cursor:pointer;">Cancel</p>
+    <p onclick="closeCart()" style="margin-top:15px; font-size:12px; color:var(--slate); cursor:pointer;">Go Back</p>
   </div>
 </div>
 
 <script>
-// UI Enhancement: Floating Background Logic
-function initBackground() {
+// --- 1. THE SPARKLE EFFECT (BURST SPICES) ---
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.tilt-target')) {
+        const spices = ['🌶️', '🔥', '✨'];
+        for (let i = 0; i < 8; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = spices[Math.floor(Math.random() * spices.length)];
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            sparkle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+            sparkle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        }
+    }
+});
+
+// --- 2. 3D TILT & MAGNETIC EFFECT ---
+const tiltTargets = document.querySelectorAll('.tilt-target');
+
+tiltTargets.forEach(target => {
+    target.addEventListener('mousemove', (e) => {
+        const rect = target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Calculate tilt
+        const rotateX = ((y - centerY) / centerY) * -15; // Max 15 deg
+        const rotateY = ((x - centerX) / centerX) * 15;
+        
+        const img = target.querySelector('img');
+        img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    target.addEventListener('mouseleave', () => {
+        const img = target.querySelector('img');
+        img.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+    });
+});
+
+// --- 3. BACKGROUND & CORE LOGIC ---
+function initBG() {
     const container = document.getElementById('bg-elements');
-    const items = ['🍗', '🌶️', '🍋', '🔥', '🥡'];
+    const items = ['🍗', '🌶️', '🔥'];
     for (let i = 0; i < 12; i++) {
         const span = document.createElement('span');
         span.className = 'floating-item';
         span.innerText = items[Math.floor(Math.random() * items.length)];
         span.style.left = Math.random() * 100 + 'vw';
-        span.style.animationDelay = Math.random() * 12 + 's';
-        span.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        span.style.animationDelay = Math.random() * 10 + 's';
         container.appendChild(span);
     }
 }
+initBG();
 
-// UI Enhancement: Intersection Observer for Highlights
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-initBackground();
-
-// Core Business Logic
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 const adminPhone = "919652038360";
 let paymentMethod = "Pay on Delivery";
-let mapsLink = "Not Shared (Customer denied access)";
-
-function getLocation() {
-    const locText = document.getElementById('loc-text');
-    const locIcon = document.getElementById('loc-icon');
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                locText.innerText = "GPS Captured!";
-                locText.style.color = "#16a34a";
-                locIcon.innerText = "✅";
-            },
-            (error) => {
-                locText.innerText = "GPS access denied.";
-                locText.style.color = "#b91c1c";
-                locIcon.innerText = "⚠️";
-            }
-        );
-    }
-}
+let mapsLink = "Location not shared";
 
 function addToCart(name, price) {
     document.getElementById('popSound').play();
-    cart.qty = 1; 
-    updateUI();
     document.getElementById('cart-modal').style.display = 'flex';
-    getLocation();
 }
 
 function changeQty(amt) {
-    cart.qty += amt;
-    if(cart.qty < 1) cart.qty = 1;
-    updateUI();
-}
-
-function updateUI() {
+    cart.qty = Math.max(1, cart.qty + amt);
     document.getElementById('modal-qty').innerText = cart.qty;
     document.getElementById('cart-total').innerText = cart.price * cart.qty;
 }
 
 function setPayment(type) {
-    const qrBox = document.getElementById('qrContainer');
-    document.getElementById('opt-pod').classList.toggle('active', type==='pod');
-    document.getElementById('opt-qr').classList.toggle('active', type==='qr');
-    qrBox.style.display = (type === 'qr') ? 'block' : 'none';
-    paymentMethod = (type === 'qr') ? "Paid via QR" : "Pay on Delivery";
+    paymentMethod = type === 'qr' ? "Paid via QR" : "Pay on Delivery";
+    document.getElementById('opt-pod').classList.toggle('active', type === 'pod');
+    document.getElementById('opt-qr').classList.toggle('active', type === 'qr');
 }
 
 function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
 
-function generateOrderID() {
-    const now = new Date();
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    let count = parseInt(localStorage.getItem('svls_ord_count') || 0) + 1;
-    localStorage.setItem('svls_ord_count', count);
-    const randomStr = Math.random().toString(36).substring(2, 4).toUpperCase();
-    return `${mm}${dd}-${String(count).padStart(3, '0')}-${randomStr}`;
-}
-
 function sendWhatsApp() {
-    // Celebration Effect
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#b91c1c', '#ffffff', '#25d366']
-    });
-
-    const orderID = generateOrderID();
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#b91c1c', '#25d366'] });
+    
     const total = cart.price * cart.qty;
+    const orderID = "ORD-" + Math.random().toString(36).substr(2, 5).toUpperCase();
     const doorInfo = document.getElementById('door-no').value || "None provided";
 
     let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
@@ -283,18 +253,13 @@ function sendWhatsApp() {
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "📍 *DELIVERY LOCATION:*%0A";
     text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
-    text += `🗺️ *GPS Link:* ${mapsLink}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "⏰ *Expected within 15-20 mins*%0A";
     text += `💳 *Method:* ${paymentMethod}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
-    text += "📞 *SUPPORT:*%0A";
-    text += `📲 *WhatsApp/Call:* ${adminPhone}%0A`;
-    text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
-    text += "🍗 *We hope you love every bite!*%0A";
-    
+
     setTimeout(() => {
         window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
     }, 1000);
