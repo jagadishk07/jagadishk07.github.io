@@ -31,68 +31,64 @@ body {
 /* Topbar */
 .topbar { position: fixed; top: 0; width: 100%; height: 70px; background: white; display: flex; align-items: center; padding: 0 20px; border-bottom: 3px solid var(--accent); z-index: 1000; }
 
-/* 3D LOGO & IMAGE EFFECTS */
-.hero { margin-top: 100px; text-align: center; margin-bottom: 20px; transition: transform 0.1s; }
+/* Issue 1 Fix: Responsive Brand Logo */
+.hero { 
+    margin-top: 100px; 
+    text-align: center; 
+    margin-bottom: 20px; 
+    padding: 0 15px;
+}
 .hero img { 
-    width: 90px; 
+    width: 25%; /* Desktop size */
+    min-width: 80px; /* Mobile minimum */
+    max-width: 120px; /* Desktop maximum */
+    aspect-ratio: 1/1;
     border-radius: 50%; 
     border: 3px solid var(--accent); 
     padding: 5px; 
     background: white; 
     transition: box-shadow 0.3s ease, transform 0.2s ease-out;
     cursor: pointer;
+    object-fit: contain;
 }
 
-/* The Magnetic Glow & 3D Tilt for Product */
-.card-img-container {
-    perspective: 1000px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.card img {
-    width: 100%;
-    border-radius: 15px;
-    transition: transform 0.1s ease-out, filter 0.3s ease;
-    will-change: transform;
-}
-
-.card:hover img {
-    filter: saturate(1.3) drop-shadow(0 0 25px rgba(185, 28, 28, 0.4));
-}
+/* 3D LOGO & IMAGE EFFECTS */
+.card-img-container { perspective: 1000px; padding: 10px; cursor: pointer; }
+.card img { width: 100%; border-radius: 15px; transition: transform 0.1s ease-out, filter 0.3s ease; will-change: transform; }
+.card:hover img { filter: saturate(1.3) drop-shadow(0 0 25px rgba(185, 28, 28, 0.4)); }
 
 .container { max-width: 400px; margin: auto; padding: 15px; position: relative; z-index: 1; }
-.card { 
-    background: white; 
-    border-radius: 25px; 
-    overflow: hidden; 
-    box-shadow: 0 15px 35px rgba(185,28,28,0.1); 
-    border: 1px solid #fee2e2; 
-    text-align: center;
-    transition: transform 0.3s ease;
-}
+.card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(185,28,28,0.1); border: 1px solid #fee2e2; text-align: center; }
 
 /* Sparkle Style */
-.sparkle {
-    position: absolute;
-    pointer-events: none;
-    font-size: 20px;
-    z-index: 9999;
-    animation: sparkle-fly 0.8s ease-out forwards;
-}
+.sparkle { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: sparkle-fly 0.8s ease-out forwards; }
 @keyframes sparkle-fly {
     0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
     100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2) rotate(360deg); opacity: 0; }
 }
 
+/* GPS Location Box */
+.location-box { 
+    background: #f8fafc; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 12px; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    font-size: 12px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+}
+
 /* Modals & UI Elements */
 #cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 15px; backdrop-filter: blur(8px); }
-.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; position: relative; }
+.modal-content { background: white; width: 100%; max-width: 380px; border-radius: 30px; padding: 25px; text-align: center; position: relative; max-height: 90vh; overflow-y: auto; }
 .stock-badge { background: var(--light-red); color: var(--accent); font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 15px 0 5px 0; border: 1px solid var(--accent); }
 .add-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; cursor: pointer; }
 .wa-btn { width: 100%; background: var(--wa); color: white; border: none; padding: 18px; border-radius: 15px; font-weight: 700; font-size: 16px; margin-top: 10px; cursor: pointer; }
 .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; background: #f1f5f9; padding: 10px; border-radius: 15px; }
-.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; }
+.address-input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; font-size: 14px; }
 .method-label { font-size: 11px; font-weight: 700; color: var(--slate); text-align: left; margin: 10px 0; text-transform: uppercase; }
 .payment-option { display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 15px; margin-bottom: 8px; cursor: pointer; text-align: left; }
 .payment-option.active { border-color: var(--accent); background: #fff1f2; }
@@ -108,14 +104,14 @@ body {
   <h1 style="font-family:'Orbitron'; font-size:16px; margin-left:10px; color:var(--accent)">SVLS MART</h1>
 </div>
 
-<div class="hero" id="hero-area">
-  <img src="https://jagadishk07.github.io/notes/brand_logo.png" id="brand-logo" class="tilt-target">
+<div class="hero">
+  <img src="https://jagadishk07.github.io/notes/brand_logo.png" class="tilt-target">
 </div>
 
 <div class="container">
   <div class="card">
-    <div class="card-img-container tilt-target" id="product-area">
-        <img src="https://jagadishk07.github.io/notes/logo.png" id="main-product-img">
+    <div class="card-img-container tilt-target">
+        <img src="https://jagadishk07.github.io/notes/logo.png">
     </div>
     <div style="padding: 0 20px 20px 20px;">
       <div class="stock-badge">🌶️ Authentic Homemade Spice</div>
@@ -129,21 +125,27 @@ body {
 <div id="cart-modal">
   <div class="modal-content">
     <h3 style="color:var(--accent); font-weight: 700;">Confirm Order</h3>
-    <div class="qty-box">
-        <button style="border:none; padding:10px; background:white; border-radius:8px;" onclick="changeQty(-1)">-</button>
-        <span id="modal-qty" style="font-weight:800;">1</span>
-        <button style="border:none; padding:10px; background:white; border-radius:8px;" onclick="changeQty(1)">+</button>
-    </div>
-    <div style="font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom:15px;">Total: ₹<span id="cart-total">200</span></div>
     
+    <div class="qty-box">
+        <button style="border:none; width:30px; height:30px; background:white; border-radius:8px; font-weight:bold;" onclick="changeQty(-1)">-</button>
+        <span id="modal-qty" style="font-weight:800; font-size:18px;">1</span>
+        <button style="border:none; width:30px; height:30px; background:white; border-radius:8px; font-weight:bold;" onclick="changeQty(1)">+</button>
+    </div>
+    
+    <div style="font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom:15px;">Total: ₹<span id="cart-total">200</span></div>
+    
+    <div class="method-label">Delivery Location</div>
+    <div class="location-box" id="location-box">
+        <span id="loc-icon">📍</span> <span id="loc-text">Requesting GPS...</span>
+    </div>
     <input type="text" id="door-no" class="address-input" placeholder="House No / Landmark">
     
     <div class="method-label">Payment</div>
     <div class="payment-option active" id="opt-pod" onclick="setPayment('pod')">
-        <input type="radio" checked> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
+        <input type="radio" checked id="radio-pod"> <span style="margin-left:10px; font-weight:600;">Pay on Delivery</span>
     </div>
     <div class="payment-option" id="opt-qr" onclick="setPayment('qr')">
-        <input type="radio"> <span style="margin-left:10px; font-weight:600;">Online / QR Code</span>
+        <input type="radio" id="radio-qr"> <span style="margin-left:10px; font-weight:600;">Online / QR Code</span>
     </div>
 
     <button class="wa-btn" onclick="sendWhatsApp()">Confirm on WhatsApp 📲</button>
@@ -152,7 +154,35 @@ body {
 </div>
 
 <script>
-// --- 1. THE SPARKLE EFFECT (BURST SPICES) ---
+// --- CORE DATA & GPS LOGIC ---
+let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
+const adminPhone = "919652038360";
+let paymentMethod = "Pay on Delivery";
+let mapsLink = "Not Shared (Customer denied access)";
+
+function getLocation() {
+    const locText = document.getElementById('loc-text');
+    const locIcon = document.getElementById('loc-icon');
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                locText.innerText = "GPS Captured!";
+                locText.style.color = "#16a34a";
+                locIcon.innerText = "✅";
+            },
+            () => {
+                locText.innerText = "GPS access denied.";
+                locText.style.color = "#b91c1c";
+                locIcon.innerText = "⚠️";
+            }
+        );
+    }
+}
+
+// --- UI EFFECTS ---
 document.addEventListener('click', (e) => {
     if (e.target.closest('.tilt-target')) {
         const spices = ['🌶️', '🔥', '✨'];
@@ -170,32 +200,23 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// --- 2. 3D TILT & MAGNETIC EFFECT ---
 const tiltTargets = document.querySelectorAll('.tilt-target');
-
 tiltTargets.forEach(target => {
     target.addEventListener('mousemove', (e) => {
         const rect = target.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        // Calculate tilt
-        const rotateX = ((y - centerY) / centerY) * -15; // Max 15 deg
-        const rotateY = ((x - centerX) / centerX) * 15;
-        
+        const rotateX = ((y - rect.height/2) / (rect.height/2)) * -15;
+        const rotateY = ((x - rect.width/2) / (rect.width/2)) * 15;
         const img = target.querySelector('img');
-        img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        if(img) img.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     });
-
     target.addEventListener('mouseleave', () => {
         const img = target.querySelector('img');
-        img.style.transform = `rotateX(0) rotateY(0) scale(1)`;
+        if(img) img.style.transform = `rotateX(0) rotateY(0) scale(1)`;
     });
 });
 
-// --- 3. BACKGROUND & CORE LOGIC ---
 function initBG() {
     const container = document.getElementById('bg-elements');
     const items = ['🍗', '🌶️', '🔥'];
@@ -210,14 +231,11 @@ function initBG() {
 }
 initBG();
 
-let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
-const adminPhone = "919652038360";
-let paymentMethod = "Pay on Delivery";
-let mapsLink = "Location not shared";
-
+// --- CART & WHATSAPP LOGIC ---
 function addToCart(name, price) {
     document.getElementById('popSound').play();
     document.getElementById('cart-modal').style.display = 'flex';
+    getLocation(); // Start GPS request as soon as they open the cart
 }
 
 function changeQty(amt) {
@@ -230,15 +248,27 @@ function setPayment(type) {
     paymentMethod = type === 'qr' ? "Paid via QR" : "Pay on Delivery";
     document.getElementById('opt-pod').classList.toggle('active', type === 'pod');
     document.getElementById('opt-qr').classList.toggle('active', type === 'qr');
+    document.getElementById('radio-pod').checked = (type === 'pod');
+    document.getElementById('radio-qr').checked = (type === 'qr');
 }
 
 function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
 
+function generateOrderID() {
+    const now = new Date();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    let count = parseInt(localStorage.getItem('svls_ord_count') || 0) + 1;
+    localStorage.setItem('svls_ord_count', count);
+    const randomStr = Math.random().toString(36).substring(2, 4).toUpperCase();
+    return `${mm}${dd}-${String(count).padStart(3, '0')}-${randomStr}`;
+}
+
 function sendWhatsApp() {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#b91c1c', '#25d366'] });
     
+    const orderID = generateOrderID();
     const total = cart.price * cart.qty;
-    const orderID = "ORD-" + Math.random().toString(36).substr(2, 5).toUpperCase();
     const doorInfo = document.getElementById('door-no').value || "None provided";
 
     let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
@@ -253,12 +283,17 @@ function sendWhatsApp() {
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "📍 *DELIVERY LOCATION:*%0A";
     text += `🏠 *House/Landmark:* ${doorInfo}%0A`;
+    text += `🗺️ *GPS Link:* ${mapsLink}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "⏰ *Expected within 15-20 mins*%0A";
     text += `💳 *Method:* ${paymentMethod}%0A`;
     text += "━━━━━━━━━━━━━━━━━━%0A";
+    text += "📞 *SUPPORT:*%0A";
+    text += `📲 *WhatsApp/Call:* ${adminPhone}%0A`;
+    text += "━━━━━━━━━━━━━━━━━━%0A";
     text += "🌶️ *Fresh • Homemade • Hygienic*%0A";
     text += "🙏 *Thank you for choosing Pickle Haus!*%0A";
+    text += "🍗 *We hope you love every bite!*%0A";
 
     setTimeout(() => {
         window.location.href = `https://api.whatsapp.com/send?phone=${adminPhone}&text=${text}`;
