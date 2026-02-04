@@ -159,7 +159,26 @@ footer { margin: 40px 0 20px 0; text-align: center; padding: 20px; color: var(--
 <script>
 let cart = { name: "Chicken Pickle – Boneless", price: 200, qty: 1 };
 let paymentMethod = "Pay on Delivery";
-let mapsLink = "Not Captured";
+let mapsLink = "Fetching location..."; // Default state
+
+// Start fetching location as soon as page loads
+window.onload = function() {
+    initBG();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (p) => {
+                mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+            },
+            (err) => {
+                mapsLink = "Location Permission Denied";
+                console.warn("Location error:", err.message);
+            },
+            { enableHighAccuracy: true, timeout: 5000 }
+        );
+    } else {
+        mapsLink = "Geolocation not supported";
+    }
+};
 
 // 3D Tilt Logic
 const tilts = document.querySelectorAll('.tilt-target');
@@ -197,11 +216,6 @@ document.addEventListener('click', (e) => {
 function addToCart() {
     document.getElementById('popSound').play();
     document.getElementById('cart-modal').style.display = 'flex';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((p) => {
-            mapsLink = `https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
-        });
-    }
 }
 
 function changeQty(n) {
@@ -238,7 +252,6 @@ function sendWhatsApp() {
     const total = cart.price * cart.qty;
     const adminPhone = "919652038360";
 
-    // RESTORED STANDARD ORDERING TEMPLATE
     let text = "🔴 *NEW ORDER CONFIRMATION*%0A";
     text += "🏪 *SVLS MART | PICKLE HAUS*%0A";
     text += "━━━━━━━━━━━━━━━━━━%0A";
@@ -282,7 +295,6 @@ function initBG() {
         container.appendChild(span);
     }
 }
-initBG();
 </script>
 </body>
 </html>
